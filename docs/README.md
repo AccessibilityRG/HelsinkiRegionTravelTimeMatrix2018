@@ -1,0 +1,1 @@
+# Documentation about testing etc. 
