@@ -6,6 +6,6 @@ Test points for reititin were selected mostly along the metro line. Three points
 **Formats:** GeoJson TestPointsReititin.geojson	
 
 ![TestPointsImage](https://github.com/AccessibilityRG/HelsinkiRegionTravelTimeMatrix2018/blob/master/docs/LocationsOfTestPoints.png)
-Location of the test points 
+Locations of the test points 
 
 
