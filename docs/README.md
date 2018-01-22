@@ -5,7 +5,7 @@
 
 **METROPACCESS DIGIROAD**
 The test points are the centroids of the grid squares that were sampled from MetropAccess grid using a random sample. 
-![TestPointImageMetropAccessDigiroad] (https://github.com/AccessibilityRG/HelsinkiRegionTravelTimeMatrix2018/blob/master/docs/LocationsOfReititinTestPoints.png)
+![TestPointImageMetropAccessDigiroad] (https://github.com/AccessibilityRG/HelsinkiRegionTravelTimeMatrix2018/blob/master/docs/LocationsOfDigiroadTestPoints.png)
 Locations of the MetropAccess Digiroads quality test points 
 
 **REITITIN**
