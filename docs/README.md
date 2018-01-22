@@ -4,7 +4,7 @@
 
 **Files:** 
 * TestPointsReititin.geojson
-* LocationsOfDigiroadTestPoints.png
+* Test_Points_MetropA_Digiroad.geojson
 
 **METROPACCESS DIGIROAD**
 The test points are the centroids of the grid squares that were sampled from MetropAccess grid using a random sample (n=100). 
