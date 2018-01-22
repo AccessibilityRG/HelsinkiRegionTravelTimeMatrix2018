@@ -1,11 +1,17 @@
 # Documentation about testing etc. 
+**Format:** GeoJson 
 
+**Files:** TestPointsReititin.geojson
 
+**METROPACCESS DIGIROAD**
+The test points are the centroids of the grid squares that were sampled from MetropAccess grid using a random sample. 
+![TestPointImageMetropAccessDigiroad] (https://github.com/AccessibilityRG/HelsinkiRegionTravelTimeMatrix2018/blob/master/docs/LocationsOfReititinTestPoints.png)
+Locations of the MetropAccess Digiroads quality test points 
+
+**REITITIN**
 Test points for reititin were selected mostly along the metro line. Three points per station were set, one on the right side, one on the left and one on top of the station to see that the connections are working as they should. The rest of the points are located in the housing disticts in Espoo, Helsinki and Vantaa. 
 
-**Formats:** GeoJson TestPointsReititin.geojson	
-
-![TestPointsImage](https://github.com/AccessibilityRG/HelsinkiRegionTravelTimeMatrix2018/blob/master/docs/LocationsOfTestPoints.png)
-Locations of the test points 
+![TestPointsImageReititin](https://github.com/AccessibilityRG/HelsinkiRegionTravelTimeMatrix2018/blob/master/docs/LocationsOfReititinTestPoints.png)
+Locations of the Reititin quality test points 
 
 
