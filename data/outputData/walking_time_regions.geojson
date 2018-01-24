@@ -1,0 +1,46 @@
+{
+  "crs": {
+    "properties": {
+      "name": "urn:ogc:def:crs:epsg::3067"
+    },
+    "type": "name"
+  },
+  "features": [
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              387678.024778,
+              6675360.99039
+            ],
+            [
+              387891.53396,
+              6670403.35286
+            ],
+            [
+              383453.380944,
+              6670212.21613
+            ],
+            [
+              383239.871737,
+              6675169.85373
+            ],
+            [
+              387678.024778,
+              6675360.99039
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "id": "a",
+      "properties": {
+        "region": "Helsinki City Center",
+        "walking_time": 180
+      },
+      "type": "Feature"
+    }
+  ],
+  "type": "FeatureCollection"
+}
