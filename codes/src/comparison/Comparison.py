@@ -39,10 +39,10 @@ class Comparison(object):
         points = gpd.GeoDataFrame(gridCellsDataFrame, crs=crs, geometry=geometry)
         return points
 
-    def loadTravelTimeMatrixDataFrameSubset(self, travelTimeMatrixURL, gridCellsURL):
+    def loadTravelTimeMatrixDataFrameSubset(self, travelTimeMatrixURL, gridCellsURL, gridID="ID"):
         gridCellsDataFrame = gpd.GeoDataFrame.from_file(gridCellsURL)
-        origIDs = gridCellsDataFrame["ID"].values
-        destIDs = gridCellsDataFrame["ID"].values
+        origIDs = gridCellsDataFrame[gridID].values
+        destIDs = gridCellsDataFrame[gridID].values
 
         files = listFiles(travelTimeMatrixURL)
         # Select files to chosen destinations
@@ -76,3 +76,22 @@ class Comparison(object):
         )
 
         return mergedData
+
+    def calculateDifferenceBetweenOldAndNewTravelTimes(self, travelTimeSummaryURL):
+        travelTimeSummaryDF = gpd.GeoDataFrame.from_file(travelTimeSummaryURL)
+
+        if len(travelTimeSummaryDF["costAttribute"]) > 0:
+            costAttribute = travelTimeSummaryDF["costAttribute"][0]
+            travelTimeSummaryDF["total_travel_time"] = travelTimeSummaryDF.startPoint_EuclideanDistanceWalkingTime + \
+                                                    travelTimeSummaryDF.startPoint_AVGWalkingDistanceWalkingTime + \
+                                                    travelTimeSummaryDF[costAttribute] + \
+                                                    travelTimeSummaryDF.endPoint_ParkingTime + \
+                                                    travelTimeSummaryDF.endPoint_AVGWalkingDistanceWalkingTime + \
+                                                    travelTimeSummaryDF.endPoint_EuclideanDistanceWalkingTime
+
+            if costAttribute == "rush_hour_delay_time":
+                travelTimeSummaryDF["travel_time_difference"] = travelTimeSummaryDF.total_travel_time - travelTimeSummaryDF.car_r_t
+            elif costAttribute == "midday_delay_time":
+                travelTimeSummaryDF["travel_time_difference"] = travelTimeSummaryDF.total_travel_time - travelTimeSummaryDF.car_m_t
+
+        return travelTimeSummaryDF
