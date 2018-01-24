@@ -3,7 +3,8 @@
 **Format:** GeoJson 
 
 **Files:** 
-* TestPointsReititin.geojson
+* Test_Points_Reititin.geojson
+* Test_Points_Reititin_with_MatrixID (similar to the "test_points_reititin" file but with MatrixID joined)
 * Test_Points_MetropA_Digiroad.geojson
 
 **METROPACCESS DIGIROAD**
