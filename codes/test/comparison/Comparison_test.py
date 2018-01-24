@@ -40,26 +40,28 @@ class ComparisonTest(unittest.TestCase):
 
     def test_loadTravelTimeMatrixDataFrameSubset(self):
         travelTimeMatrixURL = "C:%Users%jeisonle%Downloads%HelsinkiRegion_TravelTimeMatrix2015".replace("%", os.sep)
-        gridCellsURL = self.dir + "%data%testData%Test_Points_MetropA_Digiroad.geojson".replace("%", os.sep)
+        gridCellsURL = self.dir + "%data%testData%Test_Points_Reititin_with_MatrixID.geojson".replace("%", os.sep)
 
         travelTimeMatrixSubset = self.comparison.loadTravelTimeMatrixDataFrameSubset(
             travelTimeMatrixURL=travelTimeMatrixURL,
-            gridCellsURL=gridCellsURL
+            gridCellsURL=gridCellsURL,
+            gridID="MatrixID"
         )
 
         # out = r"...\Travel_times_from_chosen_originIDs_to_selected_destinationIDs.txt"
         outputFolder = self.dir + "%data%outputData%".replace("%", os.sep)
-        filename = "travelTimeSubset.csv"
+        filename = "travelTimeReititinSubset.csv"
         travelTimeMatrixSubset.to_csv(outputFolder + filename, sep=';', index=False)
 
         self.assertIsNotNone(travelTimeMatrixSubset)
 
     def test_givenCarRoutingCostSummary_then_mergeItWithMetropAccessData(self):
         travelTimeMatrixURL = self.dir + "%data%outputData%travelTimeSubSet.csv".replace("%", os.sep)
-        carRoutingCostSummaryURL = self.dir + "%data%testData%rush_hour_delay_time_YKRCostSummary-100Points.geojson".replace(
-            "%", os.sep)
+        # carRoutingCostSummaryURL = self.dir + "%data%testData%rush_hour_delay_time_YKRCostSummary-100Points.geojson".replace("%", os.sep)
+        carRoutingCostSummaryURL = self.dir + "%data%testData%midday_delay_time_YKRCostSummary-100Points.geojson".replace("%", os.sep)
         outputFolder = self.dir + "%data%outputData%".replace("%", os.sep)
-        filename = "rush_hour_delay_time_mergedCostSummaryWithMetropAccessData.geojson"
+        # filename = "rush_hour_delay_time_mergedCostSummaryWithMetropAccessData.geojson"
+        filename = "midday_delay_time_mergedCostSummaryWithMetropAccessData.geojson"
 
         mergeResult = self.comparison.mergeMetropAccessData(
             travelTimeMatrixURL=travelTimeMatrixURL,
@@ -72,9 +74,25 @@ class ComparisonTest(unittest.TestCase):
 
         self.assertIsNotNone(mergeResult)
 
+    def test_givenTravelTimeMergedDataLayer_then_calculateTheDifferenceBetweenOldAndNewData(self):
+        # travelTimeSummaryURL = self.dir + "%data%outputData%rush_hour_delay_time_mergedCostSummaryWithMetropAccessData.geojson".replace("%", os.sep)
+        travelTimeSummaryURL = self.dir + "%data%outputData%midday_delay_time_mergedCostSummaryWithMetropAccessData.geojson".replace(
+            "%", os.sep)
+        outputFolder = self.dir + "%data%outputData%".replace("%", os.sep)
+        # filename = "rush_hour_timeTravelMatrixDifference.geojson"
+        filename = "midday_delay_timeTravelMatrixDifference.geojson"
+
+        travelTimeDifferenceLayer = self.comparison.calculateDifferenceBetweenOldAndNewTravelTimes(travelTimeSummaryURL=travelTimeSummaryURL)
+
+        geojson = self.comparison.convertToGeojson(travelTimeDifferenceLayer)
+
+        self.fileActions.writeFile(folderPath=outputFolder, filename=filename, data=geojson)
+
+        self.assertIsNotNone(travelTimeDifferenceLayer)
+
     def test_createWalkingDistanceLayer(self):
         outputFolder = self.dir + "%data%outputData%".replace("%", os.sep)
-        filename = "walking_time_regions.geojson"
+        filename = "walking_distance_regions.geojson"
 
         p1 = Polygon([
             (387678.024778, 6675360.99039),
