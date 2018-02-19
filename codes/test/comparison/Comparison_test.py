@@ -18,9 +18,9 @@ class ComparisonTest(unittest.TestCase):
     def test_getGridCellSamples(self):
         gridCellsURL = self.dir + "%data%testData%YKRGridCells.geojson".replace("%", os.sep)
         outputFolder = self.dir + "%data%outputData%".replace("%", os.sep)
-        filename = "sampleYKRGridCells.geojson"
+        filename = "sampleYKRGridCells-5.geojson"
 
-        gridCellSamples = self.comparison.getGridSamples(gridCellsURL=gridCellsURL, sampleSie=100)
+        gridCellSamples = self.comparison.getGridSamples(gridCellsURL=gridCellsURL, sampleSie=5)
         geojson = self.comparison.convertToGeojson(gridCellSamples)
 
         self.fileActions.writeFile(folderPath=outputFolder, filename=filename, data=geojson)
@@ -28,7 +28,7 @@ class ComparisonTest(unittest.TestCase):
         self.assertIsNotNone(gridCellSamples)
 
     def test_givenGridCellsPolygons_then_transformCentroidsInPoints(self):
-        gridCellsURL = self.dir + "%data%testData%Test_Points_MetropA_Digiroad.geojson".replace("%", os.sep)
+        gridCellsURL = self.dir + "%data%testData%YKRGridCells.geojson".replace("%", os.sep)
         outputFolder = self.dir + "%data%outputData%".replace("%", os.sep)
         filename = "sampleYKRGridPoints.geojson"
 
@@ -40,28 +40,32 @@ class ComparisonTest(unittest.TestCase):
 
     def test_loadTravelTimeMatrixDataFrameSubset(self):
         travelTimeMatrixURL = "C:%Users%jeisonle%Downloads%HelsinkiRegion_TravelTimeMatrix2015".replace("%", os.sep)
-        gridCellsURL = self.dir + "%data%testData%Test_Points_Reititin_with_MatrixID.geojson".replace("%", os.sep)
+        # gridCellsURL = self.dir + "%data%testData%Test_Points_Reititin_with_MatrixID.geojson".replace("%", os.sep)
+        originGridCellsURL = self.dir + "%data%testData%sampleYKRGridPoints-5.geojson".replace("%", os.sep)
+        destinationGridCellsURL = self.dir + "%data%testData%sampleYKRGridPoints-13000.geojson".replace("%", os.sep)
 
         travelTimeMatrixSubset = self.comparison.loadTravelTimeMatrixDataFrameSubset(
             travelTimeMatrixURL=travelTimeMatrixURL,
-            gridCellsURL=gridCellsURL,
-            gridID="MatrixID"
+            originGridCellsURL=originGridCellsURL,
+            destinationGridCellsURL=destinationGridCellsURL,
+            gridID="YKR_ID"
         )
 
         # out = r"...\Travel_times_from_chosen_originIDs_to_selected_destinationIDs.txt"
         outputFolder = self.dir + "%data%outputData%".replace("%", os.sep)
-        filename = "travelTimeReititinSubset.csv"
+        filename = "travelTime5-13000PointsSubset.csv"
         travelTimeMatrixSubset.to_csv(outputFolder + filename, sep=';', index=False)
 
         self.assertIsNotNone(travelTimeMatrixSubset)
 
     def test_givenCarRoutingCostSummary_then_mergeItWithMetropAccessData(self):
-        travelTimeMatrixURL = self.dir + "%data%outputData%travelTimeSubSet.csv".replace("%", os.sep)
-        # carRoutingCostSummaryURL = self.dir + "%data%testData%rush_hour_delay_time_YKRCostSummary-100Points.geojson".replace("%", os.sep)
-        carRoutingCostSummaryURL = self.dir + "%data%testData%midday_delay_time_YKRCostSummary-100Points.geojson".replace("%", os.sep)
+        travelTimeMatrixURL = self.dir + "%data%outputData%travelTime5-13000PointsSubset.csv".replace("%", os.sep)
+        carRoutingCostSummaryURL = self.dir + "%data%testData%rush_hour_delay_time_YKRCostSummary-5-13000.geojson".replace("%", os.sep)
+        # carRoutingCostSummaryURL = self.dir + "%data%testData%midday_delay_time_YKRCostSummary-100Points.geojson".replace(
+        #    "%", os.sep)
         outputFolder = self.dir + "%data%outputData%".replace("%", os.sep)
-        # filename = "rush_hour_delay_time_mergedCostSummaryWithMetropAccessData.geojson"
-        filename = "midday_delay_time_mergedCostSummaryWithMetropAccessData.geojson"
+        filename = "comp_rush_hour_delay_time_mergedCostSummaryWithMetropAccessData.geojson"
+        # filename = "comp_midday_delay_time_mergedCostSummaryWithMetropAccessData.geojson"
 
         mergeResult = self.comparison.mergeMetropAccessData(
             travelTimeMatrixURL=travelTimeMatrixURL,
@@ -75,20 +79,58 @@ class ComparisonTest(unittest.TestCase):
         self.assertIsNotNone(mergeResult)
 
     def test_givenTravelTimeMergedDataLayer_then_calculateTheDifferenceBetweenOldAndNewData(self):
-        # travelTimeSummaryURL = self.dir + "%data%outputData%rush_hour_delay_time_mergedCostSummaryWithMetropAccessData.geojson".replace("%", os.sep)
-        travelTimeSummaryURL = self.dir + "%data%outputData%midday_delay_time_mergedCostSummaryWithMetropAccessData.geojson".replace(
-            "%", os.sep)
+        travelTimeSummaryURL = self.dir + "%data%outputData%comp_rush_hour_delay_time_mergedCostSummaryWithMetropAccessData.geojson".replace("%", os.sep)
+        # travelTimeSummaryURL = self.dir + "%data%outputData%comp_midday_delay_time_mergedCostSummaryWithMetropAccessData.geojson".replace(
+        #    "%", os.sep)
         outputFolder = self.dir + "%data%outputData%".replace("%", os.sep)
-        # filename = "rush_hour_timeTravelMatrixDifference.geojson"
-        filename = "midday_delay_timeTravelMatrixDifference.geojson"
+        filename = "rush_hour_travelTimeMatrixDifference.geojson"
+        # filename = "midday_delay_travelTimeMatrixDifference.geojson"
 
-        travelTimeDifferenceLayer = self.comparison.calculateDifferenceBetweenOldAndNewTravelTimes(travelTimeSummaryURL=travelTimeSummaryURL)
+        travelTimeDifferenceLayer = self.comparison.calculateDifferenceBetweenOldAndNewTravelTimes(
+            travelTimeSummaryURL=travelTimeSummaryURL)
 
         geojson = self.comparison.convertToGeojson(travelTimeDifferenceLayer)
 
         self.fileActions.writeFile(folderPath=outputFolder, filename=filename, data=geojson)
 
         self.assertIsNotNone(travelTimeDifferenceLayer)
+
+    def test_getProblematicSetOfPoints(self):
+        rush_hour_travel_time_filename = self.dir + "%data%outputData%rush_hour_travelTimeMatrixDifference.geojson".replace(
+            "%", os.sep)
+        midday_travel_time_filename = self.dir + "%data%outputData%midday_delay_travelTimeMatrixDifference.geojson".replace(
+            "%", os.sep)
+
+        threshold = 10
+        travelTimeProblematicPoints = self.comparison.extractSummaryThatExceedAThreshold(
+            travelTimeSummaryURL=rush_hour_travel_time_filename, threshold=threshold
+        )
+
+        outputFolder = self.dir + "%data%outputData%".replace("%", os.sep)
+        filename = "problematicPoints.txt"
+        travelTimeProblematicPoints.to_csv(outputFolder+filename, sep=';', index=False)
+
+        print(len(travelTimeProblematicPoints[0:]))
+        self.assertIsNotNone(travelTimeProblematicPoints)
+
+    def test_givenYKRPoints_then_createHeatLayer(self):
+        gridCellsURL = self.dir + "%data%testData%Test_Points_MetropA_Digiroad.geojson".replace("%", os.sep)
+        outputFolder = self.dir + "%data%outputData%".replace("%", os.sep)
+
+        gridCellSamples = self.comparison.getGridSamples(gridCellsURL=gridCellsURL, sampleSie=4, YKR_ID="ID")
+        geojson = self.comparison.convertToGeojson(gridCellSamples)
+
+        filename = "sampleYKRGridCellsForHeatMap.geojson"
+        self.fileActions.writeFile(folderPath=outputFolder, filename=filename, data=geojson)
+
+        selectedGridCellsURL = outputFolder + filename
+        travelTimeMatrixDifferenceURL = outputFolder + "midday_delay_travelTimeMatrixDifference.geojson"
+        heatMapLayer = self.comparison.createMultiPointHeatMapLayer(
+            selectedGridCellsURL=selectedGridCellsURL,
+            travelTimeMatrixDifferenceURL=travelTimeMatrixDifferenceURL
+        )
+
+        self.assertIsNotNone(heatMapLayer)
 
     def test_createWalkingDistanceLayer(self):
         outputFolder = self.dir + "%data%outputData%".replace("%", os.sep)

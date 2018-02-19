@@ -1,0 +1,32 @@
+{
+  "crs": {
+    "properties": {
+      "name": "urn:ogc:def:crs:epsg::3857"
+    },
+    "type": "name"
+  },
+  "features": [
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            2793620.4483544305,
+            8460782.78014875
+          ],
+          [
+            2748951.962723606,
+            8424743.938335517
+          ]
+        ],
+        "type": "LineString"
+      },
+      "properties": {
+        "from_id": 5894737,
+        "total_travel_time": 59.47345823025,
+        "to_id": 6013578
+      },
+      "type": "Feature"
+    }
+  ],
+  "type": "FeatureCollection"
+}

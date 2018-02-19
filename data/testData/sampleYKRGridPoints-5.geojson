@@ -1,0 +1,81 @@
+{
+  "crs": {
+    "properties": {
+      "name": "urn:ogc:def:crs:epsg::3047"
+    },
+    "type": "name"
+  },
+  "features": [
+    {
+      "geometry": {
+        "coordinates": [
+          385875.0,
+          6672380.0
+        ],
+        "type": "Point"
+      },
+      "id": "12075",
+      "properties": {
+        "YKR_ID": 5973738
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          396625.0,
+          6679880.0
+        ],
+        "type": "Point"
+      },
+      "id": "8062",
+      "properties": {
+        "YKR_ID": 5920413
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          371625.0,
+          6673880.0
+        ],
+        "type": "Point"
+      },
+      "id": "11427",
+      "properties": {
+        "YKR_ID": 5963599
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          374375.0,
+          6685630.0
+        ],
+        "type": "Point"
+      },
+      "id": "4241",
+      "properties": {
+        "YKR_ID": 5878018
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          388125.0,
+          6686630.0
+        ],
+        "type": "Point"
+      },
+      "id": "3688",
+      "properties": {
+        "YKR_ID": 5870644
+      },
+      "type": "Feature"
+    }
+  ],
+  "type": "FeatureCollection"
+}

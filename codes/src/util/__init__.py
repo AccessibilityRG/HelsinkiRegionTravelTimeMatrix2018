@@ -21,7 +21,7 @@ carRountingDictionary = {
 CostAttributes = enum(DISTANCE='pituus', SPEED_LIMIT_TIME='digiroa_aa', DAY_AVG_DELAY_TIME='kokopva_aa',
                       MIDDAY_DELAY_TIME='keskpva_aa', RUSH_HOUR_DELAY='ruuhka_aa')
 
-GeometryType = enum(POINT="Point", MULTI_POINT='MultiPoint', LINE_STRING='LineString')
+GeometryType = enum(POINT="Point", MULTI_POINT='MultiPoint', LINE_STRING='LineString', POLYGON="Polygon")
 
 PostfixAttribute = enum(EUCLIDEAN_DISTANCE="EuclideanDistance", AVG_WALKING_DISTANCE="AVGWalkingDistance",
                         WALKING_TIME="WalkingTime", PARKING_TIME="ParkingTime")
@@ -45,7 +45,7 @@ def timeDifference(startTime, endTime):
 
 def getConfigurationProperties(section="WFS_CONFIG"):
     config = configparser.ConfigParser()
-    configurationPath = os.getcwd() + "%resources%configuration.properties".replace("%", os.sep)
+    configurationPath = os.getcwd() + "%codes%resources%configuration.properties".replace("%", os.sep)
     config.read(configurationPath)
     return config[section]
 
@@ -54,6 +54,9 @@ def extractCRS(geojson):
     epsgCode = geojson["crs"]["properties"]["name"].split(":")[-3] + ":" + \
                geojson["crs"]["properties"]["name"].split(":")[-1]
     return epsgCode
+
+def extractCRSFromDataframe(dataframe):
+    return dataframe.crs["init"].split(":")[1]
 
 
 class AbstractLinkedList(object):
