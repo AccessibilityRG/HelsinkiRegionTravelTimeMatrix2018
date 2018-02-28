@@ -7,6 +7,8 @@ To run the comparison between the old Metrop-Access Digiroad tool and the new Ca
 As a result we have the following matrices for each of the points:
 * Negative values indicate that the new tool found faster routes than the old one and positives values that the new tool found slower routes.
 
+## 1st Point
+
 ![MatrixDifference][MatrixDifferenceImage1]
 
 | Statistic        | Value           | 
@@ -25,6 +27,7 @@ As a result we have the following matrices for each of the points:
 
 The image above illustrates that 81.5% of the routes lies within the interval [-2,2].
 
+## 2nd Point
 
 ![MatrixDifference2][MatrixDifferenceImage2]
 
@@ -44,6 +47,8 @@ The image above illustrates that 81.5% of the routes lies within the interval [-
 
 In this case, the routes laying within the [-2,2] interval are the 82,2%.  
 
+## 3rd Point
+
 ![MatrixDifference3][MatrixDifferenceImage3]
 
 | Statistic        | Value           | 
@@ -62,6 +67,8 @@ In this case, the routes laying within the [-2,2] interval are the 82,2%.
 
 For the third case, the 72,8% of the routes are within the interval [-2,2].
 
+## 4th Point
+
 ![MatrixDifference4][MatrixDifferenceImage4]
 
 | Statistic        | Value           | 
@@ -79,6 +86,8 @@ For the third case, the 72,8% of the routes are within the interval [-2,2].
 ![MatrixError4][MatrixErrorImage4]
 
 85,7% of the routes are within the intervals [-2,2]
+
+## 5th Point
 
 ![MatrixDifference5][MatrixDifferenceImage5]
 
@@ -99,6 +108,8 @@ For the third case, the 72,8% of the routes are within the interval [-2,2].
 Whereas in this last test case, only the 60,5% of the routes are within in the same interval [-2,2].
 
 In order to analyze why routes going to the city center are faster in certain regions, we chose 6 random points and calculated the shortest path to those points. See the result below.
+
+### 5th Point: shortest path from faster areas
 
 ![ShortestPathRautatientori][ShortestPathRautatientoriImage]
 
