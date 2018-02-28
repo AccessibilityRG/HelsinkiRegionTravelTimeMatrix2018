@@ -107,9 +107,9 @@ For the third case, the 72,8% of the routes are within the interval [-2,2].
 
 Whereas in this last test case, only the 60,5% of the routes are within in the same interval [-2,2].
 
-In order to analyze why routes going to the city center are faster in certain regions, we chose 6 random points and calculated the shortest path to those points. See the result below.
-
 ### 5th Point: shortest path from faster areas
+
+In order to analyze why routes going to the city center are faster in certain regions, we chose 6 random points and calculated the shortest path to those points. See the result below.
 
 ![ShortestPathRautatientori][ShortestPathRautatientoriImage]
 
