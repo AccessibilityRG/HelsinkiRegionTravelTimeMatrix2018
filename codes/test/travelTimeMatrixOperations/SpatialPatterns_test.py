@@ -24,7 +24,7 @@ class SpatialPatternsTest(unittest.TestCase):
         self.rushHourTableNameDetailed = "rush_hour_time_car_detailed"
 
     def test_givenAGeojson_then_storedItInATheCorrectTable(self):
-        travelTimeMatrixURL = self.dir + "%data%testData%rush_hour_delay_time_YKRCostSummary-13000-5.geojson".replace(
+        travelTimeMatrixURL = self.dir + "%data%testData%rush_hour_delay_time_YKRCostSummary-13000-5-oldRoadNetwork.geojson".replace(
             "%", os.sep)
 
         columns = {

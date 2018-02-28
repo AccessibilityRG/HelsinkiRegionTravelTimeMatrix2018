@@ -40,7 +40,8 @@ class Comparison(object):
         points = gpd.GeoDataFrame(gridCellsDataFrame, crs=crs, geometry=geometry)
         return points
 
-    def loadTravelTimeMatrixDataFrameSubset(self, travelTimeMatrixURL, originGridCellsURL, destinationGridCellsURL, gridID="ID"):
+    def loadTravelTimeMatrixDataFrameSubset(self, travelTimeMatrixURL, originGridCellsURL, destinationGridCellsURL,
+                                            gridID="ID"):
         originGridCellsDataFrame = gpd.GeoDataFrame.from_file(originGridCellsURL)
         destinationGridCellsDataFrame = gpd.GeoDataFrame.from_file(destinationGridCellsURL)
         origIDs = originGridCellsDataFrame[gridID].values
