@@ -4,6 +4,7 @@ import json
 import os
 import shutil
 import time
+import geopandas as gpd
 
 
 def enum(**enums):
@@ -221,3 +222,19 @@ class FileActions:
         if os.path.exists(path):
             shutil.rmtree(path)
         print("The FOLDER %s was deleted" % path)
+
+    def readShapefile(self, url):
+        dataframe = gpd.read_file(url)
+
+
+    def convertDataFrameToGeojson(self, dataframe):
+        jsonResult = dataframe.to_json()
+        crs = dataframe.crs
+        newJson = json.loads(jsonResult)
+        newJson["crs"] = {
+            "properties": {
+                "name": "urn:ogc:def:crs:%s" % (crs["init"].replace(":", "::"))
+            },
+            "type": "name"
+        }
+        return newJson
