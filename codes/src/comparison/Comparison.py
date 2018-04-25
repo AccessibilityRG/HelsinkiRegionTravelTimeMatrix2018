@@ -7,7 +7,7 @@ from shapely.geometry import Point
 
 from codes.src.comparison.SelectFiles_tools import selectFilesQuery, listFiles, \
     selectIdsQueryParallelized
-from codes.src.util import dgl_timer
+from codes.src.util import dgl_timer, Logger
 
 
 class Comparison(object):
@@ -84,6 +84,7 @@ class Comparison(object):
     @dgl_timer
     def calculateTravelTime(self, travelTimeSummaryURL):
         travelTimeSummaryDF = gpd.GeoDataFrame.from_file(travelTimeSummaryURL)
+        Logger.getInstance().info("Dataframe length=%s" % len(travelTimeSummaryDF))
 
         if len(travelTimeSummaryDF["costAttribute"]) > 0:
             costAttribute = travelTimeSummaryDF["costAttribute"][0]

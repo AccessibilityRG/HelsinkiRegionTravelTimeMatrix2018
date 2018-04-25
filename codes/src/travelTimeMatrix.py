@@ -6,11 +6,13 @@ import traceback
 # dir_path = os.path.dirname(os.path.realpath(__file__))
 # os.chdir(os.path.join(os.sep.join(dir_path.split(os.sep)[0:-1])))
 # print("Working directory: %s" % os.getcwd())
+import zipfile
+
 from codes.src.comparison.Comparison import Comparison
 from codes.src.connection.PostgresServiceProvider import PostGISServiceProvider
-from codes.src.exceptions import NotParameterGivenException
+from codes.src.exceptions import NotParameterGivenException, NotUploadedTravelTimeMatrixException
 from codes.src.travelTimeMatrixOperations.SpatialPatterns import SpatialPatterns
-from codes.src.util import getConfigurationProperties, Logger, FileActions
+from codes.src.util import getConfigurationProperties, Logger, FileActions, dgl_timer
 
 
 def printHelp():
@@ -76,13 +78,15 @@ def main():
     if querying and (not outputFolder or not target):
         raise NotParameterGivenException("Type --help for more information.")
 
+    runTravelTimeMatrixOperations(querying, uploading, outputFolder, zippath, directionality, target)
+
+
+def runTravelTimeMatrixOperations(querying, uploading, outputFolder, zippath, directionality, target):
     try:
         comparison = Comparison()
         postGISServiceProvider = PostGISServiceProvider()
         spatialPatterns = SpatialPatterns(comparison=comparison, postGISServiceProvider=postGISServiceProvider)
         fileActions = FileActions()
-
-
 
         log_filename = "travel_time_matrix"
         if uploading:
@@ -94,23 +98,34 @@ def main():
         Logger.configureLogger(outputFolder, log_filename)
         Logger.getInstance().info("Welcome to the travel time matrix tool")
 
-        columns = getConfigurationProperties(section="ATTRIBUTES_MAPPING")
+        attributes = getConfigurationProperties(section="ATTRIBUTES_MAPPING")
+        columns = {}
+        for attribute_key in attributes:
+            attribute_splitted = attributes[attribute_key].split(",")
+            key = attribute_splitted[0]
+            value = attribute_splitted[1]
+            columns[key] = value
+
         tableName = getConfigurationProperties(section="DATABASE_CONFIG")["travel_time_table_name"]
 
         if uploading:
+            try:
+                zip_ref = zipfile.ZipFile(zippath, 'r')
 
+                members = zip_ref.namelist()
+                Logger.getInstance().info("%s geojson files to be uploaded." % (len(members)))
+                for member in members:
+                    extractZipFile(zip_ref, member, outputFolder)
+                    f = os.path.join(outputFolder, member)
+                    isExecuted = spatialPatterns.insertData(f, tableName, columns, outputFolder)
+                    os.remove(f)
 
-            fileActions.decompressZipfile(zippath, outputFolder)
+                    if not isExecuted:
+                        raise NotUploadedTravelTimeMatrixException(member)
 
-            for root, dirs, files in os.walk(outputFolder):
-                for filename in files:
-                    if filename.endswith("geojson"):
-                        f = os.path.join(root, filename)
-                        Logger.getInstance().info("Loading: %s" % filename)
-
-                        isExecuted = spatialPatterns.insertData(f, tableName, columns)
-                        if isExecuted:
-                            os.remove(f)
+            except Exception as err:
+                zip_ref.close()
+                raise err
 
             Logger.getInstance().info("Uploaded: %s" % zippath)
 
@@ -133,10 +148,15 @@ def main():
 
             fileActions.writeFile(folderPath=outputFolder, filename=traveltimeMatrixFilename, data=geojson)
             Logger.getInstance().info("Find the the travel time matrix geojson file in this path: %s"
-                                    % (os.path.join(outputFolder, traveltimeMatrixFilename)))
+                                      % (os.path.join(outputFolder, traveltimeMatrixFilename)))
 
     except Exception as err:
         exc_type, exc_value, exc_traceback = sys.exc_info()
         lines = traceback.format_exception(exc_type, exc_value, exc_traceback)
         Logger.getInstance().exception(''.join('>> ' + line for line in lines))
 
+
+@dgl_timer
+def extractZipFile(zip_ref, member, outputFolder):
+    Logger.getInstance().info("Extracting member: %s" % member)
+    zip_ref.extract(member, outputFolder)

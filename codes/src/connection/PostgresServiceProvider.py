@@ -11,6 +11,7 @@ from sqlalchemy.orm import sessionmaker
 from codes.src.util import getConfigurationProperties, extractCRSFromDataframe, GPD_CRS, GeometryType, dgl_timer
 from codes.src.geometries.adapters import Adapters
 
+
 def verifyPairOfPointsExistence(self, ykr_from_id, ykr_to_id, sql):
     geoDataFrame = self.executePostgisQuery(sql % (ykr_from_id, ykr_to_id))
     if len(geoDataFrame) > 0:
@@ -21,6 +22,7 @@ def verifyPairOfPointsExistence(self, ykr_from_id, ykr_to_id, sql):
             )
         ]
     return self.travelTimeMatrixCopy
+
 
 class PostGISServiceProvider(object):
     # engine = create_engine('postgresql://<yourUserName>:postgres@localhost:5432/postgres', echo=False)
@@ -84,7 +86,9 @@ class PostGISServiceProvider(object):
         with Parallel(n_jobs=int(getConfigurationProperties(section="PARALLELIZATION")["jobs"]),
                       backend="threading",
                       verbose=int(getConfigurationProperties(section="PARALLELIZATION")["verbose"])) as parallel:
-            returns = parallel(delayed(verifyPairOfPointsExistence)(self, row[column1], row[column2], sql)for index, row in travelTimeMatrix.iterrows())
+            returns = parallel(
+                delayed(verifyPairOfPointsExistence)(self, row[column1], row[column2], sql) for index, row in
+                travelTimeMatrix.iterrows())
 
         return self.travelTimeMatrixCopy
 
@@ -132,10 +136,27 @@ class PostGISServiceProvider(object):
         return True
 
     @dgl_timer
+    def copyData(self, csvData, tableName, columns, separator=';'):
+        try:
+            connection = self.getConnection()
+            cursor = connection.cursor()
+            cursor.copy_from(csvData, tableName, sep=separator, null='-1', columns=tuple(columns))
+            connection.commit()
+        except Exception as err:
+            connection.rollback()
+            raise err
+        finally:
+            connection.close()
+
+        return True
+
+    @dgl_timer
     def renameColumnsAndExtractSubSet(self, travelTimeMatrix, columns, geometryColumn="geometry"):
         if columns:
             keys = [key for key in columns]
-            keys.append(geometryColumn)
+
+            # keys.append(geometryColumn) # the geometry is removed, it will be used the join with the grid centroid table
+
             travelTimeMatrix = travelTimeMatrix[keys]
             travelTimeMatrix = travelTimeMatrix.rename(index=str, columns=columns)
         return travelTimeMatrix
