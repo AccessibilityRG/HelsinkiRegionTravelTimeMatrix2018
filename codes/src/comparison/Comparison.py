@@ -5,9 +5,9 @@ import numpy as np
 import pandas as pd
 from shapely.geometry import Point
 
-from codes.src.comparison.SelectFiles_tools import selectFilesQuery, selectIdsQuery, listFiles, \
+from codes.src.comparison.SelectFiles_tools import selectFilesQuery, listFiles, \
     selectIdsQueryParallelized
-from codes.src.util import GPD_CRS, extractCRS
+from codes.src.util import dgl_timer
 
 
 class Comparison(object):
@@ -81,6 +81,7 @@ class Comparison(object):
 
         return mergedData
 
+    @dgl_timer
     def calculateTravelTime(self, travelTimeSummaryURL):
         travelTimeSummaryDF = gpd.GeoDataFrame.from_file(travelTimeSummaryURL)
 

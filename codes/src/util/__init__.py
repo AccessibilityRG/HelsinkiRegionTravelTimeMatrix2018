@@ -1,10 +1,16 @@
 import configparser
 import datetime
 import json
+import logging
+import logging.config
 import os
 import shutil
 import time
+import zipfile
+
 import geopandas as gpd
+
+from codes.src import exceptions
 
 
 def enum(**enums):
@@ -56,8 +62,34 @@ def extractCRS(geojson):
                geojson["crs"]["properties"]["name"].split(":")[-1]
     return epsgCode
 
+
 def extractCRSFromDataframe(dataframe):
     return dataframe.crs["init"].split(":")[1]
+
+
+def dgl_timer(func):
+    def func_wrapper(*args, **kwargs):
+        timerEnabled = "True".__eq__(getConfigurationProperties(section="WFS_CONFIG")["timerEnabled"])
+        if timerEnabled:
+            functionName = func.__name__
+            startTime = time.time()
+            Logger.getInstance().info("%s Start Time: %s" % (functionName, getFormattedDatetime(timemilis=startTime)))
+
+            ###############################
+            returns = func(*args, **kwargs)
+            ###############################
+
+            endTime = time.time()
+            Logger.getInstance().info("%s End Time: %s" % (functionName, getFormattedDatetime(timemilis=endTime)))
+
+            totalTime = timeDifference(startTime, endTime)
+            Logger.getInstance().info("%s Total Time: %s m" % (functionName, totalTime))
+
+            return returns
+        else:
+            return func(*args, **kwargs)
+
+    return func_wrapper
 
 
 class AbstractLinkedList(object):
@@ -206,7 +238,7 @@ class FileActions:
         """
         for feature in data["features"]:
             if feature["geometry"]["type"] != geometryType:
-                raise exc.IncorrectGeometryTypeException("Expected %s" % geometryType)
+                raise exceptions.IncorrectGeometryTypeException("Expected %s" % geometryType)
 
     def writeFile(self, folderPath, filename, data):
         if not os.path.exists(folderPath):
@@ -217,6 +249,17 @@ class FileActions:
         with open(fileURL, 'w+') as outfile:
             json.dump(data, outfile, sort_keys=True)
 
+    def createFile(self, folderPath, filename):
+        if not os.path.exists(folderPath):
+            os.makedirs(folderPath)
+        with open(folderPath + os.sep + filename, 'w+') as outfile:
+            outfile.close()
+
+    def decompressOutputFile(self, zippath, outputFolder):
+        zip_ref = zipfile.ZipFile(zippath, 'r')
+        zip_ref.extractall(outputFolder)
+        zip_ref.close()
+
     def deleteFolder(self, path):
         print("Deleting FOLDER %s" % path)
         if os.path.exists(path):
@@ -225,7 +268,6 @@ class FileActions:
 
     def readShapefile(self, url):
         dataframe = gpd.read_file(url)
-
 
     def convertDataFrameToGeojson(self, dataframe):
         jsonResult = dataframe.to_json()
@@ -238,3 +280,47 @@ class FileActions:
             "type": "name"
         }
         return newJson
+
+    @dgl_timer
+    def decompressZipfile(self, zippath, outputFolder):
+        zip_ref = zipfile.ZipFile(zippath, 'r')
+        zip_ref.extractall(outputFolder)
+        zip_ref.close()
+
+
+class Logger:
+    __instance = None
+
+    def __init__(self):
+        raise Exception("Instances must be constructed with Logger.getInstance()")
+
+    @staticmethod
+    def configureLogger(outputFolder, prefix):
+        Logger.__instance = None
+
+        log_filename = prefix + "_log - %s.log" % getFormattedDatetime(timemilis=time.time(),
+                                                                       format='%Y-%m-%d %H_%M_%S')
+        logs_folder = outputFolder + os.sep + "logs"
+
+        FileActions().createFile(logs_folder, log_filename)
+        fileHandler = logging.FileHandler(logs_folder + os.sep + log_filename, 'w')
+        formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+        fileHandler.setFormatter(formatter)
+        Logger.getInstance().addHandler(fileHandler)
+
+    @staticmethod
+    def getInstance():
+        if not Logger.__instance:
+            configurationPath = os.getcwd() + "%codes%resources%logging.properties".replace("%", os.sep)
+
+            logging.config.fileConfig(configurationPath)
+
+            # create logger
+            Logger.__instance = logging.getLogger("CARDAT")
+        # "application" code
+        # Logger.instance.debug("debug message")
+        # Logger.instance.info("info message")
+        # Logger.instance.warn("warn message")
+        # Logger.instance.error("error message")
+        # Logger.instance.critical("critical message")
+        return Logger.__instance

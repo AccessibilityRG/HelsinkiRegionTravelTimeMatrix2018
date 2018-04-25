@@ -20,6 +20,7 @@ class PostGISServiceProviderTest(unittest.TestCase):
         self.rushHourTableName = "rush_hour_time_car"
         self.middayTableName = "midday_time_car"
         self.rushHourTableNameDetailed = "rush_hour_time_car_detailed"
+        self.bicycleTravelTimeMatrix = "bicycle_travel_time_matrix"
 
     def test_insertTestData(self):
         columns = {
@@ -94,13 +95,23 @@ class PostGISServiceProviderTest(unittest.TestCase):
                              column2="ykr_to_id")))
 
     def test_givenAYKRID_then_getItsTravelTimeMatrix(self):
-        ykrid = 5973738
+        # 5973738 rautatientori
+        # 5878018
+        # 5870644
+        # 5963599
+        # 5920413
+        ykrid = 5793265
 
-        outputFolder = self.dir + "%data%outputData%".replace("%", os.sep)
-        filename = self.rushHourTableName + "_%s-3.geojson" % ykrid
+        tableName = "cardat_two_fast_" + self.bicycleTravelTimeMatrix + ""
 
-        geodataframe = self.postGISServiceProvider.getTravelTimeMatrix(ykrid=ykrid,
-                                                                       tableName=self.rushHourTableName)
+        outputFolder = self.dir + "%data%outputDataBicycle%".replace("%", os.sep)
+        filename = tableName + "_%s.geojson" % ykrid
+
+
+        geodataframe = self.postGISServiceProvider.getTravelTimeMatrixTo(
+            ykrid=ykrid,
+            tableName=tableName
+        )
 
         geojson = self.postGISServiceProvider.convertToGeojson(geodataframe)
 
@@ -111,12 +122,14 @@ class PostGISServiceProviderTest(unittest.TestCase):
     def test_givenAYKRID_then_getItsTravelTimeMatrixDifferences(self):
         ykrid = 5973738
 
+        tableName = "cardat_two_fast_" + self.bicycleTravelTimeMatrix + ""
+
         outputFolder = self.dir + "%data%outputData%".replace("%", os.sep)
-        filename = self.rushHourTableNameDetailed + "_%s.geojson" % ykrid
+        filename = tableName + "_%s.geojson" % ykrid
 
         geodataframe = self.postGISServiceProvider.getTravelTimeMatrixDifferences(
             ykrid=ykrid,
-            tableName=self.rushHourTableNameDetailed
+            tableName=tableName
         )
 
         geojson = self.postGISServiceProvider.convertToGeojson(geodataframe)

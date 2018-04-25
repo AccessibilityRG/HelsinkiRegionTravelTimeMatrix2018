@@ -8,7 +8,7 @@ from shapely.geometry import LineString, Point, Polygon
 from sqlalchemy import create_engine, MetaData, Table
 from sqlalchemy.orm import sessionmaker
 
-from codes.src.util import getConfigurationProperties, extractCRSFromDataframe, GPD_CRS, GeometryType
+from codes.src.util import getConfigurationProperties, extractCRSFromDataframe, GPD_CRS, GeometryType, dgl_timer
 from codes.src.geometries.adapters import Adapters
 
 def verifyPairOfPointsExistence(self, ykr_from_id, ykr_to_id, sql):
@@ -81,13 +81,14 @@ class PostGISServiceProvider(object):
         #     travelTimeMatrixCopy = verifyPairOfPointsExistence(row, sql, travelTimeMatrixCopy)
         ################################################################################################################
 
-        with Parallel(n_jobs=getConfigurationProperties(section="PARALLELIZATION")["jobs"],
+        with Parallel(n_jobs=int(getConfigurationProperties(section="PARALLELIZATION")["jobs"]),
                       backend="threading",
-                      verbose=getConfigurationProperties(section="PARALLELIZATION")["verbose"]) as parallel:
+                      verbose=int(getConfigurationProperties(section="PARALLELIZATION")["verbose"])) as parallel:
             returns = parallel(delayed(verifyPairOfPointsExistence)(self, row[column1], row[column2], sql)for index, row in travelTimeMatrix.iterrows())
 
         return self.travelTimeMatrixCopy
 
+    @dgl_timer
     def insert(self, dataFrame, tableName, isTableExist="append", geometryType=GeometryType.LINE_STRING):
         """
         Insert each dataframe row data into the given table name. Parse all the dataframe columns name into the given in the dictionary 'columns' if any.
@@ -130,6 +131,7 @@ class PostGISServiceProvider(object):
 
         return True
 
+    @dgl_timer
     def renameColumnsAndExtractSubSet(self, travelTimeMatrix, columns, geometryColumn="geometry"):
         if columns:
             keys = [key for key in columns]
@@ -138,8 +140,17 @@ class PostGISServiceProvider(object):
             travelTimeMatrix = travelTimeMatrix.rename(index=str, columns=columns)
         return travelTimeMatrix
 
-    def getTravelTimeMatrix(self, ykrid, tableName):
-        # sql = "select * from %s where %s = %s" % (tableName, column, ykrid)
+    @dgl_timer
+    def getTravelTimeMatrixTo(self, ykrid, tableName):
+        sql = "SELECT matrix.ykr_from_id, matrix.ykr_to_id, matrix.travel_time, grid.geometry " \
+              "FROM %s AS matrix " \
+              "INNER JOIN ykr_gridcells AS grid ON grid.ykr_id = matrix.ykr_from_id " \
+              "AND matrix.ykr_to_id = %s " \
+              "ORDER BY matrix.travel_time ASC " % (tableName, ykrid)
+        return self.executePostgisQuery(sql)
+
+    @dgl_timer
+    def getTravelTimeMatrixFrom(self, ykrid, tableName):
         sql = "SELECT matrix.ykr_from_id, matrix.ykr_to_id, matrix.travel_time, grid.geometry " \
               "FROM %s AS matrix " \
               "INNER JOIN ykr_gridcells AS grid ON grid.ykr_id = matrix.ykr_to_id " \
