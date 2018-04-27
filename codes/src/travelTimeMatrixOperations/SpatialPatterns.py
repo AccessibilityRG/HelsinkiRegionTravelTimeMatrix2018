@@ -38,12 +38,14 @@ class SpatialPatterns(object):
         # csv_file = open(csv_path, 'r')
         # csv_file.readline()  # dismiss the first row with the column names
 
+        try:
+            csv_file = open(travelTimeMatrixURL, 'r')
+            csv_file.readline()  # dismiss the first row with the column names
 
-        csv_file = open(travelTimeMatrixURL, 'r')
-        csv_file.readline()  # dismiss the first row with the column names
-
-        isExecuted = self.postGISServiceProvider.copyData(csvData=csv_file,
-                                                          tableName=tableName,
-                                                          columns=columns,
-                                                          separator=csv_separator)
+            isExecuted = self.postGISServiceProvider.copyData(csvData=csv_file,
+                                                              tableName=tableName,
+                                                              columns=columns,
+                                                              separator=csv_separator)
+        finally:
+            csv_file.close()
         return isExecuted

@@ -26,7 +26,7 @@ def printHelp():
         "\n\t[-o, --outputFolder]: The output folder to decompress the cost summary geojson files."
         "\n\t"
         "\n\t[-d, --directionality]: Directionality (to or from) to define either the start or end point of the travel matrix."
-        "\n\t[-t, --target]: Id of the grid square centroid to retrieve the travel time matrix."
+        "\n\t[-t, --targets]: Ids (separated by comma ',') of the grid square centroid to retrieve the travel time matrix."
         "\n\t"
         "\n\nDirectionality values allowed:"
         "\n\tTO"
@@ -38,7 +38,7 @@ def main():
     argv = sys.argv[1:]
     opts, args = getopt.getopt(
         argv, "q:u:z:o:d:t:",
-        ["query", "upload", "zip=", "outputFolder=", "directionality=", "target", "help"]
+        ["query", "upload", "zip=", "outputFolder=", "directionality=", "targets", "help"]
     )
 
     zippath = None
@@ -46,7 +46,7 @@ def main():
     uploading = False
     querying = False
     directionality = "TO"
-    target = 0
+    targets = ""
 
     for opt, arg in opts:
         if opt in "--help":
@@ -70,45 +70,40 @@ def main():
         if opt in ("-d", "--directionality"):
             directionality = arg
 
-        if opt in ("-t", "--target"):
-            target = arg
+        if opt in ("-t", "--targets"):
+            targets = arg
 
     if uploading and (not zippath or not outputFolder):
         raise NotParameterGivenException("Type --help for more information.")
-    if querying and (not outputFolder or not target):
+    if querying and (not outputFolder or targets is None):
         raise NotParameterGivenException("Type --help for more information.")
 
-    runTravelTimeMatrixOperations(querying, uploading, outputFolder, zippath, directionality, target)
+    runTravelTimeMatrixOperations(querying, uploading, outputFolder, zippath, directionality, targets)
 
-
-def runTravelTimeMatrixOperations(querying, uploading, outputFolder, zippath, directionality, target):
+def runTravelTimeMatrixOperations(querying, uploading, outputFolder, zippath, directionality, targets):
     try:
         comparison = Comparison()
         postGISServiceProvider = PostGISServiceProvider()
         spatialPatterns = SpatialPatterns(comparison=comparison, postGISServiceProvider=postGISServiceProvider)
         fileActions = FileActions()
 
-        log_filename = "travel_time_matrix"
-        if uploading:
-            log_filename = "uploading_" + os.path.basename(zippath).split(".")[-2]
-        if querying:
-            log_filename = "querying_travel_time_matrix_%s_%s" % (directionality, target)
-
-        print("LOG_NAME: %s" % log_filename)
-        Logger.configureLogger(outputFolder, log_filename)
-        Logger.getInstance().info("Welcome to the travel time matrix tool")
-
         attributes = getConfigurationProperties(section="ATTRIBUTES_MAPPING")
         columns = {}
+        columnList = []
         for attribute_key in attributes:
             attribute_splitted = attributes[attribute_key].split(",")
             key = attribute_splitted[0]
             value = attribute_splitted[1]
             columns[key] = value
+            columnList.append(value)
 
         tableName = getConfigurationProperties(section="DATABASE_CONFIG")["travel_time_table_name"]
 
         if uploading:
+            log_filename = "uploading_" + os.path.basename(zippath).split(".")[-2]
+            Logger.configureLogger(outputFolder, log_filename)
+            Logger.getInstance().info("Welcome to the travel time matrix tool")
+
             try:
                 zip_ref = zipfile.ZipFile(zippath, 'r')
 
@@ -117,38 +112,43 @@ def runTravelTimeMatrixOperations(querying, uploading, outputFolder, zippath, di
                 for member in members:
                     extractZipFile(zip_ref, member, outputFolder)
                     f = os.path.join(outputFolder, member)
-                    isExecuted = spatialPatterns.insertData(f, tableName, columns, outputFolder)
+                    isExecuted = spatialPatterns.insertData(f, tableName, tuple(columnList), outputFolder)
                     os.remove(f)
 
                     if not isExecuted:
                         raise NotUploadedTravelTimeMatrixException(member)
 
-            except Exception as err:
+            finally:
                 zip_ref.close()
-                raise err
 
             Logger.getInstance().info("Uploaded: %s" % zippath)
 
         if querying:
-            traveltimeMatrixFilename = "travel_time_matrix_%s_%s.geojson" % (directionality, target)
+            targetList = targets.split(",")
+            for target in targetList:
+                log_filename = "querying_travel_time_matrix_%s_%s" % (directionality, target)
+                Logger.configureLogger(outputFolder, log_filename)
+                Logger.getInstance().info("Welcome to the travel time matrix tool")
 
-            Logger.getInstance().info("Querying %s: %s" % (directionality, target))
-            if "TO".__eq__(directionality):
-                geodataframe = postGISServiceProvider.getTravelTimeMatrixTo(
-                    ykrid=target,
-                    tableName=tableName
-                )
-            else:
-                geodataframe = postGISServiceProvider.getTravelTimeMatrixFrom(
-                    ykrid=target,
-                    tableName=tableName
-                )
+                traveltimeMatrixFilename = "travel_time_matrix_%s_%s.geojson" % (directionality, target)
 
-            geojson = postGISServiceProvider.convertToGeojson(geodataframe)
+                Logger.getInstance().info("Querying %s: %s" % (directionality, target))
+                if "TO".__eq__(directionality):
+                    geodataframe = postGISServiceProvider.getTravelTimeMatrixTo(
+                        ykrid=target,
+                        tableName=tableName
+                    )
+                else:
+                    geodataframe = postGISServiceProvider.getTravelTimeMatrixFrom(
+                        ykrid=target,
+                        tableName=tableName
+                    )
 
-            fileActions.writeFile(folderPath=outputFolder, filename=traveltimeMatrixFilename, data=geojson)
-            Logger.getInstance().info("Find the the travel time matrix geojson file in this path: %s"
-                                      % (os.path.join(outputFolder, traveltimeMatrixFilename)))
+                geojson = postGISServiceProvider.convertToGeojson(geodataframe)
+
+                fileActions.writeFile(folderPath=outputFolder, filename=traveltimeMatrixFilename, data=geojson)
+                Logger.getInstance().info("Find the the travel time matrix geojson file in this path: %s"
+                                          % (os.path.join(outputFolder, traveltimeMatrixFilename)))
 
     except Exception as err:
         exc_type, exc_value, exc_traceback = sys.exc_info()
