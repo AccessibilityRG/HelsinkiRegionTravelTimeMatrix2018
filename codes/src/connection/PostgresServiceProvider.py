@@ -188,6 +188,7 @@ class PostGISServiceProvider(object):
               "ORDER BY matrix.travel_time ASC " % (tableName, ykrid)
         return self.executePostgisQuery(sql)
 
+    @dgl_timer
     def convertToGeojson(self, dataframe):
         jsonResult = dataframe.to_json()
         newJson = json.loads(jsonResult)

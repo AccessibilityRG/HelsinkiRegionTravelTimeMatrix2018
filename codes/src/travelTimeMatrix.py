@@ -102,7 +102,6 @@ def runTravelTimeMatrixOperations(querying, uploading, outputFolder, zippath, di
         if uploading:
             log_filename = "uploading_" + os.path.basename(zippath).split(".")[-2]
             Logger.configureLogger(outputFolder, log_filename)
-            Logger.getInstance().info("Welcome to the travel time matrix tool")
 
             try:
                 zip_ref = zipfile.ZipFile(zippath, 'r')
@@ -128,7 +127,6 @@ def runTravelTimeMatrixOperations(querying, uploading, outputFolder, zippath, di
             for target in targetList:
                 log_filename = "querying_travel_time_matrix_%s_%s" % (directionality, target)
                 Logger.configureLogger(outputFolder, log_filename)
-                Logger.getInstance().info("Welcome to the travel time matrix tool")
 
                 traveltimeMatrixFilename = "travel_time_matrix_%s_%s.geojson" % (directionality, target)
 

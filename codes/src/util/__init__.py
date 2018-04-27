@@ -290,29 +290,39 @@ class FileActions:
 
 class Logger:
     __instance = None
+    __handler = None
 
     def __init__(self):
         raise Exception("Instances must be constructed with Logger.getInstance()")
 
     @staticmethod
     def configureLogger(outputFolder, prefix):
-        Logger.__instance = None
+        # Logger.__instance = None
 
         log_filename = prefix + "_log - %s.log" % getFormattedDatetime(timemilis=time.time(),
                                                                        format='%Y-%m-%d %H_%M_%S')
         logs_folder = outputFolder + os.sep + "logs"
 
         FileActions().createFile(logs_folder, log_filename)
+
+        if Logger.__handler is not None:
+            Logger.getInstance().removeHandler(Logger.__handler)
+            # Logger.__instance = None
+
         fileHandler = logging.FileHandler(logs_folder + os.sep + log_filename, 'w')
         formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
         fileHandler.setFormatter(formatter)
+
+        Logger.__handler = fileHandler
+
+
+
         Logger.getInstance().addHandler(fileHandler)
 
     @staticmethod
     def getInstance():
         if not Logger.__instance:
             configurationPath = os.getcwd() + "%codes%resources%logging.properties".replace("%", os.sep)
-
             logging.config.fileConfig(configurationPath)
 
             # create logger
