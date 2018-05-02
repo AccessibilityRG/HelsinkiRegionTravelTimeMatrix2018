@@ -32,7 +32,11 @@ Producing the Travel Time Matrix 2018 requires following steps:
 
    - Todo: Add columns for `bike_s_t, bike_f_t, bike_d`
 
-5. Update the licence information and the metadata for 2018 version of the Matrix
+5. Once all data is compiled run some test visualizations with different travel modes to see that the travel times and patterns look more or less intuitive
+
+   - Elias and other locals can help interpreting the results
+
+6. Update the licence information and the metadata for 2018 version of the Matrix
 
    - An example of the old metadata that can be used as template can be read from [METADATA_Helsinki-Region-Travel-Time-Matrix-2015.txt](samples/METADATA_Helsinki-Region-Travel-Time-Matrix-2015.txt).
    - **Notice:** The details about the tool that has been used to calculate the car and bike travel times needs to be updated (the information can be similar but updated with the information about the new routing tool)
@@ -40,11 +44,17 @@ Producing the Travel Time Matrix 2018 requires following steps:
    - Update the latest publications list (ask Tuuli about these)
    - Overall, ask help from Tuuli if needed when writing the metadata
 
+7. Once, the Travel Time Matrix is done, compress the folder into a Zip file with all text files distributed into a subfolders (e.g. `5990xxx`). Place the metadata file into the root of the matrix folder.
 
-6. Once, the Travel Time Matrix is done, compress the folder into a Zip file with all text files distributed into a subfolders (e.g. `5990xxx`). Place the metadata file into the root of the matrix folder.
-
-7. The travel time matrix (`HelsinkiRegion_TravelTimeMatrix2018.zip`) should be uploaded into our website under the folder `www.helsinki.fi/science/accessibility/data/helsinki-region-travel-time-matrix/2018`
+8. The travel time matrix (`HelsinkiRegion_TravelTimeMatrix2018.zip`) should be uploaded into our website under the folder `www.helsinki.fi/science/accessibility/data/helsinki-region-travel-time-matrix/2018`
 
    - Vuokko should be able to access that folder from her computer easily so ask help from Vuokko to place the zip file there.
 
+9. Prepare documentation for the blogsite with updated information about the changed tools and added transport mode.
 
+10. Prepare a slideshow showing the differences between previous matrix and the current one (Elias can help with this)
+
+   - How accessibility differs especially after the new Länsi-metro line (but also the ones that were [presented in the last Matrix](https://www.slideshare.net/AccessibilityRG/what-changes-can-be-observed-between-helsinki-region-travel-time-matrix-2013-and-2015)).
+   - Prepare a similar slideshow
+
+11. Release and promote! :)
