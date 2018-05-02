@@ -43,6 +43,7 @@ Producing the Travel Time Matrix 2018 requires following steps:
    - Update the people who were involved in producing the matrix, i.e. Jeison, Elias, Henrikki and Tuuli (add Juha, Maria, Timo, Vuokko to people who have been contributing previously)
    - Update the latest publications list (ask Tuuli about these)
    - Overall, ask help from Tuuli if needed when writing the metadata
+   - Create DOI for the dataset in Researchgate (you can get a DOI from there), see template from Henrikki's profile for Helsinki Region Travel Time Matrix 2015)
 
 7. Once, the Travel Time Matrix is done, compress the folder into a Zip file with all text files distributed into a subfolders (e.g. `5990xxx`). Place the metadata file into the root of the matrix folder.
 
