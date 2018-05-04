@@ -40,7 +40,7 @@ Producing the Travel Time Matrix 2018 requires following steps:
 
    - An example of the old metadata that can be used as template can be read from [METADATA_Helsinki-Region-Travel-Time-Matrix-2015.txt](samples/METADATA_Helsinki-Region-Travel-Time-Matrix-2015.txt).
    - **Notice:** The details about the tool that has been used to calculate the car and bike travel times needs to be updated (the information can be similar but updated with the information about the new routing tool)
-   - Update the people who were involved in producing the matrix, i.e. Jeison, Elias, Henrikki and Tuuli (add Juha, Maria, Timo, Vuokko to people who have been contributing previously)
+   - Update the people who were involved in producing the matrix, i.e. Jeison, Elias, Henrikki and Tuuli (add Juha, Maria, Timo, Ainokaisa, Vuokko to people who have been contributing previously)
    - Update the latest publications list (ask Tuuli about these)
    - Overall, ask help from Tuuli if needed when writing the metadata
    - Create DOI for the dataset in Researchgate (you can get a DOI from there), see template from Henrikki's profile for Helsinki Region Travel Time Matrix 2015)
