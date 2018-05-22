@@ -338,7 +338,7 @@ Three data resources were used for the calculations:
 - Journey Planner Kalkati.net XML data by Helsinki Regional Transport Authority (HSL) (base for public transportation modeling)
 - Open Street Map (base for walk modeling) 
 
-The work was funded by KatuMetro research programme and the University of Helsinki during 2010-2016. 
+The work was funded by KatuMetro research programme and the University of Helsinki during 2010-2018. 
 
 
 -------------------
