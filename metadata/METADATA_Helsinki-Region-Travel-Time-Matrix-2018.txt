@@ -11,11 +11,12 @@ YLEISKUVAUS
 -------------
 
 Aineisto käsittää matka-aika- ja etäisyystiedot kävellen, joukkoliikenteellä ja henkilöautolla kaikista 
-pääkaupunkiseudun 250 metrin tilastoruuduista (13 231 kpl)kaikkiin pääkaupunkiseudun tilastoruutuihin (13 231 kpl). 
+pääkaupunkiseudun 250 metrin tilastoruuduista (13 231 kpl) kaikkiin pääkaupunkiseudun tilastoruutuihin (13 231 kpl). 
 Ruudukko vastaa Tilastokeskuksen valtakunnallista tilastoruutua, jota käytetään myös YKR-aineistossa. 
 Vuoden 2018 matriisissa tulokset on laskettu kahtena eri vuorokaudenaikana: 1) keskipäivällä ja 2) ruuhka-aikaan. 
-Keskipäivän tulokset ovat vertailukelpoisia vuosien 2013 ja 2015 matriisien kanssa. 
-Ruuhka-ajan tulokset ovat vertailukelpoisia vuoden 2015 matriisin kanssa.
+
+Keskipäivän tulokset ovat menetelmällisesti vertailukelpoisia vuosien 2013 ja 2015 matriisien kanssa (katso kuitenkin kohta Tuotantohistoria - huomioitavaa autovertailussa) 
+Ruuhka-ajan tulokset ovat menetelmällisesti vertailukelpoisia vuoden 2015 matriisin kanssa (katso kuitenkin kohta Tuotantohistoria - huomioitavaa autovertailussa).
 
 Aineisto on tuotetty Helsingin yliopiston Geotieteiden ja maantieteen laitoksen MetropAccess-hankkeessa (2010-2018), 
 http://www.helsinki.fi/science/accessibility/. Työtä ovat rahoittaneet KatuMetro-tutkimusohjelma sekä Helsingin yliopisto. 
@@ -26,10 +27,10 @@ Aineiston käyttö on käyttäjän omalla vastuulla. Aineiston tuottaja ei vasta
 DATAN RAKENNE
 --------------
 
-Aineisto on jaettu 13 231 tekstitiedostoon kunkin reitin kohdepisteen mukaan. Yksi tiedosto sisältää matka- ja matka-aikatietoja kahdelta eri vuorokauden ajalta (ruuhka-aika ja keskipäivä) eri kulkumuodoilla (kävely, pyöräily, joukkoliikenne, autoilu) kustakin YKR-ruudusta 
-tiedoston nimen mukaiseen YKR-ruutuun. Kussakin tiedostossa on täten aina 13231 riviä.
+Aineisto on jaettu 13 231 tekstitiedostoon kunkin reitin kohdepisteen mukaan. Yksi tiedosto sisältää matka- ja matka-aikatietoja kahdelta eri vuorokauden ajalta (ruuhka-aika ja keskipäivä) eri kulkumuodoilla (kävely, pyöräily, joukkoliikenne, autoilu) kustakin YKR-ruudusta tiedoston nimen mukaiseen YKR-ruutuun. Kussakin tiedostossa on täten aina 13231 riviä.
 
-Vuoden 2018 matriisissa on 17 puolipisteellä eroteltua ominaisuustietokenttää: 1) from_id, 2) to_id, 3) walk_t, 4) walk_d, 5) bike_f_t, 6) bike_s_t, 7) bike_d, 8) pt_r_tt, 9) pt_r_t, 10) pt_r_d, 11) pt_m_tt, 12) pt_m_t, 13) pt_m_d, 14) car_r_t, 15) car_r_d, 16) car_m_t, 17) car_m_d
+Vuoden 2018 matriisissa on 17 puolipisteellä eroteltua ominaisuustietokenttää: 1) from_id, 2) to_id, 3) walk_t, 4) walk_d, 5) bike_f_t, 6) bike_s_t, 7) bike_d, 8) pt_r_tt, 9) pt_r_t, 10) pt_r_d, 11) pt_m_tt, 12) pt_m_t, 13) pt_m_d, 14) car_r_t, 15) car_r_d, 16) car_m_t, 17) car_m_d, 18) car_sl_t
+
 Kenttien nimissä esiintyvät lyhenteet:
 ____________________________________________
 pt   | public transport = julkinen liikenne 
@@ -42,6 +43,7 @@ f    | fast = nopea
 s    | slow  = hidas
 t    | time = aika
 tt   | total time = kokonaisaika
+sl   | speed limit = nopeusrajoitus
 d    | distance = etäisyys
 --------------------------------------------
 
@@ -52,18 +54,19 @@ from_id  |  Reitin lähtöpisteenä olleen YKR-ruudun ID-tunnus
 to_id  	 |  Reitin kohdepisteenä olleen YKR-ruudun ID-tunnus
 walk_t   |  Matka-aika lähtöruudusta kohderuutuun kävellen
 walk_d   |  Kävelymatkan pituus metreinä
-bike_f_t |	Matka-aika lähtöruudusta kohteruutuun nopeasti pyöräillen  (Bike_fast_time)
+bike_f_t |	 Matka-aika lähtöruudusta kohteruutuun nopeasti pyöräillen  (Bike_fast_time)
 bike_f_s |  Matka-aika lähtöruudusta kohteruutuun hitaasti pyöräillen (Bike_slow_time)
-pt_r_tt  |  Kokonaismatka-aika lähtäruudusta kohderuutuun joukkoliikenteellä ruuhka-aikaan; sisältää mahdollisen kotona odottelun reitin alussa
-pt_r_t   |  Kokonaismatka-aika lähtäruudusta kohderuutuun joukkoliikenteellä ruuhka-aikaan; matka-aika alkaa lähdettäessä kotoa liikkeelle 
+pt_r_tt  |  Kokonaismatka-aika lähtäruudusta kohderuutuun joukkoliikenteellä ruuhka-aikaan; sisältää mahdollisen kotona odottelun reitin             alussa
+pt_r_t   |  Kokonaismatka-aika lähtäruudusta kohderuutuun joukkoliikenteellä ruuhka-aikaan; matka-aika alkaa lähdettäessä kotoa                     liikkeelle 
 pt_r_d   |  Joukkoliikennematkan pituus metreinä ruuhka-aikaan 
 pt_m_tt  |  Kokonaismatka-aika lähtöruudusta kohderuutuun keskipäivällä; sisältää mahdollisen kotona odottelun reitin alussa
 pt_m_t 	 |  Kokonaismatka-aika lähtöruudusta kohderuutuun keskipäivällä; matka-aika alkaa lähdettäessä kotoa liikkeelle
 pt_m_d   |  Joukkoliikennematkan pituus metreinä keskipäivällä 
 car_r_t  |  Kokonaismatka-aika autolla lähtöruudusta kohderuutuun ruuhka-aikaan; matka-aika lasketaan kokonaismatkaketjun mukaan ovelta ovelle
 car_r_d  |  Kokonaisautomatkan pituus metreinä ruuhka-aikaan
-car_m_t  |  Kokonaismatka-aika autolla lähtöruudusta kohderuutuun keskipäivällä; matka-aika lasketaan kokonaismatkaketjun mukaan ovelta ovelle
+car_m_t  |  Kokonaismatka-aika autolla lähtöruudusta kohderuutuun keskipäivällä; matka-aika lasketaan kokonaismatkaketjun mukaan ovelta             ovelle
 car_m_d  |  Kokonaisautomatkan pituus metreinä keskipäivällä
+car_sl_t |  Kokonaismatka-aika autolla lähtöruudusta kohderuutuun nopeusrajoituksen mukaan ilman hidasteita; matka-aika lasketaan                   kokonaismatkaketjun mukaan ovelta ovelle
 ------------------------------------------------------------------------------------------------------------------------------------------------
 
 NODATA-arvot on kuvattu arvolla -1.
@@ -72,7 +75,9 @@ NODATA-arvot on kuvattu arvolla -1.
 TUOTANTOHISTORIA
 -----------------
 
-AUTOREITITYS on tehty avoimen tietokantaohjelmisto PostgreSQL:n paikkatietolaajennos PostGIS:n tarjoaman pgRouting paketin avulla (työkalu: pgr_dijkstraCost) Tieverkkoaineistona on käytetty Liikenneviraston kehittämän Digiroad-aineiston (Digiroad K) pohjalta muokattua MetropAccess-Digiroadia, jossa segmenttien läpikulkuajat on muutettu realistisemmiksi määrittämällä tieluokkakohtaisia risteyshidasteita. Laskennan impedanssina on käytetty tieverkkoaineiston matka-aikakoja ruuhka-aikaan ja keskipäivällä.
+AUTOREITITYS on tehty avoimella DORA (DOor-to-door Routing Analyst)-työkalulla, joka on kehitetty tässä projektissa. DORA on toteutettu tietokantaohjelmisto PostgreSQL:n paikkatietolaajennos PostGIS:n tarjoaman pgRouting paketin avulla (työkalu: pgr_dijkstraCost) Tieverkkoaineistona on käytetty Liikenneviraston kehittämän Digiroad-aineiston (Digiroad K) pohjalta muokattua MetropAccess-Digiroadia, jossa segmenttien läpikulkuajat on muutettu realistisemmiksi määrittämällä tieluokkakohtaisia risteyshidasteita. 
+
+Laskennan impedanssina on käytetty tieverkkoaineiston matka-aikakoja 1) ruuhka-aikaan ja 2) keskipäivällä sekä 3) noudattaen pelkästään nopeusrajoituksia ilman lisähidasteita.
 
 Laskennoissa on huomioitu lisäksi kokonaismatkaketjut:
 1) euklidinen etäisyys todellisesta lähtöpisteestä lähimpään verkostoviivakohteeseen,
@@ -82,7 +87,12 @@ Laskennoissa on huomioitu lisäksi kokonaismatkaketjut:
 5) kävely pysäköintipaikalta kohteeseen, sekä
 6) euklidinen etäisyys verkostoviivakohteesta todelliseen määränpäähän.
 
-Lisätietoja laskennoista löytyy Timo Jaakkolan pro gradu -työstä sekä Terrassa julkaistusta datankuvausartikkelistamme.
+Huomioitavaa autovertailussa eri vuosien matriisien välillä:
+1) Helsingin alueella nopeusrajoitukset ovat kautta linjan alentuneet vuoteen 2015 verrattuna. Esimerkiksi valtaosalla tonttikaduista nopeusrajoitukset ovat alentuneet 30km/h:n.
+2) Vuoden 2018 reitykset perustuvat talviajan nopeusrajoituksiin, kun vuonna 2015 käytössä olivat kesäajan nopeusrajoitukset. Moottoriteillä nopeusrajoitukset näin ollen laskevat 120km/h:sta 100km/h:n
+3) Vuoden 2015 aineistossa Mannerheimintien nopeusrajoitus oli virheellisesti 80km/h, mikä vuoden 2018 aineistossa on muutettu vastaamaan osuuden todellista nopeusrajoitusta
+
+Lisätietoja laskennoista löytyy Timo Jaakkolan pro gradu -työstä sekä Terrassa julkaistusta datankuvausartikkelistamme. Työkalun dokumentointi saatavilla https://github.com/DigitalGeographyLab/DORA
 
 JOUKKOLIIKENNEREITITYS on tehty MetropAccess-Reititin työkalulla, joka huomioi kokonaismatkaketjut joukkoliikenteellä lähtöpisteestä kohteeseen:
 1) mahdollinen odottelu kotona,
@@ -178,7 +188,8 @@ Jäppinen,  S., Toivonen, T. & Salonen, M. (2013). Modelling the potential effec
 LISENSSI 
 ---------
 
-Pääkaupunkiseudun-Matka-aikamatriisi, jonka tekijä on MetropAccess-hanke / Accessibility Research Group (Helsingin Yliopisto) on lisensoitu
+Pääkaupunkiseudun-Matka-aikamatriisi, jonka tekijä on MetropAccess-hanke / Digital Geography Lab / Accessibility Research Group (Helsingin Yliopisto) on lisensoitu 
+
 Creative Commons Nimeä 4.0 Kansainvälinen -lisenssillä.
 Lisätietoa lisenssistä: http://creativecommons.org/licenses/by/4.0/deed.fi
 
@@ -219,8 +230,8 @@ The data have been divided into 13231 text files according to destinations of th
 includes the routes from all YKR grid cells to a particular destination grid cell. All files have been named
 according to the destination grid cell code and each file includes 13231 rows.
 
-Each file consists of 17 attribute fields: 1) from_id, 2) to_id, 3) walk_t, 4) walk_d, 5) bike_f_t, 6) bike_s_t, 7) bike_d, 8) pt_r_tt, 
-9) pt_r_t, 10) pt_r_d, 11) pt_m_tt, 12) pt_m_t, 13) pt_m_d, 14) car_r_t, 15) car_r_d, 16) car_m_t, 17) car_m_d
+Each file consists of 18 attribute fields: 1) from_id, 2) to_id, 3) walk_t, 4) walk_d, 5) bike_f_t, 6) bike_s_t, 7) bike_d, 8) pt_r_tt, 
+9) pt_r_t, 10) pt_r_d, 11) pt_m_tt, 12) pt_m_t, 13) pt_m_d, 14) car_r_t, 15) car_r_d, 16) car_m_t, 17) car_m_d, 18) car_sl_t
 
 
 The fields are separated by semicolon in the text files.
@@ -238,6 +249,7 @@ f    | fast
 s    | slow 
 t    | time 
 tt   | total time 
+sl   | speed limit 
 d    | distance 
 --------------------------------------------
 
@@ -260,6 +272,7 @@ car_r_t  |  Travel time from origin to destination by private car in rush hour t
 car_r_d  |  Distance in meters of the private car route in rush hour traffic
 car_m_t  |  Travel time from origin to destination by private car in midday traffic; the whole travel chain has been taken into account (see "Methods" section below)
 car_m_d	 |  Distance in meters of the private car route in midday traffic
+car_sl_t |  Travel time from origin to destination by private car following speed limits without any additional impedances; the whole travel chain has been taken into account (see "Methods" section below)
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 NODATA values have been described as value -1. 
@@ -269,9 +282,9 @@ NODATA values have been described as value -1.
 METHODS
 -----------------
 
-The routes by CAR have been calculated in PostgreSQL software with a PostGIS extension using the pgRouting toolkit. MetropAccess-Digiroad (modified from the original Digiroad data
-provided by Finnish Transport Agency) has been used as Network Dataset in which the travel times of the road segments are made more realistic by adding crossroad impedances for different road classes. 
-The calculations have been repeated for two times of the day using 1) the "midday impedance" (i.e. travel times outside rush hour) and 2) the "rush hour impendance" as impedance in the calculations.
+The routes by CAR have been calculated with the open tool called DORA (DOor-to-door Routing Analyst) developed in this project. DORA uses PostgreSQL database with PostGIS extension and is based on the pgRouting toolkit. MetropAccess-Digiroad (modified from the original Digiroad data provided by Finnish Transport Agency) has been used as Network Dataset in which the travel times of the road segments are made more realistic by adding crossroad impedances for different road classes. 
+
+The calculations have been repeated for two times of the day using 1) the "midday impedance" (i.e. travel times outside rush hour) and 2) the "rush hour impendance" as impedance in the calculations. Moreover, there is 3) the "speed limit impedance" calculated in the matrix (i.e. using speed limit without any additional impedances).
 
 The whole travel chain ("door-to-door approach") is taken into account in the calculations: 
 1) walking time from the real origin to the nearest network location (based on Euclidean distance), 
@@ -280,6 +293,11 @@ The whole travel chain ("door-to-door approach") is taken into account in the ca
 4) average time for searching a parking lot, 
 5) walking time from parking lot to nearest network location of the destination and 
 6) walking time from network location to the real destination (based on Euclidean distance).
+
+Car comparisons between matrixes: Things to note 
+1) In Helsinki area the speed limits have been lowered compared to 2015. For example in most of the access roads the speed limits are now 30km/h
+2) The travel times for car have been calculated using the winter time speed limits while in 2015 the travel times were calculated using the summer speed limits. In motorways the speed limits have been thus lowered from 120km/h to 100km/h.
+3) In the 2015 matrix dataset the speed limit for car along Mannerheimintie was incorrectly set to 80km/h. In the 2018 matrix dataset the speed limits there have been set to match the real speed limits.
 
 The routes by PUBLIC TRANSPORATION have been calculated by using the MetropAccess-Reititin tool which also takes into account the whole travel chains from the origin to the destination:
 1) possible waiting at home before leaving, 
@@ -353,7 +371,6 @@ Data/Tools description:
 Toivonen, T., M. Salonen, H. Tenkanen, P. Saarsalmi, T. Jaakkola & J. Järvi (2014). Joukkoliikenteellä, autolla ja kävellen: Avoin saavutettavuusaineisto pääkaupunkiseudulla. Terra 126: 3, 127-136. 
 
 DOI name for the dataset:
-Toivonen, T., H. Tenkanen, V. Heikinheimo, T. Jaakkola, J. Järvi & M. Salonen (2015). Helsinki Region-Travel Time Matrix 2015. DOI: 10.13140/RG.2.1.1901.3201
 
 
 ---------------------------------------------------------------------
