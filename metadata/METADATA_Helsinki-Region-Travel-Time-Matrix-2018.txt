@@ -301,7 +301,7 @@ Car comparisons between matrixes: Things to note
 2) The travel times for car have been calculated using the winter time speed limits while in 2015 the travel times were calculated using the summer speed limits. In motorways the speed limits have been thus lowered from 120km/h to 100km/h.
 3) In the 2015 matrix dataset the speed limit for car along Mannerheimintie was incorrectly set to 80km/h. In the 2018 matrix dataset the speed limits there have been set to match the real speed limits.
 
-The routes by PUBLIC TRANSPORATION have been calculated by using the MetropAccess-Reititin tool which also takes into account the whole travel chains from the origin to the destination:
+The routes by PUBLIC TRANSPORTATION have been calculated by using the MetropAccess-Reititin tool which also takes into account the whole travel chains from the origin to the destination:
 1) possible waiting at home before leaving, 
 2) walking from home to the transit stop, 
 3) waiting at the transit stop, 
