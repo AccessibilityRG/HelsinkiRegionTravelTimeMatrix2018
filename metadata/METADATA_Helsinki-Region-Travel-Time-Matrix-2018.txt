@@ -15,8 +15,10 @@ pääkaupunkiseudun 250 metrin tilastoruuduista (13 231 kpl) kaikkiin pääkaupu
 Ruudukko vastaa Tilastokeskuksen valtakunnallista tilastoruutua, jota käytetään myös YKR-aineistossa. 
 Vuoden 2018 matriisissa tulokset on laskettu kahtena eri vuorokaudenaikana: 1) keskipäivällä ja 2) ruuhka-aikaan. 
 
-Keskipäivän tulokset ovat menetelmällisesti vertailukelpoisia vuosien 2013 ja 2015 matriisien kanssa (katso kuitenkin kohta Tuotantohistoria - huomioitavaa autovertailussa) 
-Ruuhka-ajan tulokset ovat menetelmällisesti vertailukelpoisia vuoden 2015 matriisin kanssa (katso kuitenkin kohta Tuotantohistoria - huomioitavaa autovertailussa).
+Keskipäivän tulokset ovat menetelmällisesti vertailukelpoisia vuosien 2013 ja 2015 matriisien kanssa 
+(katso kuitenkin kohta Tuotantohistoria - huomioitavaa autovertailussa) 
+Ruuhka-ajan tulokset ovat menetelmällisesti vertailukelpoisia vuoden 2015 matriisin kanssa 
+(katso kuitenkin kohta Tuotantohistoria - huomioitavaa autovertailussa).
 
 Aineisto on tuotetty Helsingin yliopiston Geotieteiden ja maantieteen laitoksen MetropAccess-hankkeessa (2010-2018), 
 http://www.helsinki.fi/science/accessibility/. Työtä ovat rahoittaneet KatuMetro-tutkimusohjelma sekä Helsingin yliopisto. 
