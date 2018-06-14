@@ -160,7 +160,7 @@ Datan/menetelmien kuvaus:
 Toivonen, T., M. Salonen, H. Tenkanen, P. Saarsalmi, T. Jaakkola & J. Järvi (2014). Joukkoliikenteellä, autolla ja kävellen: Avoin saavutettavuusaineisto pääkaupunkiseudulla. Terra 126: 3, 127-136. 
 
 Datan DOI-tunniste:
-XXX
+Tenkanen, H., J.L. Espinosa, E. Willberg, V. Heikinheimo, A. Tarnanen, T. Jaakkola, J. Järvi, M. Salonen, T. Toivonen (2018). Helsinki Region Travel Time Matrix 2018. DOI: 10.13140/RG.2.2.20858.39362
 
 ------------------------------------------------------------
 ESIMERKKEJä SAAVUTETTAVUUS-TYäKALUJEN KäYTäSTä TUTKIMUSTYäSSä
@@ -373,7 +373,7 @@ Data/Tools description:
 Toivonen, T., M. Salonen, H. Tenkanen, P. Saarsalmi, T. Jaakkola & J. Järvi (2014). Joukkoliikenteellä, autolla ja kävellen: Avoin saavutettavuusaineisto pääkaupunkiseudulla. Terra 126: 3, 127-136. 
 
 DOI name for the dataset:
-
+Tenkanen, H., J.L. Espinosa, E. Willberg, V. Heikinheimo, A. Tarnanen, T. Jaakkola, J. Järvi, M. Salonen, T. Toivonen (2018). Helsinki Region Travel Time Matrix 2018. DOI: 10.13140/RG.2.2.20858.39362
 
 ---------------------------------------------------------------------
 EXAMPLES OF ARTICLES IN WHICH OUR ACCESSIBILITY TOOLS HAVE BEEN USED
