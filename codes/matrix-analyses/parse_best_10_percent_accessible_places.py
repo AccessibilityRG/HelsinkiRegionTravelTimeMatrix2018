@@ -26,7 +26,7 @@ def parse_best_10_percent(df, col):
     # If the data contains less than 10 minute values, remove them as there cannot be such median values
     min_val = df[col].min()
     if min_val <= 10:
-        df = df.loc[data[col]>10]
+        df = df.loc[df[col]>10]
     # Length
     cnt = len(df)
     
