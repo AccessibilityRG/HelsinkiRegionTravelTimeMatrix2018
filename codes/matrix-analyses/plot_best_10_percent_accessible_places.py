@@ -2,12 +2,20 @@
 """
 Plot best 10 % accessibility areas.
 
-Created on Fri Jun 15 09:59:00 2018
+Requirements:
+    geopandas-1.0.0.dev
+    shapely-1.6.2
+    matplotlib-2.0.0
+    
 
-@author: hentenka
+Created on:
+    June 16th 2018
+
+Author:
+    Henrikki Tenkanen, Digital Geography Lab, University of Helsinki
+    
 """
 import geopandas as gpd
-import pysal as ps
 import os
 import matplotlib.pyplot as plt
 from shapely.ops import polygonize
@@ -114,9 +122,12 @@ def plot_environment(ax):
     return ax
     
     
-def plot_most_accessible_10_percent(df, column, edgecolor, lw, linestyle='-', scheme=None, alpha=1.0, cmap="RdYlBu", legend=False, legend_anchor=None, outfp=None):
+def plot_most_accessible_10_percent(df, column, edgecolor, lw, linestyle='-', scheme=None, alpha=1.0, cmap="RdYlBu", legend=False, legend_anchor=None, outfp=None, title=None):
     # Plot travel mode
-    ax = df.plot(column=column, edgecolor=edgecolor, lw=lw, linestyle=linestyle, cmap=cmap, alpha=alpha, scheme=scheme)
+    if legend:
+        ax = df.plot(column=column, edgecolor=edgecolor, lw=lw, linestyle=linestyle, cmap=cmap, alpha=alpha, scheme=scheme, legend=True, legend_kwds={'title': title,'ncol': 3, 'bbox_to_anchor': (1.03, 0.07), 'framealpha': 1.0})
+    else:
+        ax = df.plot(column=column, edgecolor=edgecolor, lw=lw, linestyle=linestyle, cmap=cmap, alpha=alpha, scheme=scheme)
     # Plot surroundings
     ax = plot_environment(ax=ax)
     
@@ -138,11 +149,11 @@ def plot_most_accessible_10_percent(df, column, edgecolor, lw, linestyle='-', sc
     return ax
 
 # Filepaths
-data_dir = r"C:\HY-Data\HENTENKA\KOODIT\HelsinkiRegionMatrix2018\data"
+data_dir = r"C:\HY-DATA\HENTENKA\KOODIT\Matrix2018\data"
 carr_fp = os.path.join(data_dir, "Car_r_best_10_percent_2018.shp")
 ptr_fp = os.path.join(data_dir, "PT_r_best_10_percent_2018.shp")
 bikef_fp = os.path.join(data_dir, "Bike_f_best_10_percent_2018.shp")
-roads_fp = os.path.join(data_dir, "pääväylät.shp")
+roads_fp = os.path.join(data_dir, "main_roads.shp")
 metro_fp = os.path.join(data_dir, "Full_metro_line_eastWest.shp")
 coast_fp = os.path.join(data_dir, "rantaviiva_polygon.shp")
 rails_fp = os.path.join(data_dir, "Full_railway.shp")
@@ -150,9 +161,11 @@ lakes_fp = os.path.join(data_dir, "lakes.shp")
 borders_fp = os.path.join(data_dir, "city_borders.shp")
 
 # Output filepaths
-overlap_out = r"C:\HY-Data\HENTENKA\KOODIT\HelsinkiRegionMatrix2018\Figures\Overlap\All_modes_rushHour_best_10_percent_areas_v13.png"
-pt_out = r"C:\HY-Data\HENTENKA\KOODIT\HelsinkiRegionMatrix2018\Figures\Individual_modes\PT_most_accessible_10_percent.png"
-
+overlap_out = r"C:\HY-DATA\HENTENKA\KOODIT\Matrix2018\Figures\Overlap\All_modes_rushHour_best_10_percent_areas_v13.png"
+pt_out = r"C:\HY-DATA\HENTENKA\KOODIT\Matrix2018\Figures\Individual\PT_most_accessible_10_percent.png"
+car_out = r"C:\HY-DATA\HENTENKA\KOODIT\Matrix2018\Figures\Individual\Car_most_accessible_10_percent.png"
+bike_out = r"C:\HY-DATA\HENTENKA\KOODIT\Matrix2018\Figures\Individual\Bike_fast_most_accessible_10_percent.png"
+bike_outs = r"C:\HY-DATA\HENTENKA\KOODIT\Matrix2018\Figures\Individual\Bike_slow_most_accessible_10_percent.png"
 
 # Read files
 car = gpd.read_file(carr_fp)
@@ -207,8 +220,10 @@ fsize = 7
 fweight = 'normal'
 
 # Overlap
-plot_most_accessible_overlaps(outfp = overlap_out)
+#plot_most_accessible_overlaps(outfp = overlap_out)
 
 # Individual modes
-plot_most_accessible_10_percent(df=pt, column='ptrmedian', scheme='fisher_jenks', edgecolor='gray', lw=0.1, outfp=pt_out, legend=True)
-
+plot_most_accessible_10_percent(df=pt, column='ptrmedian', scheme='fisher_jenks', edgecolor='gray', lw=0.1, outfp=pt_out, legend=True, title='Mediaani matka-aika (min) joukkoliikenteellä')
+plot_most_accessible_10_percent(df=car, column='carrmedian', scheme='fisher_jenks', edgecolor='gray', lw=0.1, outfp=car_out, legend=True, title='Mediaani matka-aika (min) autolla')
+plot_most_accessible_10_percent(df=bike, column='bikfmedian', scheme='equal_interval', edgecolor='gray', lw=0.1, outfp=bike_out, legend=True, title='Mediaani matka-aika (min) pyörällä (nopea)')
+plot_most_accessible_10_percent(df=bike, column='biksmedian', scheme='fisher_jenks', edgecolor='gray', lw=0.1, outfp=bike_outs, legend=True, title='Mediaani matka-aika (min) pyörällä (hidas)')
