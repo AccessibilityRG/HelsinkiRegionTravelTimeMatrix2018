@@ -13,7 +13,7 @@ from glob import glob
 import os
 
 # Filepaths
-matrix_dir = r"C:\HY-Data\HENTENKA\Data\HelsinkiTravelTimeMatrix2018_2\5785xxx"
+matrix_dir = r"C:\HY-Data\HENTENKA\Data\HelsinkiTravelTimeMatrix2018_2"
 files = glob(os.path.join(matrix_dir, '*', 'travel*.txt'), recursive=True)
 ykr_fp = r"C:\HY-Data\HENTENKA\Data\MetropAccess_YKR_grid\MetropAccess_YKR_grid_EurefFIN.shp"
 outfp = r"C:\HY-Data\HENTENKA\KOODIT\HelsinkiRegionMatrix2018\data\Most_accessible_places_2018.shp"
@@ -39,7 +39,7 @@ for idx, fp in enumerate(files):
     median_m_pt = data['pt_m_t'].median()
     # Car
     median_r_car = data['car_r_t'].median()
-    median_m_car = data['car_r_t'].median()
+    median_m_car = data['car_m_t'].median()
     # Bike
     median_f_bike = data['bike_f_t'].median()
     median_s_bike = data['bike_s_t'].median()
