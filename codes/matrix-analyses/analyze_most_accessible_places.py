@@ -13,10 +13,10 @@ from glob import glob
 import os
 
 # Filepaths
-matrix_dir = r"C:\HY-Data\HENTENKA\Data\HelsinkiTravelTimeMatrix2018_2"
+matrix_dir = r"C:\HY-DATA\HENTENKA\Data\HelsinkiRegion_TravelTimeMatrix2015"
 files = glob(os.path.join(matrix_dir, '*', 'travel*.txt'), recursive=True)
-ykr_fp = r"C:\HY-Data\HENTENKA\Data\MetropAccess_YKR_grid\MetropAccess_YKR_grid_EurefFIN.shp"
-outfp = r"C:\HY-Data\HENTENKA\KOODIT\HelsinkiRegionMatrix2018\data\Most_accessible_places_2018.shp"
+ykr_fp = r"C:\HY-DATA\HENTENKA\Data\MetropAccess_YKR_grid\MetropAccess_YKR_grid_EurefFIN.shp"
+outfp = r"C:\HY-DATA\HENTENKA\KOODIT\Matrix2018\data\Most_accessible_places_2015.shp"
 
 # Read grid
 ykr = gpd.read_file(ykr_fp)
@@ -40,19 +40,17 @@ for idx, fp in enumerate(files):
     # Car
     median_r_car = data['car_r_t'].median()
     median_m_car = data['car_m_t'].median()
-    # Bike
-    median_f_bike = data['bike_f_t'].median()
-    median_s_bike = data['bike_s_t'].median()
-    
+   
     # Add to results
-    results = results.append([[to_id, median_m_pt, median_r_pt, median_m_car, median_r_car, median_f_bike, median_s_bike]], ignore_index=True)
+    results = results.append([[to_id, median_m_pt, median_r_pt, median_m_car, median_r_car]], ignore_index=True)
     
 # Add column names
-results.columns = ['to_id', 'ptrmedian', 'ptmmedian', 'carrmedian', 'carmmedian', 'bikfmedian', 'biksmedian']
+results.columns = ['YKR_ID', 'ptrmedian', 'ptmmedian', 'carrmedian', 'carmmedian']
 
 # Join
-join = ykr.merge(results, left_on='YKR_ID', right_on='to_id')
+join = results.merge(ykr, on='YKR_ID')
 
-# Save to file
-join.to_file(outfp)
-
+# Geo
+geo = gpd.GeoDataFrame(join)
+geo.crs = ykr.crs
+geo.to_file(outfp)

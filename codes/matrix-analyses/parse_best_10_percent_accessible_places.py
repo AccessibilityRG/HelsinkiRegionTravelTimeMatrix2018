@@ -9,15 +9,14 @@ Author:
 """
 
 import geopandas as gpd
-
+import os
 # Filepaths
-fp = r"C:\HY-Data\HENTENKA\KOODIT\HelsinkiRegionMatrix2018\data\Most_accessible_places_2018.shp"
-carr_out = r"C:\HY-Data\HENTENKA\KOODIT\HelsinkiRegionMatrix2018\data\Car_r_best_10_percent_2018.shp"
-carm_out = r"C:\HY-Data\HENTENKA\KOODIT\HelsinkiRegionMatrix2018\data\Car_m_best_10_percent_2018.shp"
-ptr_out = r"C:\HY-Data\HENTENKA\KOODIT\HelsinkiRegionMatrix2018\data\PT_r_best_10_percent_2018.shp"
-ptm_out = r"C:\HY-Data\HENTENKA\KOODIT\HelsinkiRegionMatrix2018\data\PT_m_best_10_percent_2018.shp"
-bikef_out = r"C:\HY-Data\HENTENKA\KOODIT\HelsinkiRegionMatrix2018\data\Bike_f_best_10_percent_2018.shp"
-bikes_out = r"C:\HY-Data\HENTENKA\KOODIT\HelsinkiRegionMatrix2018\data\Bike_s_best_10_percent_2018.shp"
+ddir = r"C:\HY-DATA\HENTENKA\KOODIT\Matrix2018\data"
+fp = os.path.join(ddir, "Most_accessible_places_2015.shp")
+carr_out = os.path.join(ddir, "Car_r_best_10_percent_2015.shp")
+carm_out = os.path.join(ddir, "Car_m_best_10_percent_2015.shp")
+ptr_out = os.path.join(ddir, "PT_r_best_10_percent_2015.shp")
+ptm_out = os.path.join(ddir, "PT_m_best_10_percent_2015.shp")
 
 # Read data
 data = gpd.read_file(fp)
@@ -47,22 +46,16 @@ def parse_best_10_percent(df, col):
     
     return df
     
-    
 # Order values
 pt_r = parse_best_10_percent(data, col='ptrmedian')
 pt_m = parse_best_10_percent(data, col='ptmmedian')
 car_r = parse_best_10_percent(data, col='carrmedian')
 car_m = parse_best_10_percent(data, col='carmmedian')
-bike_f = parse_best_10_percent(data, col='bikfmedian')
-bike_s = parse_best_10_percent(data, col='biksmedian')
-
 
 # Save to file
 pt_r.to_file(ptr_out)
 pt_m.to_file(ptm_out)
 car_r.to_file(carr_out)
 car_m.to_file(carm_out)
-bike_f.to_file(bikef_out)
-bike_s.to_file(bikes_out)
 
 

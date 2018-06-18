@@ -31,12 +31,10 @@ def create_custom_legend(ax, xleft_lim, yup_lim):
     # Legend box for Car, PT and Bike
     ptxy = (xleft_lim + 4000 + 500, yup_lim - 1500)
     carxy = (xleft_lim + 4000 + 500*10, yup_lim - 1500)
-    bikexy = (xleft_lim + 4000 + 500*10*1.9, yup_lim - 1500)
-    
+        
     ptbox = patches.Rectangle(xy=ptxy, width=bwidht, height=bheight, facecolor=pt_color, alpha=alpha)
     carbox = patches.Rectangle(xy=carxy, width=bwidht, height=bheight, facecolor=car_color, alpha=alpha)
-    bikebox = patches.Rectangle(xy=bikexy, width=bwidht, height=bheight, lw=2, edgecolor=bike_ecolor, facecolor=bike_fcolor, alpha=0.99)
-    
+        
 #    ax.text(x=ptxy[0]+ 450, y=ptxy[1] + 2000, s="PT", family=ffamily, weight=fweight, fontsize=fsize)
 #    ax.text(x=carxy[0]+ 450, y=carxy[1] + 2000, s="Car", family=ffamily, weight=fweight, fontsize=fsize)
 #    ax.text(x=bikexy[0]+ 400, y=bikexy[1] + 2000, s="Bike", family=ffamily, weight=fweight, fontsize=fsize)
@@ -47,54 +45,21 @@ def create_custom_legend(ax, xleft_lim, yup_lim):
     carpt_box_c = patches.Rectangle(xy=xycp, width=bwidht, height=bheight, facecolor=car_color, alpha=alpha)
     carpt_box_p = patches.Rectangle(xy=xycp, width=bwidht, height=bheight, facecolor=pt_color, alpha=alpha)
     
-    # Car + Bike
-    xycb = (xleft_lim + 500*10*6, yup_lim - 1500)
-    bikecar_box_c = patches.Rectangle(xy=xycb, width=bwidht, height=bheight, facecolor=car_color, alpha=alpha)
-    bikecar_box_b = patches.Rectangle(xy=xycb, width=bwidht, height=bheight, lw=2, edgecolor=bike_ecolor, facecolor=bike_fcolor, alpha=0.99)
-    
-    # PT + Bike
-    xypb = (xleft_lim + 500*10*7, yup_lim - 1500)
-    bikept_box_p = patches.Rectangle(xy=xypb, width=bwidht, height=bheight, facecolor=pt_color, alpha=alpha)
-    bikept_box_b = patches.Rectangle(xy=xypb, width=bwidht, height=bheight, lw=2, edgecolor=bike_ecolor, facecolor=bike_fcolor, alpha=0.99)
-    
-    # Car + PT + Bike
-    xycpb = (xleft_lim + 500*10*8, yup_lim - 1500)
-    bikecarpt_box_c = patches.Rectangle(xy=xycpb, width=bwidht, height=bheight, facecolor=car_color, alpha=alpha)
-    bikecarpt_box_p = patches.Rectangle(xy=xycpb, width=bwidht, height=bheight, facecolor=pt_color, alpha=alpha)
-    bikecarpt_box_b = patches.Rectangle(xy=xycpb, width=bwidht, height=bheight, lw=2, edgecolor=bike_ecolor, facecolor=bike_fcolor, alpha=0.99)
-    
-#    ax.text(x=xycp[0] - 250, y=xycp[1] + 2000, s="PT & Car", family=ffamily, weight=fweight, fontsize=fsize)
-#    ax.text(x=xycb[0] - 550, y=xycb[1] + 2000, s="Car & Bike", family=ffamily, weight=fweight, fontsize=fsize)
-#    ax.text(x=xypb[0] - 550, y=xypb[1] + 2000, s="PT & Bike", family=ffamily, weight=fweight, fontsize=fsize)
-#    ax.text(x=xycpb[0] - 550, y=xycpb[1] + 2000, s="Car & PT & Bike", family=ffamily, weight=fweight, fontsize=fsize)
     
     
     # Add the patches to the Axes
     ax.add_patch(ptbox)
     ax.add_patch(carbox)
-    ax.add_patch(bikebox)
     
     ax.add_patch(carpt_box_c)
     ax.add_patch(carpt_box_p)
     
-    ax.add_patch(bikecar_box_c)
-    ax.add_patch(bikecar_box_b)
-    
-    ax.add_patch(bikept_box_p)
-    ax.add_patch(bikept_box_b)
-    
-    ax.add_patch(bikecarpt_box_c)
-    ax.add_patch(bikecarpt_box_p)
-    ax.add_patch(bikecarpt_box_b)
     return ax
     
 def plot_most_accessible_overlaps(outfp):
     # Plot everything on top of each other
     ax = car.plot(color=car_color, alpha=alpha)
     ax = pt.plot(ax=ax, color=pt_color, alpha=alpha)
-    # Use simplified outline only
-    #ax = bike_f.plot(ax=ax, facecolor='none', alpha=0.99, edgecolor='orange', lw=3, linestyle='--')
-    ax = bike.plot(ax=ax, facecolor=bike_fcolor, alpha=0.99, edgecolor=bike_ecolor, lw=0.3, linestyle='-')
     ax = plot_environment(ax=ax)
     
     # X and y limits for the map
@@ -150,9 +115,8 @@ def plot_most_accessible_10_percent(df, column, edgecolor, lw, linestyle='-', sc
 
 # Filepaths
 data_dir = r"C:\HY-DATA\HENTENKA\KOODIT\Matrix2018\data"
-carr_fp = os.path.join(data_dir, "Car_r_best_10_percent_2018.shp")
-ptr_fp = os.path.join(data_dir, "PT_r_best_10_percent_2018.shp")
-bikef_fp = os.path.join(data_dir, "Bike_f_best_10_percent_2018.shp")
+carr_fp = os.path.join(data_dir, "Car_r_best_10_percent_2015.shp")
+ptr_fp = os.path.join(data_dir, "PT_r_best_10_percent_2015.shp")
 roads_fp = os.path.join(data_dir, "main_roads.shp")
 metro_fp = os.path.join(data_dir, "Full_metro_line_eastWest.shp")
 coast_fp = os.path.join(data_dir, "rantaviiva_polygon.shp")
@@ -161,16 +125,13 @@ lakes_fp = os.path.join(data_dir, "lakes.shp")
 borders_fp = os.path.join(data_dir, "city_borders.shp")
 
 # Output filepaths
-overlap_out = r"C:\HY-DATA\HENTENKA\KOODIT\Matrix2018\Figures\Overlap\All_modes_rushHour_best_10_percent_areas_v13.png"
-pt_out = r"C:\HY-DATA\HENTENKA\KOODIT\Matrix2018\Figures\Individual\PT_most_accessible_10_percent.png"
-car_out = r"C:\HY-DATA\HENTENKA\KOODIT\Matrix2018\Figures\Individual\Car_most_accessible_10_percent.png"
-bike_out = r"C:\HY-DATA\HENTENKA\KOODIT\Matrix2018\Figures\Individual\Bike_fast_most_accessible_10_percent.png"
-bike_outs = r"C:\HY-DATA\HENTENKA\KOODIT\Matrix2018\Figures\Individual\Bike_slow_most_accessible_10_percent.png"
+overlap_out = r"C:\HY-DATA\HENTENKA\KOODIT\Matrix2018\Figures\Overlap\2015_All_modes_rushHour_best_10_percent_areas.png"
+pt_out = r"C:\HY-DATA\HENTENKA\KOODIT\Matrix2018\Figures\Individual\2015_PT_most_accessible_10_percent.png"
+car_out = r"C:\HY-DATA\HENTENKA\KOODIT\Matrix2018\Figures\Individual\2015_Car_most_accessible_10_percent.png"
 
 # Read files
 car = gpd.read_file(carr_fp)
 pt = gpd.read_file(ptr_fp)
-bike = gpd.read_file(bikef_fp)
 roads = gpd.read_file(roads_fp)
 metro = gpd.read_file(metro_fp)
 coast = gpd.read_file(coast_fp)
@@ -181,7 +142,6 @@ borders = gpd.read_file(borders_fp)
 # Ensure the same projection
 CRS = car.crs
 pt = pt.to_crs(CRS)
-bike = bike.to_crs(CRS)
 metro = metro.to_crs(CRS)
 roads = roads.to_crs(CRS)
 coast = coast.to_crs(CRS)
@@ -191,15 +151,6 @@ borders = borders.to_crs(CRS)
 
 # Merge coastline polygons
 coast = gpd.GeoDataFrame([[coast.unary_union]], columns=['geometry'], crs=CRS)
-
-# Create a simplified contour line for cycling
-bike['dis_id'] = 0
-bike_c = bike.dissolve(by='dis_id')
-bike_c['boundary'] = bike_c.boundary
-smooth_geom = bike_c['boundary'].values[0].buffer(700, join_style=1).buffer(-700.0, join_style=1)
-bike_s = gpd.GeoDataFrame([[smooth_geom]], columns=['geometry'], crs=CRS)
-bounds = MultiPolygon(list(polygonize(bike_s.boundary.values[0]))).buffer(0)
-bike_f = gpd.GeoDataFrame([[bounds]], columns=['geometry'], crs=CRS)
 
 # Parameters
 car_colormap = None
@@ -220,10 +171,8 @@ fsize = 7
 fweight = 'normal'
 
 # Overlap
-#plot_most_accessible_overlaps(outfp = overlap_out)
+plot_most_accessible_overlaps(outfp = overlap_out)
 
 # Individual modes
 plot_most_accessible_10_percent(df=pt, column='ptrmedian', scheme='fisher_jenks', edgecolor='gray', lw=0.1, outfp=pt_out, legend=True, title='Mediaani matka-aika (min) joukkoliikenteellä')
 plot_most_accessible_10_percent(df=car, column='carrmedian', scheme='fisher_jenks', edgecolor='gray', lw=0.1, outfp=car_out, legend=True, title='Mediaani matka-aika (min) autolla')
-plot_most_accessible_10_percent(df=bike, column='bikfmedian', scheme='equal_interval', edgecolor='gray', lw=0.1, outfp=bike_out, legend=True, title='Mediaani matka-aika (min) pyörällä (nopea)')
-plot_most_accessible_10_percent(df=bike, column='biksmedian', scheme='fisher_jenks', edgecolor='gray', lw=0.1, outfp=bike_outs, legend=True, title='Mediaani matka-aika (min) pyörällä (hidas)')
