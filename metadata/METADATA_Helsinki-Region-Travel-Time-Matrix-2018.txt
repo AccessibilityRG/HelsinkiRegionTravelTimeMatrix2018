@@ -4,23 +4,23 @@
 
 (scroll down for English description)
 
-Viimeksi päivitetty 18.05.2018
+Viimeksi päivitetty 18.06.2018
 
 -------------
 YLEISKUVAUS
 -------------
 
-Aineisto käsittää matka-aika- ja etäisyystiedot kävellen, joukkoliikenteellä ja henkilöautolla kaikista 
+Aineisto käsittää matka-aika- ja etäisyystiedot kävellen, pyörällä, joukkoliikenteellä ja henkilöautolla kaikista 
 pääkaupunkiseudun 250 metrin tilastoruuduista (13 231 kpl) kaikkiin pääkaupunkiseudun tilastoruutuihin (13 231 kpl). 
 Ruudukko vastaa Tilastokeskuksen valtakunnallista tilastoruutua, jota käytetään myös YKR-aineistossa. 
 Vuoden 2018 matriisissa tulokset on laskettu kahtena eri vuorokaudenaikana: 1) keskipäivällä ja 2) ruuhka-aikaan. 
 
-Keskipäivän tulokset ovat menetelmällisesti vertailukelpoisia vuosien 2013 ja 2015 matriisien kanssa 
-(katso kuitenkin kohta Tuotantohistoria - huomioitavaa autovertailussa) 
-Ruuhka-ajan tulokset ovat menetelmällisesti vertailukelpoisia vuoden 2015 matriisin kanssa 
-(katso kuitenkin kohta Tuotantohistoria - huomioitavaa autovertailussa).
+Keskipäivän tulokset ovat vertailukelpoisia vuoden 2013 matriisin kanssa. 
+Keskipäivän ja ruuhka-ajan tulokset ovat menetelmällisesti vertailukelpoisia vuoden 2015 matriisin kanssa [1]. 
 
-Aineisto on tuotetty Helsingin yliopiston Geotieteiden ja maantieteen laitoksen MetropAccess-hankkeessa (2010-2018), 
+[1] Katso kuitenkin kohta Tuotantohistoria: huomioitavaa autovertailussa.
+
+Aineisto on tuotetty Helsingin yliopiston Digital Geography Labin MetropAccess-hankkeessa (2010-2018), 
 http://www.helsinki.fi/science/accessibility/. Työtä ovat rahoittaneet KatuMetro-tutkimusohjelma sekä Helsingin yliopisto. 
 
 Aineiston käyttö on käyttäjän omalla vastuulla. Aineiston tuottaja ei vastaa aineistoissa mahdollisesti esiintyvistä virheistä, epätarkkuuksista tai niiden käyttämisen mahdollisesti aiheuttamista vahingoista.
@@ -56,10 +56,10 @@ from_id  |  Reitin lähtöpisteenä olleen YKR-ruudun ID-tunnus
 to_id  	 |  Reitin kohdepisteenä olleen YKR-ruudun ID-tunnus
 walk_t   |  Matka-aika lähtöruudusta kohderuutuun kävellen
 walk_d   |  Kävelymatkan pituus metreinä
-bike_f_t |	 Matka-aika lähtöruudusta kohteruutuun nopeasti pyöräillen  (Bike_fast_time)
-bike_f_s |  Matka-aika lähtöruudusta kohteruutuun hitaasti pyöräillen (Bike_slow_time)
-pt_r_tt  |  Kokonaismatka-aika lähtäruudusta kohderuutuun joukkoliikenteellä ruuhka-aikaan; sisältää mahdollisen kotona odottelun reitin             alussa
-pt_r_t   |  Kokonaismatka-aika lähtäruudusta kohderuutuun joukkoliikenteellä ruuhka-aikaan; matka-aika alkaa lähdettäessä kotoa                     liikkeelle 
+bike_f_t |	 Kokonaismatka-aika lähtöruudusta kohteruutuun nopeasti pyöräillen (~19 kmh, Bike_fast_time); sisältää pyörän ottamiseen/palauttamiseen kuluvan ajan
+bike_f_s |  Kokonaismatka-aika lähtöruudusta kohteruutuun hitaasti pyöräillen (~12 kmh, Bike_slow_time); sisältää pyörän ottamiseen/palauttamiseen kuluvan ajan
+pt_r_tt  |  Kokonaismatka-aika lähtöruudusta kohderuutuun joukkoliikenteellä ruuhka-aikaan; sisältää mahdollisen kotona odottelun reitin             alussa
+pt_r_t   |  Kokonaismatka-aika lähtöruudusta kohderuutuun joukkoliikenteellä ruuhka-aikaan; matka-aika alkaa lähdettäessä kotoa                     liikkeelle 
 pt_r_d   |  Joukkoliikennematkan pituus metreinä ruuhka-aikaan 
 pt_m_tt  |  Kokonaismatka-aika lähtöruudusta kohderuutuun keskipäivällä; sisältää mahdollisen kotona odottelun reitin alussa
 pt_m_t 	 |  Kokonaismatka-aika lähtöruudusta kohderuutuun keskipäivällä; matka-aika alkaa lähdettäessä kotoa liikkeelle
@@ -91,8 +91,7 @@ Laskennoissa on huomioitu lisäksi kokonaismatkaketjut:
 
 Huomioitavaa autovertailussa eri vuosien matriisien välillä:
 1) Helsingin alueella nopeusrajoitukset ovat kautta linjan alentuneet vuoteen 2015 verrattuna. Esimerkiksi valtaosalla tonttikaduista nopeusrajoitukset ovat alentuneet 30km/h:n.
-2) Vuoden 2018 reitykset perustuvat talviajan nopeusrajoituksiin, kun vuonna 2015 käytössä olivat kesäajan nopeusrajoitukset. Moottoriteillä nopeusrajoitukset näin ollen laskevat 120km/h:sta 100km/h:n
-3) Vuoden 2015 aineistossa Mannerheimintien nopeusrajoitus oli virheellisesti 80km/h, mikä vuoden 2018 aineistossa on muutettu vastaamaan osuuden todellista nopeusrajoitusta
+2) Vuoden 2015 aineistossa Mannerheimintien sekä Sörnäisten rantatien nopeusrajoitukset olivat virheellisesti 80km/h, mikä vuoden 2018 aineistossa on muutettu vastaamaan osuuden todellista nopeusrajoitusta. Vuoden 2015 autoiluajat ovat siis todellisuutta nopeammat Helsingin keskustan suuntaan.
 
 Lisätietoja laskennoista löytyy Timo Jaakkolan pro gradu -työstä sekä Terrassa julkaistusta datankuvausartikkelistamme. Työkalun dokumentointi saatavilla https://github.com/DigitalGeographyLab/DORA
 
@@ -111,14 +110,15 @@ Vuoden 2018 aineiston  julkisen liikenteen reititykset perustuvat maanantain 29
 
 Lisätietoja haarukoinnista MetropAccess-Reitittimen käyttöohjeesta.
 
-PYÖRÄILYREITITYS  on myös tehty autoreitityksessä käytettyä työkalua hyödyntäen. Tieverkkoaineistona on käytetty Liikenneviraston kehittämän Digiroad-aineiston (Digiroad K) pohjalta muokattua MetropAccess-CyclingNetwork-aineistoa. Siinä tiesegmenttien läpikulkuajat on muutettu realistisemmiksi, käyttäen hyväksi Strava-Metro-urheilusovellusaineistoa pääkaupunkiseudulta vuodelta 2016 sekä kaupunkipyöräaineistoa Helsingistä vuodelta 2017. Reititys ei ole käyttänyt segmenttejä, joissa pyöräily on kielletty. 
+PYÖRÄILYREITITYS  on myös tehty DORA työkalua hyödyntäen. Tieverkkoaineistona on käytetty Liikenneviraston kehittämän Digiroad-aineiston (Digiroad K) pohjalta muokattua MetropAccess-CyclingNetwork-aineistoa. Siinä tiesegmenttien läpikulkuajat on muutettu realistisemmiksi, käyttäen hyväksi Strava-Metro-urheilusovellusaineistoa pääkaupunkiseudulta vuodelta 2016 sekä kaupunkipyöräaineistoa Helsingistä vuodelta 2017. Reitityksessä ei ole käytetty tiesegmenttejä, joissa pyöräily on kielletty. 
 
 Jokaiselle tiesegmentille on laskettu erillinen nopeusarvo sekä nopealle että hitaalle pyöräilylle. Nopean pyöräilyn arvo perustuu prosentuaaliseen erotukseen Strava aineiston tiesegmenttikohtaisen keskinopeuden ja koko Strava aineiston keskinopeuden välillä. Saman prosentuaalinen erotuksen avulla on laskettu nopeusarvo hitaalle pyöräilylle suhteuttamalla jokaisen tiesegmentin nopeus hitaan pyöräilyn vertailuarvoon, joka perustuu kaupunkipyöräaineiston avulla laskettuun keskinopeuteen.
 
-   - Nopean pyöräilyn vertailuarvona on käytetty nopeutta 19 km/h. Nopeusarvo perustuu Strava-käyttäjien tiesegmenttikohtaiseen keskinopeuteen pääkaupunkiseudulla.
-   - Hitaan pyöräilyn vertailuarvona on käytetty nopeutta 12 km/h. Nopeusarvo perustuu kaupunkipyöräkäyttäjien keskimääräiseen matka-aikaan, sen jälkeen kun lainaukseen ja palautukseen kuluva aika, yhteensä noin 35 sekuntia on laskettu pois.
+   - Nopean pyöräilyn vertailuarvona on käytetty nopeutta 19 km/h. Nopeusarvo perustuu Strava-käyttäjien tiesegmenttikohtaiseen keskinopeuteen pääkaupunkiseudulla. Matka-aikaan on lisäksi lisätty 30 sekuntia pyörän ottamiseen että lukitsemiseen kuluvana aikana (yht. 1 minuutti).
+   - Hitaan pyöräilyn vertailuarvona on käytetty nopeutta 12 km/h. Nopeusarvo perustuu kaupunkipyöräkäyttäjien keskimääräiseen matka-aikaan. Matka-aikaan on lisäksi lisätty 30 sekuntia pyörän ottamiseen että lukitsemiseen kuluvana aikana (yht. 1 minuutti).
 
 Lisätietoa käytetystä Strava-aineistosta löytyy julkaisemastamme Pyöräilyn reitit ja sujuvuus raportista: 
+https://www.hel.fi/static/liitteet/kaupunkiymparisto/julkaisut/julkaisut/julkaisu-16-17.pdf 
 
 KÄVELYREITITYS on myös laskettu MetropAccess-Reitittimellä säätämällä joukkoliikennevälineet pois käytöstä erillisestä asetustiedostosta, jolloin reitit perustuvat ainoastaan Open Street Mapin geometriaan.
 Sekä joukkoliikenne että kävelyajossa kävelynopeudeksi on asetettu reittioppaan oletus 70 metriä minuutissa.  
@@ -163,7 +163,7 @@ Datan DOI-tunniste:
 Tenkanen, H., J.L. Espinosa, E. Willberg, V. Heikinheimo, A. Tarnanen, T. Jaakkola, J. Järvi, M. Salonen, T. Toivonen (2018). Helsinki Region Travel Time Matrix 2018. DOI: 10.13140/RG.2.2.20858.39362
 
 ------------------------------------------------------------
-ESIMERKKEJä SAAVUTETTAVUUS-TYäKALUJEN KäYTäSTä TUTKIMUSTYäSSä
+ESIMERKKEJä SAAVUTETTAVUUS-TYÖKALUJEN KÄYTÖSTÄ TUTKIMUSTYÖSSÄ
 ------------------------------------------------------------
 Albacete, X. et al. (2017) ‘Resident group specific accessibility analysis and implications for the Great Helsinki Region using Structural Accessibility Layer’, Case Studies on Transport Policy. World Conference on Transport Research Society, 5(1), pp. 87–101. doi: 10.1016/j.cstp.2016.12.001.
 
@@ -190,9 +190,7 @@ Jäppinen,  S., Toivonen, T. & Salonen, M. (2013). Modelling the potential effec
 LISENSSI 
 ---------
 
-Pääkaupunkiseudun-Matka-aikamatriisi, jonka tekijä on MetropAccess-hanke / Digital Geography Lab / Accessibility Research Group (Helsingin Yliopisto) on lisensoitu 
-
-Creative Commons Nimeä 4.0 Kansainvälinen -lisenssillä.
+Pääkaupunkiseudun-Matka-aikamatriisi, jonka tekijä on MetropAccess-hanke / Digital Geography Lab / Accessibility Research Group (Helsingin Yliopisto) on lisensoitu Creative Commons Nimeä 4.0 Kansainvälinen -lisenssillä.
 Lisätietoa lisenssistä: http://creativecommons.org/licenses/by/4.0/deed.fi
 
 Mikäli aineiston pohjalta laaditaan tieteellisiä julkaisuja, toivomme, että tekijät olisivat yhteydessä hankkeen johtajaan.
@@ -206,7 +204,7 @@ IN ENGLISH.
  Helsinki Region-Travel Time Matrix 2018
 =============================================
 
-Last modified 18.05.2018.
+Last modified 18.06.2018.
 
 -----------------
 DATA DESCRIPTION
@@ -219,7 +217,7 @@ by walking, cycling, public transportion and car.
 In the 2018 data, the results have been calculated for two different times of the day: 1) midday and 2) rush hour.
 
 Data has been produced by the MetropAccess Project (2010-2018, http://www.helsinki.fi/science/accessibility/),
-at the Department of Geosciences and Geography, University of Helsinki. 
+at the Digital Geography Lab, Department of Geosciences and Geography, University of Helsinki. 
 
 The data may be used freely (see the licence text below). We do not take any responsibility for any mistakes, errors or other 
 deficiencies in the data.
@@ -235,9 +233,7 @@ according to the destination grid cell code and each file includes 13231 rows.
 Each file consists of 18 attribute fields: 1) from_id, 2) to_id, 3) walk_t, 4) walk_d, 5) bike_f_t, 6) bike_s_t, 7) bike_d, 8) pt_r_tt, 
 9) pt_r_t, 10) pt_r_d, 11) pt_m_tt, 12) pt_m_t, 13) pt_m_d, 14) car_r_t, 15) car_r_d, 16) car_m_t, 17) car_m_d, 18) car_sl_t
 
-
 The fields are separated by semicolon in the text files.
-
 
 Abbreviations in the field names:
 ____________________________________________
@@ -261,8 +257,8 @@ from_id  |  ID number of the origin grid cell
 to_id  	 |  ID number of the destination grid cell
 walk_t   |  Travel time from origin to destination by walking
 walk_d   |  Distance in meters of the walking route
-bike_f_t | 	Travel time in minutes from origin to destination by fast cycling
-bike_s_t |	Travel time in minutes from origin to destination by slow cycling
+bike_f_t | 	Travel time in minutes from origin to destination by fast cycling; whole travel chain has been taken into acount including time to take/return bike
+bike_s_t |	Travel time in minutes from origin to destination by slow cycling; whole travel chain has been taken into acount including time to take/return bike
 bike_d	 |	Distance in meters of the cycling route
 pt_r_tt  |  Travel time from origin to destination by public transportation in rush hour traffic; whole travel chain has been taken into acount including the waiting time at home
 pt_r_t   |  Travel time from origin to destination by public transportation in rush hour traffic; whole travel chain has been taken into account excluding the waiting time at home
@@ -278,7 +274,6 @@ car_sl_t |  Travel time from origin to destination by private car following spee
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 NODATA values have been described as value -1. 
-
 
 -----------------
 METHODS
@@ -298,8 +293,7 @@ The whole travel chain ("door-to-door approach") is taken into account in the ca
 
 Car comparisons between matrixes: Things to note 
 1) In Helsinki area the speed limits have been lowered compared to 2015. For example in most of the access roads the speed limits are now 30km/h
-2) The travel times for car have been calculated using the winter time speed limits while in 2015 the travel times were calculated using the summer speed limits. In motorways the speed limits have been thus lowered from 120km/h to 100km/h.
-3) In the 2015 matrix dataset the speed limit for car along Mannerheimintie was incorrectly set to 80km/h. In the 2018 matrix dataset the speed limits there have been set to match the real speed limits.
+2) In the 2015 matrix dataset the speed limit for car along Mannerheimintie and Sörnäisten rantatie was incorrectly set to 80km/h. This has caused that the travel times to Helsinki city center have been faster than they really are. In the 2013 and 2018 matrix datasets the speed limits match the real speed limits.
 
 The routes by PUBLIC TRANSPORTATION have been calculated by using the MetropAccess-Reititin tool which also takes into account the whole travel chains from the origin to the destination:
 1) possible waiting at home before leaving, 
@@ -317,17 +311,17 @@ Calculations of 2018 MetropAccess-Travel Time Matrix are based on schedules of M
 1) Midday (optimized between 12:00-13:00 ) --> Comparable with 1st and 2nd version of MetropAccess-Travel Time Matrix 
 2) Rush hour (optimized between 08:00-09:00) --> Comparable with 2nd version of MetropAccess-Travel Time Matrix
 
-The routes by CYCLING are also calculated using the tool for car routing. The network dataset underneath is MetropAccess-CyclingNetwork, which is a modified version 
-from the original Digiroad data provided by Finnish Transport Agency. In the dataset the travel times for the road segments have been modified to be more realistic based on Strava sports application data
+The routes by CYCLING are also calculated using the DORA tool. The network dataset underneath is MetropAccess-CyclingNetwork, which is a modified version from the original Digiroad data provided by Finnish Transport Agency. In the dataset the travel times for the road segments have been modified to be more realistic based on Strava sports application data
 from the Helsinki region from 2016 and the bike sharing system data from Helsinki from 2017. 
 
-For each road segment a separate speed value was calculated for slow and fast cycling. The value for fast cycling is based on a percentual difference 
-between segment specific Strava speed value and the average speed value for the whole Strava data. This same percentual difference has been applied
-to calculate the slower speed value for each road segment. The speed value is then the average speed value of bike sharing system users multiplied by the percentual difference value.
+For each road segment a separate speed value was calculated for slow and fast cycling. The value for fast cycling is based on a percentual difference between segment specific Strava speed value and the average speed value for the whole Strava data. This same percentual difference has been applied to calculate the slower speed value for each road segment. The speed value is then the average speed value of bike sharing system users multiplied by the percentual difference value.
 
-The reference value for faster cycling has been 19km/h, which is based on the average speed of Strava sports application users in the Helsinki region
-The reference value for slower cycling has been 12km/, which has been the average travel speed of bike sharing system users in Helsinki after the time to rent and return the bike have been excluded (35sec in total)
-More information of the Strava dataset that was used can be found from the Cycling routes and fluency report, which was published by us and the city of Helsinki.
+The reference value for faster cycling has been 19km/h, which is based on the average speed of Strava sports application users in the Helsinki region. Additional 1 minute have been added to the travel time to consider the time for taking (30s) and returning (30s) bike on the origin/destination.
+
+The reference value for slower cycling has been 12km/, which has been the average travel speed of bike sharing system users in Helsinki. Additional 1 minute have been added to the travel time to consider the time for taking (30s) and returning (30s) bike on the origin/destination. 
+
+More information of the Strava dataset that was used can be found from the Cycling routes and fluency report, which was published by us and the city of Helsinki (in Finnish only):
+https://www.hel.fi/static/liitteet/kaupunkiymparisto/julkaisut/julkaisut/julkaisu-16-17.pdf 
 
 The routes by WALKING were also calculated using the MetropAccess-Reititin by disabling all motorized transport modesin the calculation. Thus, all routes are based on the Open Street Map geometry.
 The walking speed has been adjusted to 70 meters per minute, which is the default speed in the HSL Journey Planner (also in the calculations by public transportation).
