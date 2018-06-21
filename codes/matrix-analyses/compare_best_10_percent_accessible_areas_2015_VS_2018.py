@@ -128,7 +128,7 @@ def plot_changes(df1, df2, no_changes, outfp):
 
 # Filepaths
 data_dir = r"C:\HY-DATA\HENTENKA\KOODIT\Matrix2018\data"
-data15_fp = os.path.join(data_dir, "Most_accessible_places_2015.shp")
+data13_fp = os.path.join(data_dir, "Most_accessible_places_2013.shp")
 data18_fp = os.path.join(data_dir, "Most_accessible_places_2018.shp")
 roads_fp = os.path.join(data_dir, "main_roads.shp")
 metro_fp = os.path.join(data_dir, "Full_metro_line_eastWest.shp")
@@ -138,11 +138,11 @@ lakes_fp = os.path.join(data_dir, "lakes.shp")
 borders_fp = os.path.join(data_dir, "city_borders.shp")
 
 # Output filepaths
-pt_out = r"C:\HY-DATA\HENTENKA\KOODIT\Matrix2018\Figures\Comparisons\PT_Comparison_2015_VS_2018_most_accessible_10_percent.png"
-car_out = r"C:\HY-DATA\HENTENKA\KOODIT\Matrix2018\Figures\Comparisons\Car_Comparison_2015_VS_2018_most_accessible_10_percent.png"
+pt_out = r"C:\HY-DATA\HENTENKA\KOODIT\Matrix2018\Figures\Comparisons\PT_Comparison_2013_VS_2018_most_accessible_10_percent.png"
+car_out = r"C:\HY-DATA\HENTENKA\KOODIT\Matrix2018\Figures\Comparisons\Car_Comparison_2013_VS_2018_most_accessible_10_percent.png"
 
 # Read files
-d15 = gpd.read_file(data15_fp)
+d13 = gpd.read_file(data13_fp)
 d18 = gpd.read_file(data18_fp)
 roads = gpd.read_file(roads_fp)
 metro = gpd.read_file(metro_fp)
@@ -152,7 +152,7 @@ lakes = gpd.read_file(lakes_fp)
 borders = gpd.read_file(borders_fp)
 
 # Ensure the same projection
-CRS = d15.crs
+CRS = d13.crs
 d18 = d18.to_crs(CRS)
 metro = metro.to_crs(CRS)
 roads = roads.to_crs(CRS)
@@ -184,18 +184,18 @@ fweight = 'normal'
 
 # Convert datatypes
 d18['YKR_ID'] = d18['YKR_ID'].astype(int)
-d15['YKR_ID'] = d15['YKR_ID'].astype(int)
+d13['YKR_ID'] = d13['YKR_ID'].astype(int)
 
 # Detect best 10 percent
-d18_car = parse_best_10_percent(df=d18, col='carrmedian')
-d15_car = parse_best_10_percent(df=d15, col='carrmedian')
+d18_car = parse_best_10_percent(df=d18, col='carmmedian')
+d13_car = parse_best_10_percent(df=d13, col='carmmedian')
 
-d15_pt = parse_best_10_percent(df=d15, col='ptrmedian')
-d18_pt = parse_best_10_percent(df=d18, col='ptrmedian')
+d13_pt = parse_best_10_percent(df=d13, col='ptmmedian')
+d18_pt = parse_best_10_percent(df=d18, col='ptmmedian')
 
 # Detect where the IDs are the same (i.e. no change between years)
-no_change_pt, change_in_15_pt, change_in_18_pt = detect_changes(df1=d15_pt, df2=d18_pt)
-no_change_car, change_in_15_car, change_in_18_car = detect_changes(df1=d15_car, df2=d18_car)
+no_change_pt, change_in_15_pt, change_in_18_pt = detect_changes(df1=d13_pt, df2=d18_pt)
+no_change_car, change_in_15_car, change_in_18_car = detect_changes(df1=d13_car, df2=d18_car)
 
 # Plot changes
 plot_changes(df1=change_in_15_pt, df2=change_in_18_pt, no_changes=no_change_pt, outfp=pt_out)

@@ -13,10 +13,10 @@ from glob import glob
 import os
 
 # Filepaths
-matrix_dir = r"C:\HY-DATA\HENTENKA\Data\HelsinkiRegion_TravelTimeMatrix2015"
+matrix_dir = r"C:\HY-DATA\HENTENKA\Data\HelsinkiRegion_TravelTimeMatrix2014"
 files = glob(os.path.join(matrix_dir, '*', 'travel*.txt'), recursive=True)
 ykr_fp = r"C:\HY-DATA\HENTENKA\Data\MetropAccess_YKR_grid\MetropAccess_YKR_grid_EurefFIN.shp"
-outfp = r"C:\HY-DATA\HENTENKA\KOODIT\Matrix2018\data\Most_accessible_places_2015.shp"
+outfp = r"C:\HY-DATA\HENTENKA\KOODIT\Matrix2018\data\Most_accessible_places_2013.shp"
 
 # Read grid
 ykr = gpd.read_file(ykr_fp)
@@ -35,17 +35,15 @@ for idx, fp in enumerate(files):
     
     # Calculate the median value for different travel modes
     # PT
-    median_r_pt = data['pt_r_t'].median()
     median_m_pt = data['pt_m_t'].median()
     # Car
-    median_r_car = data['car_r_t'].median()
     median_m_car = data['car_m_t'].median()
    
     # Add to results
-    results = results.append([[to_id, median_m_pt, median_r_pt, median_m_car, median_r_car]], ignore_index=True)
+    results = results.append([[to_id, median_m_pt, median_m_car, ]], ignore_index=True)
     
 # Add column names
-results.columns = ['YKR_ID', 'ptrmedian', 'ptmmedian', 'carrmedian', 'carmmedian']
+results.columns = ['YKR_ID', 'ptmmedian', 'carmmedian']
 
 # Join
 join = results.merge(ykr, on='YKR_ID')
