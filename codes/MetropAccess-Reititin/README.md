@@ -11,6 +11,16 @@ This document demonstrates step by step, how public transport and walking travel
     - [Creating an array job for Taito using Reititin](#array-job-reititin)
         - [Necessary steps](#necessary-steps)
         - [Array job files that were used for Helsinki Region Travel Time/Co2 Matrix 2018](#array-jobs)
+ 
+ - [Running the public transport / walking calculations in Taito](#running-the-public-transport-calculations-in-taito)
+   - Preparations:
+     - [Origin-Destination locations](#origin-destination-locations)
+     - [Configurations for the routings](#configurations-for-the-routings)
+     - [Batch job files for distributing/executing the analyses in Taito](#batch-job--files-for-executing-the-analyses) 
+   - Analyses:
+     - [Basic syntax for running MetropAccess-Reititin](#basic-syntax-for-running-metropaccess-reititin)
+     - [Batch jobs used for PT/walking analyses](#array-jobs)
+     - [Reproducing the data with other HPC infrastucture](#reproducing-the-data-with-other-hpc-infrastructure)
 
 ## Installations  / Configurations
 
