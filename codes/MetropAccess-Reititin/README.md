@@ -97,12 +97,25 @@ The generic steps for running an array job in Taito is as follows (see the actua
 
 ## Running the Public Transport calculations in Taito
 
-Our calculations was divided on 293 individual subtasks where each task included MetropAccess-Reititin route optimizations from 50 origin locations that are within a single *origin-file.txt*
-([an example of a origin file](../../data/PT/Subsets/1_Matrix2015_Origs_WGS84.txt)) to 14 645 destination locations ([see the destination file](../../data/PT/destPoints.txt)). All public transportation origin and destination files that were used in calculations are [here](../../data/PT/). 
+### Origin-destination locations
 
-<a name='array-jobs'></a>**Here are the array job files that were used when calculating the Helsinki Region Travel Time/CO2 Matrices (2015)**:
+Our calculations was divided on 294 individual subtasks where each task included MetropAccess-Reititin route optimizations from 50 origin locations that are within a single *origin-file.txt* ([an example of a origin file](../../data/PT/Subsets/1_Matrix2015_Origs_WGS84.txt)) to 14 645 destination locations ([see the destination file](../../data/PT/destPoints.txt)). All public transportation origin and destination files that were used in calculations are [here](../../data/PT/). 
 
-  - [Walking](reititin_massaAjo_2015_allday_kavely.lsf)
+### Configurations for the routings
+
+Controlling the routing parameters with MetropAccess-Reititin happens with dedicated configuration files where it is possible to adjust various aspects in the analyses, such as time of the day, date of the analysis and walking speed. 
+
+The configuration files used to produce the Helsinki Region Travel Time Matrix:
+
+  - [Walking: conf2018_walking_allDay.json](job-files/conf2018_walking_allDay.json)
+  - [Public Transport, midday - conf2018_pt_midday.json](conf2018_pt_midday.json)
+  - [Public Transport, rush hour - conf2018_pt_rushhour.json](job-files/conf2018_pt_rushhour.json)
+
+### Array job -files for executing the analyses
+
+<a name='array-jobs'></a>**Here are the array job files that were used when calculating the Helsinki Region Travel Time Matrix (2018)**:
+
+  - [Walking](job-files/reititin_massaAjo_2018_allday_kavely.lsf)
   - Public Transport:
       - [Rush-hour](reititin_massaAjo_2015_rushhour_joukkoliikenne.lsf)
       - [Midday](reititin_massaAjo_2015_midday_joukkoliikenne.lsf)
@@ -110,7 +123,7 @@ Our calculations was divided on 293 individual subtasks where each task included
     
 Running the calculations in Taito is done with command (example by walking):
 
-         $ sbatch reititin_massaAjo_2015_allday_kavely.lsf
+         $ sbatch reititin_massaAjo_2018_allday_kavely.lsf
       
 
 You can check the progress of the tasks with command:
