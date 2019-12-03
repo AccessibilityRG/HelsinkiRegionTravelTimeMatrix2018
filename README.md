@@ -80,10 +80,12 @@ into account the whole travel chains from the origin to the destination:
 Travel times by public transportation have been optimized using 10 different departure times within the calculation hour using so called Golomb ruler.
 The fastest route from these calculations are selected for the final travel time matrix.
 
-Calculations of 2015 MetropAccess-Travel Time Matrix are __based on schedules of Monday 28.09.2015__:
+Calculations of 2015 MetropAccess-Travel Time Matrix are __based on schedules of Monday 29.01.2018__:
 
- - Midday (optimized between 12:00-13:00 ) --> Comparable with 1st version of Helsinki Region Travel Time Matrix (2013)
- - Rush hour (optimized between 08:00-09:00) --> New for 2015 version of TTM!
+ - Midday (optimized between 12:00-13:00 ) --> Comparable with previous versions of the Helsinki Region Travel Time Matrix (2013 & 2015).
+ - Rush hour (optimized between 08:00-09:00) --> Comparable with 2015 version of the Helsinki Region Travel Time Matrix.
+ 
+For detailed documentation and instructions how to reproduce the results, see [documentation in here](codes/MetropAccess-Reititin).
 
 ### <a name="walk"></a>Walking
 
@@ -132,17 +134,17 @@ Joukkoliikenteellä, autolla ja kävellen: Avoin saavutettavuusaineisto pääkau
 __DOI name for the dataset:__
 - Toivonen, T., H. Tenkanen, V. Heikinheimo, T. Jaakkola, J. Järvi & M. Salonen (2016). Helsinki Region Travel Time Matrix 2015. DOI: 10.13140/RG.2.1.1901.3201
 
-## <a name="code-repo"></a>Codes
+## <a name="code-repo"></a>Codes to reproduce the results
 
-All the codes and analysis steps that have been used to produce the Helsinki Region Travel Time Matrix 2015 are documented separately in [here](codes/). 
+All the codes and analysis steps that have been used to produce the Helsinki Region Travel Time Matrix 2018 are documented separately in [here](codes/). 
 
 ## <a name="contact"></a>Contribution / Contact
-__Helsinki Region Travel Time Matrix 2015__ was created by the [Accessibility Research Group](http://www.helsinki.fi/science/accessibility) 
+__Helsinki Region Travel Time Matrix 2018__ was created by the [Accessibility Research Group](http://www.helsinki.fi/science/accessibility) 
 at the Department of Geosciences and Geography, University of Helsinki, Finland.
  
 Following people have contributed / are responsible for creating this dataset:
 
- - [Henrikki Tenkanen](http://blogs.helsinki.fi/accessibility/people_and_contact/) (PhD candidate, project manager, participation in all steps)
+ - [Henrikki Tenkanen](http://blogs.helsinki.fi/accessibility/people_and_contact/) (Postdoctoral researcher, participation in all steps)
  - Vuokko Heikinheimo (PhD candidate, dataset production, documentation)
  - Tuuli Toivonen (PI, leader of the research group)
  - Maria Salonen (project manager, participation in all steps)
