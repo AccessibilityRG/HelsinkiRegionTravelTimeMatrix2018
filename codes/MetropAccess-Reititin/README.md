@@ -130,16 +130,16 @@ The basic syntax for running the MetropAccess-Reititin is as follows (in Linux):
 
 `$ route.sh {origin-text-file.txt} {destination-text-file.txt} --out-avg={result-file.txt} --base-path={kalkati-schedule-data-directory} --conf={routing-configuration-file.json}`
 
-\* *On Windows, everything works in a similar manner except instead of calling `route.sh`, you should call `route.bat`. *
+\* *On Windows, everything works in a similar manner except instead of calling `route.sh`, you should call `route.bat`.*
 
 #### Array jobs
 
 The following batch job files (\*.lsf) are used to distribute the calculations and which produce the Helsinki Region Travel Time Matrix (2018):
 
-  - [Walking - reititin_massaAjo_2018_allday_kavely.lsf](job-files/reititin_massaAjo_2018_allday_kavely.lsf)
+  - [Walking - reititin_massaAjo_2018_allday_kavely.lsf](job-files/reititin_2018_allday_walking.lsf)
   - Public Transport:
-      - [Rush-hour - reititin_massaAjo_2018_rushhour_joukkoliikenne.lsf](job-files/reititin_massaAjo_2018_rushhour_joukkoliikenne.lsf)
-      - [Midday - reititin_massaAjo_2018_midday_joukkoliikenne.lsf](job-files/reititin_massaAjo_2018_midday_joukkoliikenne.lsf)
+      - [Rush-hour - reititin_massaAjo_2018_rushhour_joukkoliikenne.lsf](job-files/reititin_2018_rushhour_joukkoliikenne.lsf)
+      - [Midday - reititin_massaAjo_2018_midday_joukkoliikenne.lsf](job-files/reititin_2018_midday_joukkoliikenne.lsf)
 
 These \*.lsf files contains all steps that were used to produce the travel time and distance information for public transport/walking. Each of the executable files follow the same basic steps described in [Steps for distributing the MetropAccess-Reititin runs with array jobs](#steps-for-distributing-the-metropaccess-reititin-runs-with-array-jobs). 
 
