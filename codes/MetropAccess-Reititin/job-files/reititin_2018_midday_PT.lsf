@@ -5,7 +5,7 @@
 #SBATCH -t 08:00:00
 #SBATCH --mem-per-cpu=14000
 #SBATCH --mail-type=END
-#SBATCH --array=0-293
+#SBATCH --array=1-293
 #SBATCH -n 1
 #SBATCH -p serial
 #SBATCH -o pt_process_TTMatrix2018_midday_%a_%A.txt
