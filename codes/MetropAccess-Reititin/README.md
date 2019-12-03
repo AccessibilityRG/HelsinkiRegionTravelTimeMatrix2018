@@ -3,15 +3,16 @@
 This document demonstrates step by step, how public transport and walking travel times/distances were calculated using MetropAccess-Reititin -tool.
 
 ### Contents
- - [Installing MetropAccess-Reititin + dependencies to Taito](#installing-metropaccess-reititin--dependencies-to-taito)
-    - [Nodejs](#nodejs)
-    - [MetropAccess-Reititin](#reititin)
+ - [Installations / Configurations](#installations--configurations)
+    - [Installing MetropAccess-Reititin + dependencies to Taito](#installing-metropaccess-reititin--dependencies-to-taito)
+        - [Nodejs](#nodejs)
+        - [MetropAccess-Reititin](#reititin)
     
  - [Creating an array job for Taito using Reititin](#array-job-reititin)
     - [Necessary steps](#necessary-steps)
     - [Array job files that were used for Helsinki Region Travel Time/Co2 Matrix 2015](#array-jobs)
 
-## Taito Configurations
+## Installations  / Configurations
 
 Public transport calculations were conducted with Taito Supercomputer provided by CSC Finland. Here you can find the documentation regarding configurations and installations in Taito so that it is possible to run MetropAccess-Reititin in Taito. 
 Our calculation problem is of type ['embarassingly parallel'](https://en.wikipedia.org/wiki/Embarrassingly_parallel), i.e. it is possible to distribute the calculations to as many computing cores as possible. We use [Taito Array Jobs](https://research.csc.fi/taito-array-jobs) for this purpose. 
