@@ -1,5 +1,5 @@
 {
-        date:           '2018-03-26',
+        date:           '2018-01-29',
         // Maximum route cost in minutes.
         maxCost:        12*60,
         // EPSG code for projection of input point set, 4326 is WGS84.
