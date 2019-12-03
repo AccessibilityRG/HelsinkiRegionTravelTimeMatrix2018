@@ -112,7 +112,7 @@ The configuration files used to produce the Helsinki Region Travel Time Matrix:
   - [Public Transport, midday - conf2018_pt_midday.json](conf2018_pt_midday.json)
   - [Public Transport, rush hour - conf2018_pt_rushhour.json](job-files/conf2018_pt_rushhour.json)
 
-### Array job -files for executing the analyses
+### Batch job -files for executing the analyses
 
 #### Basic syntax for running MetropAccess-Reititin
 
@@ -124,7 +124,7 @@ The basic syntax for running the MetropAccess-Reititin is as follows (in Linux):
 
 #### Array jobs
 
-The following array job files (\*.lsf) were used for calculating the Helsinki Region Travel Time Matrix (2018):
+The following batch job files (\*.lsf) are used to distribute the calculations and which produce the Helsinki Region Travel Time Matrix (2018):
 
   - [Walking - reititin_massaAjo_2018_allday_kavely.lsf](job-files/reititin_massaAjo_2018_allday_kavely.lsf)
   - Public Transport:
