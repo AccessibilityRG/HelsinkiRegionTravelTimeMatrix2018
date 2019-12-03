@@ -20,82 +20,38 @@ Our calculation problem is of type ['embarassingly parallel'](https://en.wikiped
 
 ### Installing DORA + dependencies on Linux
 
-MetropAccess-Reititin is written in Javascript and running it locally requires node.js to be installed.  
+Door-to-door Routing Analyst or DORA for short is an open source multi modal routing tool. It uses the door-to-door approach when retrieving travel times where the whole travel chain is taken into account. DORA is implemented with the open source database software PostgreSQL and its spatial extension PostGIS and it's making use of the routing library pgRouting. It can be used to route car, cycling and walking routes and is able to read any road network setup in a database with pgRouting (v2.3.2) extension.  
 
-<a name='nodejs'></a> **Install *node.js* to Taito**:
+#### Required Python packages
 
-   - Create folders for nodejs to appl_taito:
-   
-         $ mkdir -p $USERAPPL/nodejs
-         
-   - Download the version 4.1.2 of node.js (source files) and extract it (here files will be located in *node-v4.1.2* ==> Change accordingly to what is the version you use):
-          
-          $ cd $USERAPPL/nodejs
-          $ wget https://nodejs.org/download/release/v4.1.2/node-v4.1.2.tar.gz
-          $ tar xf node-v4.1.2.tar.gz
-                      
-   - Install node.js:
-   
-      - <a name='swap'></a>Swap from Intel to GCC compiler ( *this step is needed every time you use MetropAccess-Reititin in Taito* ):
-            
-             $ module swap intel gcc
-            
-      - Configure and install nodejs (we use version 4.1.2 here --> there have been some building problems with certain nodejs versions)
-      
-             $ cd $USERAPPL/nodejs/node-v4.1.2
-             $ ./configure --prefix=$USERAPPL/nodejs/node-v4.1.2
-             $ make
-             $ make install
-           
-   - <a name='node-path'></a>Export node path to system path ( *this step has to be done every time you start using MetropAccess-Reititin in Taito* )
-   
-         $ export PATH=${PATH}:${USERAPPL}/nodejs/node-v4.1.2/bin
-          
-   - Check that node works (should open a node shell ==> exit by pressing **CNTRL + C** two times)
-     
-         $ node
-       
-### Install MetropAccess-Reititin
+We recommend using [conda package manager](https://www.anaconda.com/distribution/) (available in Anaconda Python distribution) for installing the required Python libraries.
+*For windows, Microsoft Visual C++ 9.0 is required. Get it from [here][microsoft-vistual-c++]*.
 
-  - Make directory for MetropAccess-Reititin:
-        
-         $ mkdir $USERAPPL/reititin
-       
-  - Download the Linux version of the MetropAccess-Reititin:
-  
-        $ cd $USERAPPL/reititin
-        $ wget http://www.helsinki.fi/science/accessibility/tools/MetropAccess-Reititin/MetropAccess-Reititin_Linux.tar.gz
-         
-  - Extract the contents
-         
-        $ tar xf MetropAccess-Reititin_Linux.tar.gz
-         
-  - Check that reititin works in Taito (should start making a test routing) 
-  
-        $ cd $USERAPPL/reititin/reititin/build
-        $ ./route.sh
-      
+Install Python packages with conda/pip:
 
-### Creating an array job for Taito using Reititin
+```
+$ conda install -c conda-forge owslib pyproj psycopg2 geopandas
+$ conda install -c anaconda joblib psutil
+$ pip install nvector
+```
+\* *nvector (not available in conda repositories)*
 
-Running MetropAccess-Reititin in parallel in Taito can be done easily using Taito **Array Jobs**.
-Using array jobs it is possible to divide the calculations to multiple separate jobs running on a different CPU. 
-A guide how to create an array job in Taito can be found from [here](https://research.csc.fi/taito-array-jobs).   
+#### Install DORA
 
-### Steps for distributing the MetropAccess-Reititin runs with array jobs
+You can install DORA by cloning it's repository (with Git) to your computer and adding its location to your system path, as follows:
 
-The calculations with MetropAccess-Reititin are distributed into 294 subtasks using Taito Supercomputer. This distribution work is controlled with specific `*.lsf` -files (Slurm batch job files) that reminds normal Linux shell files where you can execute things line by line, but the batch job files has some specific parameters that can be used to distribute the work into multiple cores/nodes in Taito (see [more documentation from here](https://research.csc.fi/csc-guide-batch-jobs)). The generic steps for running an array job in Taito is as follows (see the actual job-files from next section).
+```
+$ git clone https://github.com/DigitalGeographyLab/DORA.git
+``` 
 
-  1. Define the job range and other Taito related parameters (starting with #SBATCH keyword)
-  2. [Swap from Intel compiler to GCC](#swap)
-  3. [Export node path to system path](#node-path)
-  4. Define MetropAccess-Reititin specific parameters:
-     - Kalkati-path
-     - Path to MetropAccess-Reititin configuration file
-     - Path to folder where origin and destination files are located
-     - Name for the result file     
+Add the directory of the `DORA` repository that you downloaded in the previous step into the [__main__.py] file (you should find it from `/../DORA/src/main/__main__.py`).
 
-## Running the Public Transport calculations in Taito
+In that file, you should modify the `sys.path.append('/dgl/codes/DORA/')` in a way that it points to your local DORA directory, such as:
+````python
+sys.path.append('/my_username/my_softwares/DORA/')
+````
+
+## Running the car/cycling calculations on Linux
 
 ### Origin-destination locations
 
