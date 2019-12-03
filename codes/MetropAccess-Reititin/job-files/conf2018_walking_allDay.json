@@ -1,0 +1,53 @@
+{
+        date:           '2018-03-26',
+        // Maximum route cost in minutes.
+        maxCost:        12*60,
+        // EPSG code for projection of input point set, 4326 is WGS84.
+        srid:           'EPSG:4326',
+        time:           [
+                                '12:00'
+                                
+                        ],
+
+        // Walking speed, m/s.
+        walkSpeed:              70,
+
+        // Cost multiplier for all public transit.
+        transCost:              0,
+        // Cost multipliers for different modes of transit.
+        transModeCost:  {
+                                dummy:0
+                        },
+        // Cost multipliers for individual lines by JORE code
+        transJoreCost:  {
+                                dummy:0
+                        },
+        walkCost:               1.2,
+        waitCost:               1,
+        minWait:                3,
+        firstWait:              0,
+
+        // Cost (not duration) of entering any transit, in minutes.
+        enterCost:              3,
+        // Cost (not duration) of leaving any transit, in minutes.
+        leaveCost:              0,
+        // Cost of entering different modes of transit, in minutes.
+        enterModeCost:  {
+                                dummy:0
+                        },
+        // Cost of leaving different modes of transit, in minutes.
+        leaveModeCost:  {
+                                dummy:0
+                        },
+
+        // Duration in seconds for leaving any transit.
+        leaveTime:              0,
+        // Maximum walking distance per route leg.
+        maxWalk:                100000,
+		// Maximum "flying" distance for connecting input points to road network. Must be less than maxWalk.
+        snapDist:               500,
+        // Search backwards, time sets arrival instead of departure time.
+        backwards:              false,
+
+        dummy:0
+}

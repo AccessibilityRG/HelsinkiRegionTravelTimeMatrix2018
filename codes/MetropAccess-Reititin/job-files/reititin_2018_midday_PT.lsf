@@ -1,0 +1,69 @@
+#!/bin/bash -l
+# created: Mar 19, 2018 9:31 AM
+# author: hentenka
+#SBATCH -J TTMatrix2018
+#SBATCH -t 08:00:00
+#SBATCH --mem-per-cpu=14000
+#SBATCH --mail-type=END
+#SBATCH --array=0-293
+#SBATCH -n 1
+#SBATCH -p serial
+#SBATCH -o pt_process_TTMatrix2018_midday_%a_%A.txt
+#SBATCH -e pt_err_TTMMatrix2018_midday_%a_%A.txt
+
+
+# commands to manage the batch script
+#   submission command
+#     sbatch [script-file]
+#   status command
+#     squeue -u hentenka
+#   termination command
+#     scancel [jobid]
+
+# For more information
+#   man sbatch
+#   more examples in Taito guide in
+#   http://research.csc.fi/taito-user-guide
+
+
+# Use GNU C compiler (gcc)
+module swap intel gcc/4.7.2
+
+# Set node-path to environment variables
+export PATH=${PATH}:${USERAPPL}/nodejs/10.34/bin
+
+###########################
+# PARAMETERS
+###########################
+
+# Outputname for TXT-files
+OUTNAME=TTM_2018_Jan29_PT_Midday
+
+# Path to CONF
+CONF=$HOME/Data/Confit/2018/conf2018_pt_midday.json
+
+# Path to Results
+RESULTS=$WRKDIR/Results/Matrix2018/Midday/PT
+
+# Path to ODs
+OD=$HOME/Data/OD/PT
+
+# Path to Kalkati
+KALKATI=$HOME/Data/Kalkati/kalkati_2018-01-03_2018-02-02
+
+###########################
+# RUN COMMANDS
+###########################
+
+# Move to the directory of data / tool
+cd $HOME/appl_taito/reititin/build
+
+# Run the tool
+./route.sh $OD/"$SLURM_ARRAY_TASK_ID"_Origs_WGS84.txt $OD/destPoints_WGS84.txt --out-avg=$RESULTS/"$SLURM_ARRAY_TASK_ID"_$OUTNAME.txt --base-path=$KALKATI --conf=$CONF
+
+
+# This script will print some usage statistics to the
+# end of file: std.out
+# Use that to improve your resource request estimate
+# on later jobs.
+used_slurm_resources.bash
