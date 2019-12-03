@@ -120,7 +120,7 @@ The basic syntax for running the MetropAccess-Reititin is as follows (in Linux):
 
 `$ route.sh {origin-text-file.txt} {destination-text-file.txt} --out-avg={result-file.txt} --base-path={kalkati-schedule-data-directory} --conf={routing-configuration-file.json}`
 
-On Windows, everything works in a similar manner except instead of calling `route.sh`, you should call `route.bat`. 
+\* *On Windows, everything works in a similar manner except instead of calling `route.sh`, you should call `route.bat`. *
 
 #### Array jobs
 
@@ -131,15 +131,24 @@ The following array job files (\*.lsf) were used for calculating the Helsinki Re
       - [Rush-hour - reititin_massaAjo_2018_rushhour_joukkoliikenne.lsf](job-files/reititin_massaAjo_2018_rushhour_joukkoliikenne.lsf)
       - [Midday - reititin_massaAjo_2018_midday_joukkoliikenne.lsf](job-files/reititin_massaAjo_2018_midday_joukkoliikenne.lsf)
 
-The array job -files contains the steps that produces the travel time and distance information for public transport/walking. Each of the executable files follow the same basic steps described in [Steps for creating an Array Job for MetropAccess-Reititin](#steps-for-creating-an-array-job-for-metropaccess-reititin). The 
+These \*.lsf files contains all steps that were used to produce the travel time and distance information for public transport/walking. Each of the executable files follow the same basic steps described in [Steps for distributing the MetropAccess-Reititin runs with array jobs](#steps-for-distributing-the-metropaccess-reititin-runs-with-array-jobs). 
 
-Running the calculations in Taito is done with command (example by walking):
+Executing the calculations in Taito is done with command (example by public transport at midday):
 
-         $ sbatch reititin_massaAjo_2018_allday_kavely.lsf
+         $ sbatch reititin_massaAjo_2018_midday_PT.lsf
       
 
 You can check the progress of the tasks with command:
 
-
          $ squeue -U $USER
+         
+The result files will be saved into the directory defined in the \*.lsf file with following parameter:
 
+```
+# Path to Results
+RESULTS=$WRKDIR/Results/Matrix2018/Midday/PT
+```
+
+#### Reproducing the data with other HPC infrastructure
+
+The documentation here focuses on demonstrating how the calculations were done using SLURM batch job system at CSC Finland. However, it is certainly possible to use any HPC computing infrastructure that supports SLURM (Simple Linux Utility for Resource Management System), and it possible to set it up for example in Amazon Web Services (see [documentation here](https://aws.amazon.com/blogs/compute/deploying-a-burstable-and-event-driven-hpc-cluster-on-aws-using-slurm-part-1/)).
