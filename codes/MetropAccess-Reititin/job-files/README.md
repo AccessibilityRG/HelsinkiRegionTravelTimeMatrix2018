@@ -3,10 +3,10 @@
 
 ## Parameters:
 
-Origins: 100 origin points (per run) from the extended MetropAccess-YKR-grid -file.
-Destinations: Extended MetropAccess-YKR-grid (14 645 grid centroids)
-Conf PT: /homeappl/home/hentenka/Data/Confit/confMassaAjo2015.json
-Conf Walking: /homeappl/home/hentenka/Data/Confit/confMassaAjo2015_kavely.json
+- Origins: 100 origin points (per run) from the extended MetropAccess-YKR-grid -file.
+- Destinations: Extended MetropAccess-YKR-grid (14 645 grid centroids)
+- Conf PT: /homeappl/home/hentenka/Data/Confit/confMassaAjo2015.json
+- Conf Walking: /homeappl/home/hentenka/Data/Confit/confMassaAjo2015_kavely.json
 
 
 ## Pipeline:
