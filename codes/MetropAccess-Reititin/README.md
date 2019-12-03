@@ -87,6 +87,8 @@ All public transportation origin and destination files that were used in calcula
 
 ### Necessary steps for creating an Array Job (\*.lsf -file) for MetropAccess-Reititin
 
+The generic steps for running an array job in Taito is as follows (see the actual job-files from next section).
+
   1. Define the job range and other Taito related parameters (starting with #SBATCH keyword)
   2. [Swap from Intel compiler to GCC](#swap)
   3. [Export node path to system path](#node-path)
@@ -96,6 +98,9 @@ All public transportation origin and destination files that were used in calcula
      - Path to folder where origin and destination files are located
      - Name for the result file
      
+
+## Running the Public Transport calculations in Taito
+
 <a name='array-jobs'></a>**Here are the array job files that were used when calculating the Helsinki Region Travel Time/CO2 Matrices (2015)**:
 
   - [Walking](reititin_massaAjo_2015_allday_kavely.lsf)
@@ -113,6 +118,4 @@ You can check the progress of the tasks with command:
 
 
          $ squeue -U $USER
-
-
 
