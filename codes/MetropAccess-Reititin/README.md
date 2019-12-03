@@ -3,7 +3,7 @@
 This document demonstrates step by step, how public transport and walking travel times/distances were calculated using MetropAccess-Reititin -tool.
 
 ### Contents
- - [Installing MetropAccess-Reititin + dependencies to Taito](#Installing-MetropAccess-Reititin-+-dependencies-to-Taito)
+ - [Installing MetropAccess-Reititin + dependencies to Taito](#installing-metropaccess-reititin--dependencies-to-taito)
     - [Nodejs](#nodejs)
     - [MetropAccess-Reititin](#reititin)
     
