@@ -4,6 +4,9 @@ This document demonstrates step by step, how car and cycling travel times/distan
 
 ### Contents
  - [Installations / Configurations](#installations---configurations)
+   - [Installing DORA + Dependencies](#installing-dora--dependencies)
+     - [Required Python packages](#required-python-packages)
+     - [Install DORA](#install-dora)
  - [Running the car / cycling calculations with DORA](#running-the-public-transport-calculations-in-taito)
    - Preparations:
      - [Origin-Destination locations](#origin-destination-locations)
@@ -18,7 +21,7 @@ This document demonstrates step by step, how car and cycling travel times/distan
 Car / cycling calculations were conducted with cPouta computing environment provided by CSC Finland. Here you can find the documentation regarding configurations and installations so that it is possible to run DORA on a Linux machine. 
 Our calculation problem is of type ['embarassingly parallel'](https://en.wikipedia.org/wiki/Embarrassingly_parallel), i.e. it is possible to distribute the calculations to as many servers as possible. However, PostgreSQL/PostGIS with **routing capabilities** is not optimal for distributing the work, as [pgRouting](https://pgrouting.org/) (a routing tool built for PostGIS) does not work with [Postgres-XL](https://www.postgres-xl.org/) that would provide easily scalable solutions for creating a PostgreSQL/PostGIS computing cluster and distributing the workload.
 
-### Installing DORA + dependencies on Linux
+### Installing DORA + dependencies
 
 Door-to-door Routing Analyst or DORA for short is an open source multi modal routing tool. It uses the door-to-door approach when retrieving travel times where the whole travel chain is taken into account. DORA is implemented with the open source database software PostgreSQL and its spatial extension PostGIS and it's making use of the routing library pgRouting. It can be used to route car, cycling and walking routes and is able to read any road network setup in a database with pgRouting (v2.3.2) extension.  
 
@@ -55,21 +58,15 @@ sys.path.append('/my_username/my_softwares/DORA/')
 
 ### Origin-destination locations
 
-Our travel time/distance calculations were divided into 294 individual subtasks where each task included MetropAccess-Reititin routings from 50 origin locations that are within a single *origin-file.txt* ([see an example of a origin file](data/1_Origs_WGS84.txt)) to 14645\* destination locations ([see the destination file](data/destPoints_WGS84.txt)). All the origin and destination files that were used with MetropAccess-Reititin are [here](data/). The origin and destination locations represent the centroids of the [250 meter grid](data/MetropAccess_YKR_grid.geojson) that can be used for visualizing the travel times.
-
-\* *the origin-destination files include extra cells around the region (2 km buffer) for testing purposes, that are excluded from the final dataset containing 13 231 grid cells.*
+Our travel time/distance calculations were divided into 293 individual subtasks where each task included DORA routings from 50 origin locations that are within a single *origin-file.geojson* ([see an example of a origin file](data/Origin-subsets/1_Origs_WGS84.geojson)) to 13231 destination locations ([see the destination file](data/destination_Points_WGS84.geojson)). All the origin and destination files that were used with DORA are [here](data/). The origin and destination locations represent the centroids of the [250 meter grid](data/MetropAccess_YKR_grid.geojson) that can be used for visualizing the travel times.
 
 ### Configurations for the routings
 
-Controlling the routing parameters with MetropAccess-Reititin happens with dedicated configuration files where it is possible to adjust various aspects in the analyses, such as time of the day, date of the analysis and walking speed. These files are passed for MetropAccess-Reititin tool as one of input parameters when executing the tool (see next sections).   
+Controlling the routing parameters with DORA happens with dedicated configuration files where it is possible to adjust various aspects in the analyses, such as the impedance (cost/weight attribute) used for finding the shortest paths.   
 
-The configuration files used to produce the Helsinki Region Travel Time Matrix:
+The configuration files used to produce the Helsinki Region Travel Time Matrix with car/cycling:
 
-  - [Walking: conf2018_walking_allDay.json](job-files/conf2018_walking_allDay.json)
-  - [Public Transport, midday - conf2018_pt_midday.json](conf2018_pt_midday.json)
-  - [Public Transport, rush hour - conf2018_pt_rushhour.json](job-files/conf2018_pt_rushhour.json)
 
-### Batch job -files for executing the analyses
 
 #### Basic syntax for running MetropAccess-Reititin
 
