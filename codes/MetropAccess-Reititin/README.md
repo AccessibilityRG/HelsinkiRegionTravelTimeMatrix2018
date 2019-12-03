@@ -103,7 +103,7 @@ Our calculations was divided on 294 individual subtasks where each task included
 
 ### Configurations for the routings
 
-Controlling the routing parameters with MetropAccess-Reititin happens with dedicated configuration files where it is possible to adjust various aspects in the analyses, such as time of the day, date of the analysis and walking speed. 
+Controlling the routing parameters with MetropAccess-Reititin happens with dedicated configuration files where it is possible to adjust various aspects in the analyses, such as time of the day, date of the analysis and walking speed. These files are passed for MetropAccess-Reititin tool as one of input parameters when executing the tool (see next sections).   
 
 The configuration files used to produce the Helsinki Region Travel Time Matrix:
 
