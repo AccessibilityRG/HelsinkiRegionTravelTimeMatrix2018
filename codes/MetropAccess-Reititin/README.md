@@ -99,7 +99,9 @@ The generic steps for running an array job in Taito is as follows (see the actua
 
 ### Origin-destination locations
 
-Our travel time/distance calculations were divided into 294 individual subtasks where each task included MetropAccess-Reititin routings from 50 origin locations that are within a single *origin-file.txt* ([see an example of a origin file](data/1_Origs_WGS84.txt)) to 14645 destination locations ([see the destination file](data/destPoints_WGS84.txt)). All the origin and destination files that were used with MetropAccess-Reititin are [here](data/). 
+Our travel time/distance calculations were divided into 294 individual subtasks where each task included MetropAccess-Reititin routings from 50 origin locations that are within a single *origin-file.txt* ([see an example of a origin file](data/1_Origs_WGS84.txt)) to 14645\* destination locations ([see the destination file](data/destPoints_WGS84.txt)). All the origin and destination files that were used with MetropAccess-Reititin are [here](data/). The origin and destination locations represent the centroids of the [250 meter grid](data/MetropAccess_YKR_grid.geojson) that can be used for visualizing the travel times.
+
+\* *we included extra cells around the region (2 km buffer) for testing purposes, which are not part of the final dataset.*
 
 ### Configurations for the routings
 
