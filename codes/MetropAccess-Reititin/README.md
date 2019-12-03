@@ -1,4 +1,4 @@
-# Public transport calculations with MetropAccess-Reititin 
+# Travel time/distance calculations with MetropAccess-Reititin 
 
 This document demonstrates step by step, how public transport and walking travel times/distances were calculated using MetropAccess-Reititin -tool.
 
@@ -99,7 +99,7 @@ The generic steps for running an array job in Taito is as follows (see the actua
 
 ### Origin-destination locations
 
-Our calculations was divided on 294 individual subtasks where each task included MetropAccess-Reititin route optimizations from 50 origin locations that are within a single *origin-file.txt* ([an example of a origin file](../../data/PT/Subsets/1_Matrix2015_Origs_WGS84.txt)) to 14 645 destination locations ([see the destination file](../../data/PT/destPoints.txt)). All public transportation origin and destination files that were used in calculations are [here](../../data/PT/). 
+Our travel time/distance calculations were divided into 294 individual subtasks where each task included MetropAccess-Reititin routings from 50 origin locations that are within a single *origin-file.txt* ([see an example of a origin file](data/1_Origs_WGS84.txt)) to 14645 destination locations ([see the destination file](data/destPoints_WGS84.txt)). All the origin and destination files that were used with MetropAccess-Reititin are [here](data/). 
 
 ### Configurations for the routings
 
