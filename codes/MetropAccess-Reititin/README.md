@@ -3,14 +3,14 @@
 This document demonstrates step by step, how public transport and walking travel times/distances were calculated using MetropAccess-Reititin -tool.
 
 ### Contents
- - [Installations / Configurations](#installations--configurations)
+ - [Installations / Configurations](#installations---configurations)
     - [Installing MetropAccess-Reititin + dependencies to Taito](#installing-metropaccess-reititin--dependencies-to-taito)
         - [Nodejs](#nodejs)
         - [MetropAccess-Reititin](#reititin)
     
- - [Creating an array job for Taito using Reititin](#array-job-reititin)
-    - [Necessary steps](#necessary-steps)
-    - [Array job files that were used for Helsinki Region Travel Time/Co2 Matrix 2015](#array-jobs)
+    - [Creating an array job for Taito using Reititin](#array-job-reititin)
+        - [Necessary steps](#necessary-steps)
+        - [Array job files that were used for Helsinki Region Travel Time/Co2 Matrix 2018](#array-jobs)
 
 ## Installations  / Configurations
 
