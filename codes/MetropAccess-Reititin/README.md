@@ -81,10 +81,6 @@ Running MetropAccess-Reititin in parallel in Taito can be done easily using Tait
 Using array jobs it is possible to divide the calculations to multiple separate jobs running on a different CPU. 
 A guide how to create an array job in Taito can be found from [here](https://research.csc.fi/taito-array-jobs).   
 
-Our calculations was divided on 293 individual subtasks where each task included MetropAccess-Reititin route optimizations from 50 origin locations that are within a single *origin-file.txt*
-([an example of a origin file](../../data/PT/Subsets/1_Matrix2015_Origs_WGS84.txt)) to 14 645 destination locations ([see the destination file](../../data/PT/destPoints.txt)).
-All public transportation origin and destination files that were used in calculations are [here](../../data/PT/). 
-
 ### Necessary steps for creating an Array Job (\*.lsf -file) for MetropAccess-Reititin
 
 The generic steps for running an array job in Taito is as follows (see the actual job-files from next section).
@@ -100,6 +96,9 @@ The generic steps for running an array job in Taito is as follows (see the actua
      
 
 ## Running the Public Transport calculations in Taito
+
+Our calculations was divided on 293 individual subtasks where each task included MetropAccess-Reititin route optimizations from 50 origin locations that are within a single *origin-file.txt*
+([an example of a origin file](../../data/PT/Subsets/1_Matrix2015_Origs_WGS84.txt)) to 14 645 destination locations ([see the destination file](../../data/PT/destPoints.txt)). All public transportation origin and destination files that were used in calculations are [here](../../data/PT/). 
 
 <a name='array-jobs'></a>**Here are the array job files that were used when calculating the Helsinki Region Travel Time/CO2 Matrices (2015)**:
 
