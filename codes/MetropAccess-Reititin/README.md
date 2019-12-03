@@ -81,9 +81,9 @@ Running MetropAccess-Reititin in parallel in Taito can be done easily using Tait
 Using array jobs it is possible to divide the calculations to multiple separate jobs running on a different CPU. 
 A guide how to create an array job in Taito can be found from [here](https://research.csc.fi/taito-array-jobs).   
 
-### Necessary steps for creating an Array Job (\*.lsf -file) for MetropAccess-Reititin
+### Steps for distributing the MetropAccess-Reititin runs with array jobs
 
-The generic steps for running an array job in Taito is as follows (see the actual job-files from next section).
+The calculations with MetropAccess-Reititin are distributed into 294 subtasks using Taito Supercomputer. This distribution work is controlled with specific `*.lsf` -files (Slurm batch job files) that reminds normal Linux shell files where you can execute things line by line, but the batch job files has some specific parameters that can be used to distribute the work into multiple cores/nodes in Taito (see [more documentation from here](https://research.csc.fi/csc-guide-batch-jobs)). The generic steps for running an array job in Taito is as follows (see the actual job-files from next section).
 
   1. Define the job range and other Taito related parameters (starting with #SBATCH keyword)
   2. [Swap from Intel compiler to GCC](#swap)
@@ -92,8 +92,7 @@ The generic steps for running an array job in Taito is as follows (see the actua
      - Kalkati-path
      - Path to MetropAccess-Reititin configuration file
      - Path to folder where origin and destination files are located
-     - Name for the result file
-     
+     - Name for the result file     
 
 ## Running the Public Transport calculations in Taito
 
@@ -101,7 +100,7 @@ The generic steps for running an array job in Taito is as follows (see the actua
 
 Our travel time/distance calculations were divided into 294 individual subtasks where each task included MetropAccess-Reititin routings from 50 origin locations that are within a single *origin-file.txt* ([see an example of a origin file](data/1_Origs_WGS84.txt)) to 14645\* destination locations ([see the destination file](data/destPoints_WGS84.txt)). All the origin and destination files that were used with MetropAccess-Reititin are [here](data/). The origin and destination locations represent the centroids of the [250 meter grid](data/MetropAccess_YKR_grid.geojson) that can be used for visualizing the travel times.
 
-\* *we included extra cells around the region (2 km buffer) for testing purposes, which are not part of the final dataset.*
+\* *the origin-destination files include extra cells around the region (2 km buffer) for testing purposes, that are excluded from the final dataset.*
 
 ### Configurations for the routings
 
@@ -115,14 +114,25 @@ The configuration files used to produce the Helsinki Region Travel Time Matrix:
 
 ### Array job -files for executing the analyses
 
-<a name='array-jobs'></a>**Here are the array job files that were used when calculating the Helsinki Region Travel Time Matrix (2018)**:
+#### Basic syntax for running MetropAccess-Reititin
 
-  - [Walking](job-files/reititin_massaAjo_2018_allday_kavely.lsf)
+The basic syntax for running the MetropAccess-Reititin is as follows (in Linux):
+
+`$ route.sh {origin-text-file.txt} {destination-text-file.txt} --out-avg={result-file.txt} --base-path={kalkati-schedule-data-directory} --conf={routing-configuration-file.json}`
+
+On Windows, everything works in a similar manner except instead of calling `route.sh`, you should call `route.bat`. 
+
+#### Array jobs
+
+The following array job files (\*.lsf) were used for calculating the Helsinki Region Travel Time Matrix (2018):
+
+  - [Walking - reititin_massaAjo_2018_allday_kavely.lsf](job-files/reititin_massaAjo_2018_allday_kavely.lsf)
   - Public Transport:
-      - [Rush-hour](reititin_massaAjo_2015_rushhour_joukkoliikenne.lsf)
-      - [Midday](reititin_massaAjo_2015_midday_joukkoliikenne.lsf)
-  
-    
+      - [Rush-hour - reititin_massaAjo_2018_rushhour_joukkoliikenne.lsf](job-files/reititin_massaAjo_2018_rushhour_joukkoliikenne.lsf)
+      - [Midday - reititin_massaAjo_2018_midday_joukkoliikenne.lsf](job-files/reititin_massaAjo_2018_midday_joukkoliikenne.lsf)
+
+The array job -files contains the steps that produces the travel time and distance information for public transport/walking. Each of the executable files follow the same basic steps described in [Steps for creating an Array Job for MetropAccess-Reititin](#steps-for-creating-an-array-job-for-metropaccess-reititin). The 
+
 Running the calculations in Taito is done with command (example by walking):
 
          $ sbatch reititin_massaAjo_2018_allday_kavely.lsf
