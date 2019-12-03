@@ -7,7 +7,7 @@ This document demonstrates step by step, how public transport and walking travel
 Public transport calculations were conducted with Taito Supercomputer provided by CSC Finland. Here you can find the documentation regarding configurations and installations in Taito so that it is possible to run MetropAccess-Reititin in Taito. 
 Our calculation problem is of type ['embarassingly parallel'](https://en.wikipedia.org/wiki/Embarrassingly_parallel), i.e. it is possible to distribute the calculations to as many computing cores as possible. We use [Taito Array Jobs](https://research.csc.fi/taito-array-jobs) for this purpose. 
 
-## Contents
+### Contents
  - [Installing MetropAccess-Reititin + dependencies to Taito](#Installing-MetropAccess-Reititin-+-dependencies-to-Taito)
     - [Nodejs](#nodejs)
     - [MetropAccess-Reititin](#reititin)
@@ -74,7 +74,7 @@ MetropAccess-Reititin is written in Javascript and running it locally requires n
         $ ./route.sh
       
 
-## Creating an array job for Taito using Reititin
+### Creating an array job for Taito using Reititin
 
 Running MetropAccess-Reititin in parallel in Taito can be done easily using Taito **Array Jobs**.
 Using array jobs it is possible to divide the calculations to multiple separate jobs running on a different CPU. 
