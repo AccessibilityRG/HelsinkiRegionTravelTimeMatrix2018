@@ -84,7 +84,7 @@ into account the whole travel chains from the origin to the destination:
 
 Travel times by public transportation have been optimized using 10 different departure times within the calculation hour using so called Golomb ruler. The fastest route from these calculations are selected for the final travel time matrix.
 
-Calculations of 2015 MetropAccess-Travel Time Matrix are __based on schedules of Monday 29.01.2018__:
+Public transport calculations of Helsinki Region Travel Time Matrix for year 2018 are __based on schedules of Monday 29.01.2018__:
 
  - Midday (optimized between 12:00-13:00 ) --> Comparable with previous versions of the Helsinki Region Travel Time Matrix (2013 & 2015).
  - Rush hour (optimized between 08:00-09:00) --> Comparable with 2015 version of the Helsinki Region Travel Time Matrix.
