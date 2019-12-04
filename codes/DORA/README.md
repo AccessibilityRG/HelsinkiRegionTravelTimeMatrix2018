@@ -2,19 +2,23 @@
  
 This document demonstrates how car and cycling travel times/distances were calculated using [DORA -tool](https://github.com/DigitalGeographyLab/DORA).
 
-### Contents
+## Contents
  - [Installations / Configurations](#installations---configurations)
    - [Installing DORA + Dependencies](#installing-dora--dependencies)
      - [Required Python packages](#required-python-packages)
      - [Install DORA](#install-dora)
+ - [Preprocessing steps before routing](#preprocessing-steps-before-routing)
+   - [CAR: Assigning intersection delays for the road network](#car-assigning-intersection-delays-for-the-road-network)
+   - [BIKE: Preprocessing of the cycling network](#bike-preprocessing-of-the-cycling-network)
+   - [Populating the database with car/cycling networks](#populating-the-postgresql-with-road-network-data)
+     - [Car: Populating Digiroad network](#digiroad)
+     - [Bike: Populating cycling network](#cycling)
  - [Running the car / cycling calculations with DORA](#running-the-carcycling-calculations-with-dora)
    - Preparations:
      - [Origin-Destination locations](#origin-destination-locations)
-     - [Configurations for the routings](#configurations-for-the-routings)
    - Analyses:
-     - [Basic syntax for running MetropAccess-Reititin](#basic-syntax-for-running-metropaccess-reititin)
-     - [Distributing the work](#distributing-the-work)
-     
+     - [Basic syntax for running DORA](#basic-syntax-for-running-dora)
+     - [Running the matrix analyses with DORA for car and cycling](#running-the-matrix-analyses-with-dora-for-car-and-cycling)
 
 ## Installations  / Configurations
 
@@ -185,12 +189,6 @@ After these steps the cycling network is ready for routing with DORA.
 ### Origin-destination locations
 
 Our travel time/distance calculations were divided into 293 individual subtasks where each task included DORA routings from 50 origin locations that are within a single *origin-file.geojson* ([see an example of a origin file](data/Origin-subsets/1_Origs_WGS84.geojson)) to 13231 destination locations ([see the destination file](data/destination_Points_WGS84.geojson)). All the origin and destination files that were used with DORA are [here](data/). The origin and destination locations represent the centroids of the [250 meter grid](data/MetropAccess_YKR_grid.geojson) that can be used for visualizing the travel times.
-
-### Configurations for the routings
-
-Controlling the routing parameters with DORA happens with dedicated configuration files where it is possible to adjust various aspects in the analyses, such as the impedance (cost/weight attribute) used for finding the shortest paths.   
-
-The configuration files used to produce the Helsinki Region Travel Time Matrix with car/cycling:
 
 ### Basic syntax for running DORA
 
