@@ -192,8 +192,6 @@ Controlling the routing parameters with DORA happens with dedicated configuratio
 
 The configuration files used to produce the Helsinki Region Travel Time Matrix with car/cycling:
 
-### Running the analyses with DORA
-
 ### Basic syntax for running DORA
 
 Running DORA can be conducted with following command:
@@ -228,3 +226,23 @@ Impedance/Cost ```-c``` attribute accepted values:
   * SPEED_LIMIT_TIME (PRIVATE_CAR only)
   * BICYCLE_FAST_TIME (BICYCLE only)
   * BICYCLE_SLOW_TIME (BICYCLE only)
+  
+### Running the matrix analyses with DORA for car and cycling
+
+We (manually) distributed the analyses into 5 separate servers to make the analyses faster. To reproduce the results with a single server, conduct the following (modify paths etc. to respect your local settings):
+
+**Car midday:**
+
+`$ python -m src.main -s data/Origin-subsets -e data/destination_points -o my_results -t PRIVATE_CAR -c MIDDAY_DELAY_TIME --summary --is_entry_list` 
+
+**Car rush hour:**
+
+`$ python -m src.main -s data/Origin-subsets -e data/destination_points -o my_results -t PRIVATE_CAR -c RUSH_HOUR_DELAY --summary --is_entry_list` 
+
+**Bike fast:**
+
+`$ python -m src.main -s data/Origin-subsets -e data/destination_points -o my_results -t BICYCLE -c BICYCLE_FAST_TIME --summary --is_entry_list` 
+
+**Bike slow:**
+
+`$ python -m src.main -s data/Origin-subsets -e data/destination_points -o my_results -t BICYLE -c BICYCLE_FAST_TIME --summary --is_entry_list` 
