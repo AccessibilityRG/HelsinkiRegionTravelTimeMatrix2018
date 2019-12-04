@@ -1,0 +1,7 @@
+{
+ "maxTransferDistance": 1500,
+ "parentStopLinking": true,
+ "htmlAnnotations": true,
+ "areaVisibility": true,
+ "osmWayPropertySet": "norway"
+}

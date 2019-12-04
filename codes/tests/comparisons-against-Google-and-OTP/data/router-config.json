@@ -1,0 +1,15 @@
+{
+    "routingDefaults": {
+        "walkSpeed": 5.2,
+        "stairsReluctance": 4.0,
+        "carDropoffTime": 240,
+	"maxWalkDistance": 20000,
+        "maxTransferWalkDistance": 1000
+    },
+
+  "modeWeight": {
+      "BUS": 1.2,
+      "SUBWAY": 0.9,
+      "RAIL": 0.95
+  }
+}

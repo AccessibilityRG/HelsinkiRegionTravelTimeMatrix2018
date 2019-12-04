@@ -1,0 +1,18 @@
+{
+    "year": 2018,
+    "month": 1,
+    "day": 29,
+    "hour": 7,
+    "minutes": [0],
+    "modes": "BICYCLE",
+    "walk_speed": 5.2,
+    "max_walk": 2000,
+    "isochrone_timeout": 43200,
+    "bike_speed": 5.2,
+    "bike_switch_time": 60,
+    "max_hours": 4,
+    "max_transfers": 8,
+    "num_itineraries": 10,
+    "worst_time": 3,
+    "banned_routes": ""
+}
