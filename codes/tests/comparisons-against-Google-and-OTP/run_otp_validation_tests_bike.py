@@ -18,7 +18,7 @@ def get_current_dir():
 # Filepaths
 mrouter_path = os.path.join(get_current_dir(), "one_to_many_otp.py")
 
-otp_path = "otp-1.3.0-shaded.jar"
+otp_path = "bin/otp-1.3.0-shaded.jar"
 base_dir = "data"
 data_dir = os.path.join(base_dir, 'otp-data', 'Helsinki')
 output_dir = os.path.join(base_dir, 'validation', 'results')

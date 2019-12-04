@@ -7,11 +7,13 @@ Created on Wed Jun 12 15:47:57 2019
 @author: hentenka
 """
 import os
-import os
 from sys import platform
 import subprocess
-import shutil
+from inspect import getsourcefile
 
+def get_current_dir():
+    """Get directory of current file (i.e. where utils.py is located)"""
+    return os.path.dirname(os.path.abspath(getsourcefile(lambda: 0)))
 
 def build_otp_graph(data_dir, otp_path, verbose=False, allocated_memory=12):
     """Builds OpenTripPlanner graph based on data found in data_dir"""
