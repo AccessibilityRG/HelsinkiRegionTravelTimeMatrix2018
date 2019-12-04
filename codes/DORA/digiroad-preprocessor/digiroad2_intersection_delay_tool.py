@@ -114,19 +114,40 @@ def edges_from_line(geom, attrs):
     edge_attrs["Wkt"] = geom.ExportToWkt()
     yield (geom.GetPoint_2D(0), geom.GetPoint_2D(last), edge_attrs)
 
-def generateGraphFromDigiroadShape(filepath, strict=True):
-    """Generates nx.DiGraph() object from Digiroad 2.0. 
+def load_graph_from_Digiroad_shape(filepath, direction='AJOSUUNTA', both_ways=2, against=3, along=4, strict=True):
+    """Generates nx.MultiDiGraph() object from Digiroad 2.0 Shapefile. 
+    Parameters
+    ----------
     
-    Digiroad 2.0 cannot be read directly with nx.read_shp() function because of custom datatypes. """
+    filepath : str
+        Filepath to Digiroad 2.0 Shapefile.
+    direction : str
+        Name for column that contains information about the allowed driving directions
+         
+    both_ways : int
+        Value specifying that the road is drivable to both directions.
     
-    net = nx.DiGraph()
+    against : int
+        Value specifying that the road is drivable against the digitizing direction. 
+    
+    along : int
+        Value specifying that the road is drivable along the digitizing direction.
+    
+    strict : bool
+        Raise error if error is being caught when building the graph.  
+    """
+
+    graph = nx.MultiDiGraph()
     shp = ogr.Open(filepath)
     if shp is None:
         raise RuntimeError("Unable to open {}".format(filepath))
+
+    print("Loading graph from file ..")
     for lyr in shp:
         fields = [x.GetName() for x in lyr.schema]
         for f in lyr:
             g = f.geometry()
+
             if g is None:
                 if strict:
                     raise nx.NetworkXError("Bad data: feature missing geometry")
@@ -135,32 +156,49 @@ def generateGraphFromDigiroadShape(filepath, strict=True):
             flddata = [f.GetField(f.GetFieldIndex(x)) for x in fields]
             attributes = dict(zip(fields, flddata))
             attributes["ShpName"] = lyr.GetName()
-            
-            # Add x and y coordinates of the starting node
-            attributes['x'] = g.GetPoint_2D(0)[0]
-            attributes['y'] = g.GetPoint_2D(0)[1]
-            
+
             # Digiroad 2.0 specific GeometryType is somekind of number always
             if isinstance(g.GetGeometryType(), int):
-                # Add nodes
-                net.add_node((g.GetPoint_2D(0)), **attributes)
+
+                coords = g.GetPoint_2D(0)
+                x, y = coords[0], coords[1]
+
+                # Add x and y to attributes
+                attributes['x'] = x
+                attributes['y'] = y
+                attributes['nodeid'] = coords
+                # Add node to the graph
+                graph.add_node(coords, **attributes)
                 # Get edges
                 for edge in edges_from_line(g, attributes):
                     e1, e2, attr = edge
-                    net.add_edge(e1, e2)
-                    net[e1][e2].update(attr)
+
+                    # If road is bi-directional add it also in reversed order
+                    if attr[direction] == both_ways:
+                        graph.add_edge(e1, e2, **attr)
+                        graph.add_edge(e2, e1, **attr)
+                    # If road is drivable against the digitization direction (reverse)
+                    elif attr[direction] == against:
+                        graph.add_edge(e2, e1, **attr)
+                    # Otherwise add the edge "normally"
+                    elif attr[direction] == along:
+                        graph.add_edge(e1, e2, **attr)
             else:
                 if strict:
                     raise nx.NetworkXError("GeometryType {} not supported".
                                            format(g.GetGeometryType()))
-    return net
 
-def generate_graph_from_Digiroad_GeoDataFrame(gdf, strict=True):
-    """Generates nx.DiGraph() object from Digiroad 2.0 that is stored in a GeoDataFrame. 
-    
-    Digiroad 2.0 cannot be read directly with nx.read_shp() function because of custom datatypes. """
-    
-    print("TODO")
+    # Add name
+    graph.graph['name'] = os.path.basename(filepath)[:-4]
+
+    # Add CRS
+    try:
+        crs = lyr.GetSpatialRef().ExportToProj4()
+    except:
+        crs = None
+    graph.graph['crs'] = crs
+
+    return graph
 
 def get_nodes(graph):
     """Converts graph nodes into a GeoDataFrame."""
@@ -748,18 +786,18 @@ def main():
     
     print("Generate graph..")
     # Generate graph from the roads 
-    G = generateGraphFromDigiroadShape(temp_fp)
+    G = load_graph_from_Digiroad_shape(temp_fp)
     
-    print("Simplify graph ..")
+    #print("Simplify graph ..")
     # Generate graph with only intersection and ending nodes and the edges between them
-    sgraph = simplify_graph(G)
+    #sgraph = simplify_graph(G)
     
     # Get nodes and edges
-    sn = get_nodes(sgraph)
-    se = get_edges(sgraph)
+    sn = get_nodes(G)
+    se = get_edges(G)
     
     # Calculate the number of connections
-    sn = calculate_node_connections(df=sn, graph=sgraph)
+    sn = calculate_node_connections(df=sn, graph=G)
     
     # Select intersections
     intersections = sn.loc[sn['connections'] > 1]
@@ -815,46 +853,4 @@ def main():
     outfp = link_fp.replace('.shp', '_intersection_delayed.shp')
     result = result.loc[result['geometry'].notnull()]
     result.to_file(outfp)
-    
-    # ===========================
-    # Simplify network if wanted
-    # ===========================
-    
-    G = generateGraphFromDigiroadShape(outfp)
-    
-    print("Simplify the result graph for faster routing..")
-    # Generate graph with only intersection and ending nodes and the edges between them
-    sgraph = simplify_graph(G)
-    
-    # Get nodes and edges
-    sn = get_nodes(sgraph)
-    se = get_edges(sgraph)
-    
-    # Harmonize the speed limits. Use the speed limit of the longest road segment with longest distance
-    #se = parse_speed_limits(se, length_column='Pituus')
-    
-    # Sum the values of the travel times
-    se = sum_list_rows(se, column=freeflow_column)
-    se = sum_list_rows(se, column='Keskpva_aa')
-    se = sum_list_rows(se, column='Kokopva_aa')
-    se = sum_list_rows(se, column='Ruuhka_aa')
-    
-    # Calculate the total distance of the merged road segments
-    se[length_column] = se.length
-    
-    # Remove unnecessary columns
-    se = se.drop(['jtype1', 'jtype2', 'jtype3', 'jtype4', 'jtype5', 'ShpName'], axis=1)
-    
-    # Put the new columns at the end of the file
-    cols = se.columns
-    cols_to_end = ['KmH', 'Pituus', 'Digiroa_aa', 'Kokopva_aa', 'Keskpva_aa', 'Ruuhka_aa']
-    new_order = [col for col in cols if col not in cols_to_end]
-    new_order = new_order + cols_to_end
-    se = se[new_order]
-    
-    # Convert lists to strings
-    se = convertListsToStr(se)
-    
-    # Save to disk
-    outfp = outfp.replace('.shp', '_simplified.shp')
-    se.to_file(outfp)
+   
