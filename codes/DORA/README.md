@@ -173,10 +173,11 @@ Add the Digiroad network to PostGIS database (`"my_database"` needs to exist, an
    
  - Rename columns as DORA wants them:
 
-  ```
-  ALTER TABLE metropaccess_cyclingnetwork RENAME COLUMN Pituus TO DISTANCE;
-  ALTER TABLE metropaccess_cyclingnetwork RENAME COLUMN Fast_time TO BICYCLE_FAST_TIME;
-  ALTER TABLE metropaccess_cyclingnetwork RENAME COLUMN Slow_time TO BICYCLE_SLOW_TIME;```
+   ```
+    ALTER TABLE metropaccess_cyclingnetwork RENAME COLUMN Pituus TO DISTANCE;
+    ALTER TABLE metropaccess_cyclingnetwork RENAME COLUMN Fast_time TO BICYCLE_FAST_TIME;
+    ALTER TABLE metropaccess_cyclingnetwork RENAME COLUMN Slow_time TO BICYCLE_SLOW_TIME;
+   ```
   
 After these steps the cycling network is ready for routing with DORA.
 
