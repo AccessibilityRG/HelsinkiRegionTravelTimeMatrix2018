@@ -12,3 +12,14 @@ organized into the following directories:
  - [tests](tests) -directory contains documentation and scripts related to validation of the data and tools. 
  
  
+## Validation
+
+### Travel time matrix against OpenTripPlanner and Google
+
+We have conducted systematic comparisons between our time estimates and estimates obtained from other similar routing tools (OpenTripPlanner and Google Maps).
+You can find the scripts and data for producing the validation results in [**here**](tests/comparisons-against-Google-and-OTP).
+
+### DORA tool vs previous ArcGIS tool to produce car travel times
+
+A systematic comparison between the current DORA routing tool (for car) and the previous ArcGIS -based routing tool 
+was conducted and the results can be read from [**here**](tests/DORA-validation).
