@@ -7,7 +7,7 @@ This document demonstrates how car and cycling travel times/distances were calcu
    - [Installing DORA + Dependencies](#installing-dora--dependencies)
      - [Required Python packages](#required-python-packages)
      - [Install DORA](#install-dora)
- - [Running the car / cycling calculations with DORA](#running-the-public-transport-calculations-in-taito)
+ - [Running the car / cycling calculations with DORA](#running-the-carcycling-calculations-with-dora)
    - Preparations:
      - [Origin-Destination locations](#origin-destination-locations)
      - [Configurations for the routings](#configurations-for-the-routings)
@@ -54,9 +54,9 @@ In that file, you should modify the `sys.path.append('/dgl/codes/DORA/')` in a w
 sys.path.append('/my_username/my_softwares/DORA/')
 ````
 
-## Running the car/cycling calculations on Linux
+## Running the car/cycling calculations with DORA
 
-### Assigning intersection delays for the road network
+### CAR: Assigning intersection delays for the road network
 
 Before populating the database with Digiroad data (road network used with driving), we create new cost attributes into the data that takes into account the deceleration effect of congestion to driving speeds in cities. This is done by using a so called intersection delay model that was developed for Helsinki Region based on [floating-car data](https://en.wikipedia.org/wiki/Floating_car_data) (documented in [Jaakkola 2013](https://blogs.helsinki.fi/accessibility/files/2019/12/TimoJaakkola_Paikkatietopohjainen_menetelma_autoilun_ajoaikojen_ja_kokonaismatka-aikojen_mallintamiseen.pdf)), and assigning for each road segment three different drivethrough times:
  
@@ -83,9 +83,13 @@ After modifying this you can run the tool e.g. from command prompt by calling:
 
 `$ python digiroad2_intersection_delay_tool.py`
 
+### BIKE: Preprocessing of the cycling network
+
+
+
 ### Populating the PostgreSQL with road network data
 
-
+After the Digiroad
 
 ### Origin-destination locations
 
