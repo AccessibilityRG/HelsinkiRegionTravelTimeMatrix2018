@@ -9,13 +9,17 @@ Created on Thu Jun 13 11:16:36 2019
 @author: hentenka
 """
 import os
+from inspect import getsourcefile
+
+def get_current_dir():
+    """Get directory of current file (i.e. where utils.py is located)"""
+    return os.path.dirname(os.path.abspath(getsourcefile(lambda: 0)))
 
 # Filepaths
-mrouter_path = r"C:\HY-DATA\hentenka\KOODIT\Mapple\mrouter\mrouter\one_to_many_otp.py"
-#mrouter_path = r"C:\HY-DATA\hentenka\KOODIT\Mapple\mrouter\mrouter\mrcli.py"
+mrouter_path = os.path.join(get_current_dir(), "one_to_many_otp.py")
 
 otp_path = "otp-1.3.0-shaded.jar"
-base_dir = r"C:\HY-DATA\hentenka\KOODIT\Uni\manuscripts\2019_TravelTimeMatrix\data"
+base_dir = "data"
 data_dir = os.path.join(base_dir, 'otp-data', 'Helsinki')
 output_dir = os.path.join(base_dir, 'validation', 'results')
 conf_fp = os.path.join(data_dir, 'config_bike.json')
