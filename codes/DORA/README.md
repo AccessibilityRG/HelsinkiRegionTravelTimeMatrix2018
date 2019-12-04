@@ -1,6 +1,6 @@
 # Travel time/distance calculations with DORA
  
-This document demonstrates step by step, how car and cycling travel times/distances were calculated using [DORA -tool](https://github.com/DigitalGeographyLab/DORA).
+This document demonstrates how car and cycling travel times/distances were calculated using [DORA -tool](https://github.com/DigitalGeographyLab/DORA).
 
 ### Contents
  - [Installations / Configurations](#installations---configurations)
@@ -33,7 +33,7 @@ We recommend using [conda package manager](https://www.anaconda.com/distribution
 Install Python packages with conda/pip:
 
 ```
-$ conda install -c conda-forge owslib pyproj psycopg2 geopandas
+$ conda install -c conda-forge owslib pyproj psycopg2 geopandas networkx
 $ conda install -c anaconda joblib psutil
 $ pip install nvector
 ```
@@ -55,6 +55,37 @@ sys.path.append('/my_username/my_softwares/DORA/')
 ````
 
 ## Running the car/cycling calculations on Linux
+
+### Assigning intersection delays for the road network
+
+Before populating the database with Digiroad data (road network used with driving), we create new cost attributes into the data that takes into account the deceleration effect of congestion to driving speeds in cities. This is done by using a so called intersection delay model that was developed for Helsinki Region based on [floating-car data](https://en.wikipedia.org/wiki/Floating_car_data) (documented in [Jaakkola 2013](https://blogs.helsinki.fi/accessibility/files/2019/12/TimoJaakkola_Paikkatietopohjainen_menetelma_autoilun_ajoaikojen_ja_kokonaismatka-aikojen_mallintamiseen.pdf)), and assigning for each road segment three different drivethrough times:
+ 
+ 1. Speed limit based drive-through time
+ 2. Drive-through time according rush hour traffic
+ 3. Drive-through time according midday traffic
+ 
+ For calculating the intersection delayd drive-through impedances, we developed a dedicated Python tool called [digiroad2_intersection_delay_tool.py](digiroad-preprocessor/digiroad2_intersection_delay_tool.py). The tool should be used with openly available [Digiroad road network data](https://vayla.fi/web/en/open-data/digiroad/data) using the K-delivery format of the Digiroad data (see [details from here](https://vayla.fi/web/en/open-data/digiroad/data)).  The tool requires three files from the Digiroad: 
+  1. DR_LINKKI_K ("road segments")
+  2. DR_NOPEUSRAJOITUS_K ("road segments with speed limit information")
+  3. DR_LIIKENNEVALO ("traffic signals")
+  
+You should modify the filepaths at the end of the [code](digiroad-preprocessor/digiroad2_intersection_delay_tool.py) by adjusting the following lines:
+```
+# =================
+# File paths
+# =================
+data_folder = "/my_user/My_Digiroad_Data_Folder"
+link_fp = os.path.join(data_folder, "DR_LINKKI_K.shp")
+limits_fp = os.path.join(data_folder, "DR_NOPEUSRAJOITUS_K.shp")
+signals_fp = os.path.join(data_folder, "DR_LIIKENNEVALO.shp")
+```
+After modifying this you can run the tool e.g. from command prompt by calling:
+
+`$ python digiroad2_intersection_delay_tool.py`
+
+### Populating the PostgreSQL with road network data
+
+
 
 ### Origin-destination locations
 
