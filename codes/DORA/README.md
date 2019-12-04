@@ -91,7 +91,16 @@ Further details on how the Strava data was processed can be found from [Tarnanen
 
 ### Populating the PostgreSQL with road network data
 
-After the Digiroad
+After the Digiroad data has been adjusted by assigning the intersection delays (see above), you can populate the PostGIS table with the road network and initialize the routing network for processing. A good tutorial on how to populate the PostGIS database for routing can be found from [here](https://mixedbredie.github.io/pgrouting-workshop/). We used `ogr2ogr` to populate the data into the database with following commands.
+
+Add the Digiroad network to PostGIS database (`"my_database"` needs to exist, and it should NOT have a table called `intersection_delayed_Digiroad`):
+
+`$ ogr2ogr -select "AJOSUUNTA, KmH, Pituus, Digiroa_aa, Kokopva_aa, Keskpva_aa, Ruuhka_aa" -where "AJOSUUNTA<>''" -f PostgreSQL PG:dbname=my_database intersection_delayd_Digiroad.shp -nlt PROMOTE_TO_MULTI`
+
+After the car network data has been successfully uploaded to the database, you need to create a routable network from it with [pg_routing](http://pgrouting.org/) -extension of PostGIS:
+
+`$ `
+
 
 ### Origin-destination locations
 
