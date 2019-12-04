@@ -54,8 +54,7 @@ In that file, you should modify the `sys.path.append('/dgl/codes/DORA/')` in a w
 sys.path.append('/my_username/my_softwares/DORA/')
 ````
 
-## Running the car/cycling calculations with DORA
-
+## Preprocessing steps before routing
 ### CAR: Assigning intersection delays for the road network
 
 Before populating the database with Digiroad data (road network used with driving), we create new cost attributes into the data that takes into account the deceleration effect of congestion to driving speeds in cities. This is done by using a so called intersection delay model that was developed for Helsinki Region based on [floating-car data](https://en.wikipedia.org/wiki/Floating_car_data) (documented in [Jaakkola 2013](https://blogs.helsinki.fi/accessibility/files/2019/12/TimoJaakkola_Paikkatietopohjainen_menetelma_autoilun_ajoaikojen_ja_kokonaismatka-aikojen_mallintamiseen.pdf)), and assigning for each road segment three different drivethrough times:
@@ -163,6 +162,7 @@ Add the Digiroad network to PostGIS database (`"my_database"` needs to exist, an
    ```
 After these steps the cycling network is ready for routing with DORA.
 
+## Running the car/cycling calculations with DORA
 ### Origin-destination locations
 
 Our travel time/distance calculations were divided into 293 individual subtasks where each task included DORA routings from 50 origin locations that are within a single *origin-file.geojson* ([see an example of a origin file](data/Origin-subsets/1_Origs_WGS84.geojson)) to 13231 destination locations ([see the destination file](data/destination_Points_WGS84.geojson)). All the origin and destination files that were used with DORA are [here](data/). The origin and destination locations represent the centroids of the [250 meter grid](data/MetropAccess_YKR_grid.geojson) that can be used for visualizing the travel times.
@@ -173,45 +173,38 @@ Controlling the routing parameters with DORA happens with dedicated configuratio
 
 The configuration files used to produce the Helsinki Region Travel Time Matrix with car/cycling:
 
+### Running the analyses with DORA
 
+### Basic syntax for running DORA
 
-#### Basic syntax for running MetropAccess-Reititin
-
-The basic syntax for running the MetropAccess-Reititin is as follows (in Linux):
-
-`$ route.sh {origin-text-file.txt} {destination-text-file.txt} --out-avg={result-file.txt} --base-path={kalkati-schedule-data-directory} --conf={routing-configuration-file.json}`
-
-\* *On Windows, everything works in a similar manner except instead of calling `route.sh`, you should call `route.bat`.*
-
-#### Array jobs
-
-The following batch job files (\*.lsf) are used to distribute the calculations and which produce the Helsinki Region Travel Time Matrix (2018):
-
-  - [Walking - reititin_massaAjo_2018_allday_kavely.lsf](job-files/reititin_2018_allday_walking.lsf)
-  - Public Transport:
-      - [Rush-hour - reititin_massaAjo_2018_rushhour_joukkoliikenne.lsf](job-files/reititin_2018_rushhour_joukkoliikenne.lsf)
-      - [Midday - reititin_massaAjo_2018_midday_joukkoliikenne.lsf](job-files/reititin_2018_midday_joukkoliikenne.lsf)
-
-These \*.lsf files contains all steps that were used to produce the travel time and distance information for public transport/walking. Each of the executable files follow the same basic steps described in [Steps for distributing the MetropAccess-Reititin runs with array jobs](#steps-for-distributing-the-metropaccess-reititin-runs-with-array-jobs). 
-
-Executing the calculations in Taito is done with command (example by public transport at midday):
-
-         $ sbatch reititin_massaAjo_2018_midday_PT.lsf
-      
-
-You can check the progress of the tasks with command:
-
-         $ squeue -U $USER
-         
-The result files will be saved into the directory defined in the \*.lsf file with following parameter:
-
+Running DORA can be conducted with following command:
+```$ python -m src.main -s <../startPointsFolder> -e <../endPointsFolder> -o <../outputFolder> -t BICYCLE -c BICYCLE_FAST_TIME --summary --is_entry_list
 ```
-# Path to Results
-RESULTS=$WRKDIR/Results/Matrix2018/Midday/PT
-```
+where:
 
-#### Reproducing the data with other HPC infrastructure
+ - ```-s```: Path to the Geojson file containing the set of __origin__ points (or the directory containing a set of Geojsons).
 
-The documentation here focuses on demonstrating how the calculations were done using SLURM batch job system at CSC Finland. However, it is certainly possible to use any HPC (High Performance Computing) infrastructure that supports SLURM (Simple Linux Utility for Resource Management System), and it possible to set it up for example in Amazon Web Services (see [documentation here](https://aws.amazon.com/blogs/compute/deploying-a-burstable-and-event-driven-hpc-cluster-on-aws-using-slurm-part-1/)).
+- ```-e```: Path to the Geojson file containing the set of __target__ points (or the directory containing a set of Geojsons).
+
+- ```-o```: Path where store the output data.
+
+- ```-t```: Flag to choose the transport mode for the data analysis [PRIVATE_CAR, BICYCLE].
+
+- ```-c```: The impedance/cost attribute to calculate the shortest path.
+
+- ```--route```: Store in the output folder the geojson files with the fastest route LineString features.
+
+- ```--summary```: Store in the output folder the csv files containing the fastest travel time summary per each pair of entry points.
+
+- ```--is_entry_list```: Define if the ```-s``` and ```-e``` are folders paths and not file paths.
 
 
+Impedance/Cost ```-c``` attribute accepted values:
+
+  * DISTANCE (Both PRIVATE_CAR and BICYCLE)
+  * RUSH_HOUR_DELAY (PRIVATE_CAR only)
+  * MIDDAY_DELAY_TIME (PRIVATE_CAR only)
+  * DAY_AVG_DELAY_TIME (PRIVATE_CAR only)
+  * SPEED_LIMIT_TIME (PRIVATE_CAR only)
+  * BICYCLE_FAST_TIME (BICYCLE only)
+  * BICYCLE_SLOW_TIME (BICYCLE only)
