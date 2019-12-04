@@ -7,40 +7,21 @@ __Contents:__
 - [What is Helsinki Region Travel Time Matrix 2018?](#What-is-Helsinki-Region-Travel-Time-Matrix-2018)
 - [Attributes of Helsinki Region Travel Time Matrix 2018](#attributes)
 - [How calculations were done?](#calculations)
-  - [Public Transport](#pt)
   - [Walking](#walk)
+  - [Cycling](#cycling)
+  - [Public Transport](#pt)
   - [Private car](#car)
 - [Licence](#license)
 - [How to cite this work?](#how-to-cite)
-- [Codes](#code-repo)
+- [Codes: How to reproduce the results?](#code-repo)
 - [Contribution / Contact](#contact)
 
 ## What is Helsinki Region Travel Time Matrix 2018?
  
-[__Helsinki Region Travel Time Matrix 2018__](http://www.helsinki.fi/science/accessibility/data) is a dataset that contains travel time and distance information of the routes
-that have been calculated from all 250 m x 250 m grid cell centroids (n = 13231) in the Capital Region of Helsinki 
-([see this map](http://www.helsinki.fi/science/accessibility/tools/YKR/YKR_Identifier.html)) by walking, public transportation (PT) and private car. 
-Calculations were done separately for two different time of the day using rush hour (08:00-09:00) and midday (12:00-13:00) schedules/traffic conditions. 
-The grid cells are compatible with the statistical grid cells in the YKR (yhdyskuntarakenteen seurantajärjestelmä) data set produced by the Finnish Environment Institute (SYKE). 
+[__Helsinki Region Travel Time Matrix 2018__](http://www.helsinki.fi/science/accessibility/data) is a dataset that contains travel time and distance information of the route that have been calculated from all 250 m x 250 m grid cell centroids (n = 13231) in the Capital Region of Helsinki ([see this map](http://www.helsinki.fi/science/accessibility/tools/YKR/YKR_Identifier.html)) by walking, cycling, public transportation (PT) and private car. Calculations were done separately for two different time of the day using rush hour (08:00-09:00) and midday (12:00-13:00) schedules/traffic conditions. The grid cells are compatible with the statistical grid cells in the YKR (yhdyskuntarakenteen seurantajärjestelmä) data set produced by the Finnish Environment Institute (SYKE). 
    
 Dataset is openly available for everyone for free and it can be downloaded from the [Accessibility Research Group website](http://www.helsinki.fi/science/accessibility/data) (under a Creative Commons 4.0 Licence, see [licence text](#license)).
-
-Helsinki Region Travel Time Matrix 2015 is closely related to __[Helsinki Region Travel CO2 Matrix 2015](http://www.helsinki.fi/science/accessibility/data/)__ 
-that is also produced by Accessibility Research Group. 
-More information on how the Helsinki Region Travel CO2 Matrix 2015 was calculated can be found [from here](https://github.com/AccessibilityRG/HelsinkiRegionTravelCO2Matrix2015). 
  
-__Scientific examples__ of the approach used here can be read from the following articles:
-
-- Laatikainen, T., H. Tenkanen, M. Kyttä & T. Toivonen (2015). [Comparing conventional and PPGIS approaches in measuring equality of access to urban aquatic environments.](http://www.sciencedirect.com/science/article/pii/S0169204615001590) Landscape and Urban Planning 144, 22–33.
-- Toivonen, T., M. Salonen, H. Tenkanen, P. Saarsalmi, T. Jaakkola & J. Järvi (2014). [Joukkoliikenteellä, autolla ja kävellen: Avoin saavutettavuusaineisto pääkaupunkiseudulla.](http://www.helsinki.fi/science/accessibility/publications/Toivonen_etal_2014_terra.pdf) Terra 126: 3, 127-136. 
-- Salonen, M. & Toivonen, T. (2013). [Modelling travel time in urban networks: comparable measures for private car and public transport.](http://www.sciencedirect.com/science/article/pii/S096669231300121X) Journal of Transport Geography 31, 143–153.
-- Jaakkola, T. (2013). [Paikkatietopohjainen menetelmä autoilun ajoaikojen ja kokonaismatka-aikojen mallintamiseen – esimerkkinä pääkaupunkiseutu.](http://www.helsinki.fi/science/accessibility/publications/TimoJaakkola_Paikkatietopohjainen_menetelma_autoilun_ajoaikojen_ja_kokonaismatka-aikojen_mallintamiseen.pdf) Pro gradu -tutkielma. Helsingin yliopisto. 
-Geotieteiden ja maantieteen laitos.
-- Lahtinen, J., Salonen, M. & Toivonen, T. (2013). [Facility allocation strategies and the sustainability of service delivery: 
-Modelling library patronage patterns and their related CO2-emissions](http://www.sciencedirect.com/science/article/pii/S014362281300163X). Applied Geography 44, 43-52.
-- Jäppinen,  S., Toivonen, T. & Salonen, M. (2013). [Modelling the potential effect of shared bicycles on public transport travel times in Greater Helsinki: An open data approach.](http://www.sciencedirect.com/science/article/pii/S014362281300132X) Applied Geography 43, 13-24.
-- Salonen, M., Toivonen, T. & Vaattovaara, M. (2012). Arkiliikkumisen vaihtoehdoista monikeskuksistuvassa metropolissa: Kaksi näkökulmaa palvelujen saavutettavuuteen pääkaupunkiseudulla.
-Yhdyskuntasuunnittelu 3/2012
 
 ## <a name="attributes"></a>Attributes of Helsinki Region Travel Time Matrix 2018
 
@@ -68,6 +49,23 @@ Yhdyskuntasuunnittelu 3/2012
  
 ## <a name="calculations"></a>How calculations were done?
 
+### <a name="walk"></a>Walking
+
+__The routes by walking__ were also calculated using the __[MetropAccess-Reititin](http://blogs.helsinki.fi/accessibility/reititin/)__ by disabling all motorized transport modes in the calculation. Thus, all routes are based on the Open Street Map geometry.
+The walking speed has been adjusted to 70 meters per minute, which is the default speed in the HRT Journey Planner (also in the calculations by public transportation).
+
+For detailed documentation and instructions how to reproduce the walking results, see [documentation in here](codes/MetropAccess-Reititin).
+
+### <a name="cycling"></a>Cycling
+
+__The routes by cycling__ were calculated using a dedicated open source tool called [**DORA**](https://github.com/DigitalGeographyLab/DORA). The network dataset underneath is [MetropAccess-CyclingNetwork dataset](), which is a modified version from the original Digiroad data provided by Finnish Transport Agency. In the dataset the travel times for the road segments have been modified to be more realistic based on Strava sports application data from the Helsinki region from 2016 and the bike sharing system data from Helsinki from 2017.
+
+For each road segment a separate speed value was calculated for slow and fast cycling. The value for fast cycling is based on a percentual difference  between segment specific Strava speed value and the average speed value for the whole Strava data. This same percentual difference has been applied to calculate the slower speed value for each road segment. The speed value is then the average speed value of bike sharing system users multiplied by the percentual difference value.
+
+The reference value for faster cycling has been 19km/h, which is based on the average speed of Strava sports application users in the Helsinki region. The reference value for slower cycling has been 12km/, which has been the average travel speed of bike sharing system users in Helsinki. Additional 1 minute have been added to the travel time to consider the time for taking (30s) and returning (30s) bike on the origin/destination.
+
+For detailed documentation and instructions how to reproduce the cycling results, see [documentation in here](codes/DORA).
+
 ### <a name="pt"></a>Public Transport
 
 __The routes by public transportation__ have been calculated by using the __[MetropAccess-Reititin](http://blogs.helsinki.fi/accessibility/reititin/)__ tool which also takes
@@ -81,25 +79,18 @@ into account the whole travel chains from the origin to the destination:
  6. *travel time to next transit stop*
  7. *walking to the destination*
 
-Travel times by public transportation have been optimized using 10 different departure times within the calculation hour using so called Golomb ruler.
-The fastest route from these calculations are selected for the final travel time matrix.
+Travel times by public transportation have been optimized using 10 different departure times within the calculation hour using so called Golomb ruler. The fastest route from these calculations are selected for the final travel time matrix.
 
 Calculations of 2015 MetropAccess-Travel Time Matrix are __based on schedules of Monday 29.01.2018__:
 
  - Midday (optimized between 12:00-13:00 ) --> Comparable with previous versions of the Helsinki Region Travel Time Matrix (2013 & 2015).
  - Rush hour (optimized between 08:00-09:00) --> Comparable with 2015 version of the Helsinki Region Travel Time Matrix.
  
-For detailed documentation and instructions how to reproduce the results, see [documentation in here](codes/MetropAccess-Reititin).
-
-### <a name="walk"></a>Walking
-
-__The routes by walking__ were also calculated using the __[MetropAccess-Reititin](http://blogs.helsinki.fi/accessibility/reititin/)__ by disabling all motorized transport modes in the calculation. Thus, all routes are based on the Open Street Map geometry.
-The walking speed has been adjusted to 70 meters per minute, which is the default speed in the HRT Journey Planner (also in the calculations by public transportation).
+For detailed documentation and instructions how to reproduce the public transport results, see [documentation in here](codes/MetropAccess-Reititin).
 
 ### <a name="car"></a>Private car
 
-__The routes by car__ have been calculated with a dedicated open source tool called [**DORA**](https://github.com/DigitalGeographyLab/DORA). [MetropAccess-Digiroad dataset](http://blogs.helsinki.fi/accessibility/data/metropaccess-digiroad/) (modified from the original Digiroad data provided by Finnish Transport Agency)
-has been used as Network Dataset in which the travel times of the road segments are made more realistic by adding crossroad impedances for different road classes.
+__The routes by car__ have been calculated with a dedicated open source tool called [**DORA**](https://github.com/DigitalGeographyLab/DORA). [MetropAccess-Digiroad dataset](http://blogs.helsinki.fi/accessibility/data/metropaccess-digiroad/) (modified from the original Digiroad data provided by Finnish Transport Agency) has been used as Network Dataset in which the travel times of the road segments are made more realistic by adding crossroad impedances for different road classes.
  
 The calculations have been repeated for two times of the day using: 
  - the "midday impedance" (i.e. travel times outside rush hour) 
@@ -113,8 +104,10 @@ __The whole travel chain__ ( *"door-to-door approach"* ) is taken into account i
  4. *average time for searching a parking lot* 
  5. *walking time from parking lot to nearest network location of the destination* 
  6. *walking time from network location to the real destination (based on Euclidean distance)*
+ 
+For detailed documentation and instructions how to reproduce the public transport results, see [documentation in here](codes/DORA).
 
-All calculations were done using the computing resources of CSC-IT Center for Science (https://www.csc.fi/home).
+All calculations for different travel modes were done using the computing resources of CSC-IT Center for Science (https://www.csc.fi/home).
 
 ## <a name="license"></a>Licence
 
@@ -130,16 +123,16 @@ You can cite to our work as follows:
 
 __Data/Tools description:__
 
- - Tenkanen, H. & T. Toivonen (upcoming). Multimodal and multitemporal accessibility dataset for planning: travel times and distances in Helsinki Region. *Scientific Data*. 
+ - Tenkanen, H. & T. Toivonen (forthcoming). Multimodal and multitemporal accessibility dataset for planning: travel times and distances in Helsinki Region. *Scientific Data*. 
  - Toivonen, T., M. Salonen, H. Tenkanen, P. Saarsalmi, T. Jaakkola & J. Järvi (2014). 
 Joukkoliikenteellä, autolla ja kävellen: Avoin saavutettavuusaineisto pääkaupunkiseudulla. Terra 126: 3, 127-136.
 
 __DOI name for the dataset:__
 - Tenkanen, Henrikki, & Toivonen, Tuuli. (2019). Helsinki Region Travel Time Matrix [Data set]. Zenodo. http://doi.org/10.5281/zenodo.3247564
 
-## <a name="code-repo"></a>Codes to reproduce the results
+## <a name="code-repo"></a>Codes: How to reproduce the results?
 
-All the codes and analysis steps that have been used to produce the Helsinki Region Travel Time Matrix 2018 are documented separately in [here](codes/). 
+All the codes and analysis steps that have been used to produce the Helsinki Region Travel Time Matrix 2018 are documented separately under [codes -folder](codes/). 
 
 ## <a name="contact"></a>Contribution / Contact
 __Helsinki Region Travel Time Matrix 2018__ was created by the [Accessibility Research Group](http://www.helsinki.fi/science/accessibility)/[Digital Geography Lab](https://www.helsinki.fi/en/researchgroups/digital-geography-lab) 
