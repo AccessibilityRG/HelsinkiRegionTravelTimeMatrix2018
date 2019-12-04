@@ -178,8 +178,8 @@ The configuration files used to produce the Helsinki Region Travel Time Matrix w
 ### Basic syntax for running DORA
 
 Running DORA can be conducted with following command:
-```$ python -m src.main -s <../startPointsFolder> -e <../endPointsFolder> -o <../outputFolder> -t BICYCLE -c BICYCLE_FAST_TIME --summary --is_entry_list
-```
+`$ python -m src.main -s <../startPointsFolder> -e <../endPointsFolder> -o <../outputFolder> -t BICYCLE -c BICYCLE_FAST_TIME --summary --is_entry_list`
+
 where:
 
  - ```-s```: Path to the Geojson file containing the set of __origin__ points (or the directory containing a set of Geojsons).
