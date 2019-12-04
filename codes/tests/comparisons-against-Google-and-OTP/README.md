@@ -47,3 +47,8 @@ After running the script, you should have travel time estimates by car in [valid
 
 ## Calculate travel time differences against Helsinki Region Travel Time Matrix
 
+For calculating and plotting the travel time differences between travel time estimates 
+in Helsinki Region Travel Time Matrix and estimates obtained from Google Maps and OpenTripPlanner
+run the following script:
+
+ 1. [travel_time_validations_and_visualizations_by_all_travel_modes.py](travel_time_validations_and_visualizations_by_all_travel_modes.py)
