@@ -2,6 +2,10 @@
 This repository demonstrates / documents how __[Helsinki Region Travel Time Matrix 2018](http://blogs.helsinki.fi/accessibility/helsinki-region-travel-time-matrix-2018/)__ is calculated. 
 Dataset was produced by [Accessibility Research Group / Digital Geography Lab](http://www.helsinki.fi/science/accessibility), University of Helsinki.
 
+This repository is part of following article that documents [Helsinki Region Travel Time Matrix](https://zenodo.org/record/3247564) -dataset consisting of travel time/distance data for years 2013, 2015 and 2018:
+
+ - Tenkanen, H. & T. Toivonen. Helsinki Region Travel Time Matrix: Multidimensional accessibility data to support spatial planning and decision making. Scientific Data (under review).
+
 __Contents:__
 
 - [What is Helsinki Region Travel Time Matrix 2018?](#What-is-Helsinki-Region-Travel-Time-Matrix-2018)
