@@ -1,13 +1,28 @@
-# Car Routing result differences between Metrop-Access Digiroad data and pgRouting-based tool.
+# Car routing differences between MetropAccess-Digiroad-tool and DORA
 
-To run the comparison between the old Metrop-Access Digiroad tool and the new Car Routing Tool using PgRouting, we used the more than 13000 grid-cells versus 5 samples of those points (green points) located in different regions of the area of study. See below. 
+To run the comparison between the old ArcGIS -based MetropAccess-Digiroad-tool and the DORA, we used the more than 13000 grid-cells versus 5 samples of those points (green points) located in different regions of the area of study. See below. 
 
 ![TestPoint][TestPointImage]
+
+## Test data
+
+ - [Test_Points_Reititin.geojson](test_data/Test_Points_Reititin.geojson)
+    - The test points for MetropAccess-Reititin were selected mostly along the metro line (n=101). Three points per station were set, one on the right side, one on the left and one on top of the station to see that the connections are working as they should. The rest of the points are located in the housing disticts in Espoo, Helsinki and Vantaa. 
+ - [Test_Points_MetropA_Digiroad.geojson](test_data/Test_Points_MetropA_Digiroad.geojson)
+    - The testpoints are the centroids of the grid squares that were sampled from MetropAccess grid using a random sample (n=100). 
+
+![TestPointImageMetropADigiroad](LocationsOfDigiroadTestPoints.png)
+Locations of the MetropAccess Digiroad quality test points.
+
+![TestPointsImageReititin](LocationsOfReititinTestPoints.png)
+Locations of the Reititin quality test points.
+
+## Results
 
 As a result we have the following matrices for each of the points:
 * Negative values indicate that the new tool found faster routes than the old one and positives values that the new tool found slower routes.
 
-## 1st Point
+### 1st Point
 
 ![MatrixDifference][MatrixDifferenceImage1]
 
@@ -27,7 +42,7 @@ As a result we have the following matrices for each of the points:
 
 The image above illustrates that 81.5% of the routes lies within the interval [-2,2].
 
-## 2nd Point
+### 2nd Point
 
 ![MatrixDifference2][MatrixDifferenceImage2]
 
@@ -47,7 +62,7 @@ The image above illustrates that 81.5% of the routes lies within the interval [-
 
 In this case, the routes laying within the [-2,2] interval are the 82,2%.  
 
-## 3rd Point
+### 3rd Point
 
 ![MatrixDifference3][MatrixDifferenceImage3]
 
@@ -67,7 +82,7 @@ In this case, the routes laying within the [-2,2] interval are the 82,2%.
 
 For the third case, the 72,8% of the routes are within the interval [-2,2].
 
-## 4th Point
+### 4th Point
 
 ![MatrixDifference4][MatrixDifferenceImage4]
 
@@ -87,7 +102,7 @@ For the third case, the 72,8% of the routes are within the interval [-2,2].
 
 85,7% of the routes are within the intervals [-2,2]
 
-## 5th Point
+### 5th Point
 
 ![MatrixDifference5][MatrixDifferenceImage5]
 
@@ -107,7 +122,7 @@ For the third case, the 72,8% of the routes are within the interval [-2,2].
 
 Whereas in this last test case, only the 60,5% of the routes are within in the same interval [-2,2].
 
-### 5th Point: shortest path from faster areas
+#### 5th Point: shortest path from faster areas
 
 In order to analyze why routes going to the city center are faster in certain regions, we chose 6 random points and calculated the shortest path to those points. See the result below.
 
