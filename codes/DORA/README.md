@@ -91,16 +91,77 @@ Further details on how the Strava data was processed can be found from [Tarnanen
 
 ### Populating the PostgreSQL with road network data
 
-After the Digiroad data has been adjusted by assigning the intersection delays (see above), you can populate the PostGIS table with the road network and initialize the routing network for processing. A good tutorial on how to populate the PostGIS database for routing can be found from [here](https://mixedbredie.github.io/pgrouting-workshop/). We used `ogr2ogr` to populate the data into the database with following commands.
+Before it is possible to use DORA for travel time analyses, it is required to populate the PostGIS tables with street network datasets for car and cycling. The following sections documents how to do these steps. 
 
-Add the Digiroad network to PostGIS database (`"my_database"` needs to exist, and it should NOT have a table called `intersection_delayed_Digiroad`):
+#### Digiroad
 
-`$ ogr2ogr -select "AJOSUUNTA, KmH, Pituus, Digiroa_aa, Kokopva_aa, Keskpva_aa, Ruuhka_aa" -where "AJOSUUNTA<>''" -f PostgreSQL PG:dbname=my_database intersection_delayd_Digiroad.shp -nlt PROMOTE_TO_MULTI`
+After the Digiroad data has been adjusted by assigning the intersection delays (see above), you can populate the PostGIS table with the road network and initialize the routing network for processing. A good tutorial on how to populate the PostGIS database for routing can be found from [here](https://mixedbredie.github.io/pgrouting-workshop/). We used `ogr2ogr` to populate the data into the database with following commands (comes with [GDAL](https://gdal.org/programs/ogr2ogr.html) that is installed together with required Python libraries).
 
-After the car network data has been successfully uploaded to the database, you need to create a routable network from it with [pg_routing](http://pgrouting.org/) -extension of PostGIS:
+Add the Digiroad network to PostGIS database (`"my_database"` needs to exist, and it should NOT have a table called `intersection_delayed_digiroad`):
 
-`$ `
+`$ ogr2ogr -select "AJOSUUNTA, KmH, Pituus, Digiroa_aa, Keskpva_aa, Ruuhka_aa" -where "AJOSUUNTA<>''" -nlt PROMOTE_TO_MULTI -f PostgreSQL PG:dbname=my_database intersection_delayd_Digiroad.shp`
 
+where `AJOSUUNTA` is allowed driving direction, `KmH` is the speed limit for the given road segment, `Pituus` is length of the road segment (in meters), `Digiroa_aa` is the drive-through time in minutes based on speed limits, `Keskpva_aa` is the drive-through time in minutes based on midday traffic conditions, and `Ruuhka_aa` is the drive-through time in minutes based on rush hour traffic conditions.
+
+After the car network data has been successfully uploaded to the database, you need to modify the table by adding new columns to the table that represents the source and target nodes on each edge (first/last vertex of each line). The following SQL commands should be run inside the database:
+
+- Create new columns
+  ```
+  ALTER TABLE public.intersection_delayed_digiroad
+    ADD COLUMN source integer,
+    ADD COLUMN target integer,
+    ADD COLUMN x1 double precision,
+    ADD COLUMN y1 double precision,
+    ADD COLUMN x2 double precision,
+    ADD COLUMN y2 double precision;
+  ```
+
+- Get the start/end points of the lines (i.e. nodes)
+   ```
+   UPDATE public.intersection_delayed_digiroad
+      SET x1 = st_x(st_startpoint(geometry)),
+        y1 = st_y(st_startpoint(geometry)),
+        x2 = st_x(st_endpoint(geometry)),
+        y2 = st_y(st_endpoint(geometry));
+   ```
+- create a routable network from it with [pg_routing](http://pgrouting.org/) -extension of PostGIS:
+   ```
+   SELECT public.pgr_createTopology('public.intersection_delayed_digiroad', 100, 'geometry', 'gid', 'source', 'target');
+   ```
+After these steps the car network is ready for routing with DORA.   
+  
+#### Cycling 
+
+Populating the cycling tables in PostGIS follows more or less the same steps as with car. 
+
+Add the Digiroad network to PostGIS database (`"my_database"` needs to exist, and it should NOT have a table called `metropaccess_cyclingnetwork`):
+
+`$ ogr2ogr -select "Pituus, pros, Fast_speed, Slow_speed, Fast_time, Slow_time" -nlt PROMOTE_TO_MULTI -f PostgreSQL PG:dbname=my_database MetropAccess-CyclingNetwork.shp`
+
+- Create new columns
+  ```
+  ALTER TABLE public.metropaccess_cyclingnetwork
+    ADD COLUMN source integer,
+    ADD COLUMN target integer,
+    ADD COLUMN x1 double precision,
+    ADD COLUMN y1 double precision,
+    ADD COLUMN x2 double precision,
+    ADD COLUMN y2 double precision;
+  ```
+
+- Get the start/end points of the lines (i.e. nodes)
+   ```
+   UPDATE public.metropaccess_cyclingnetwork
+      SET x1 = st_x(st_startpoint(geometry)),
+        y1 = st_y(st_startpoint(geometry)),
+        x2 = st_x(st_endpoint(geometry)),
+        y2 = st_y(st_endpoint(geometry));
+   ```
+- create a routable network from it with [pg_routing](http://pgrouting.org/) -extension of PostGIS:
+   ```
+   SELECT public.pgr_createTopology('public.metropaccess_cyclingnetwork', 100, 'geometry', 'gid', 'source', 'target');
+   ```
+After these steps the cycling network is ready for routing with DORA.
 
 ### Origin-destination locations
 
