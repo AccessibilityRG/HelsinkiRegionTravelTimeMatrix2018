@@ -24,10 +24,10 @@ def build_otp_graph(data_dir, otp_path, verbose=False, allocated_memory=12):
     if platform == "linux" or platform == "linux2":
         subprocess.call(["screen", "-S", "otp_graphbuilder", "-d", "-c", cmd], cwd=get_current_dir())
     else:
-        result = subprocess.Popen(cmd, shell=True, bufsize=1, stdout=subprocess.PIPE)
+        result = subprocess.Popen(cmd, shell=True, bufsize=1, stdout=subprocess.PIPE, universal_newlines=True)
         for line in result.stdout:
             if verbose:
-                print(line.decode('utf-8'))
+                print(line)
 
 # Filepaths
 data_dir = "data"
