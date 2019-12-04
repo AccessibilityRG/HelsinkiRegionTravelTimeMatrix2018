@@ -18,11 +18,10 @@ __Contents:__
 
 ## What is Helsinki Region Travel Time Matrix 2018?
  
-[__Helsinki Region Travel Time Matrix 2018__](http://www.helsinki.fi/science/accessibility/data) is a dataset that contains travel time and distance information of the route that have been calculated from all 250 m x 250 m grid cell centroids (n = 13231) in the Capital Region of Helsinki ([see this map](http://www.helsinki.fi/science/accessibility/tools/YKR/YKR_Identifier.html)) by walking, cycling, public transportation (PT) and private car. Calculations were done separately for two different time of the day using rush hour (08:00-09:00) and midday (12:00-13:00) schedules/traffic conditions. The grid cells are compatible with the statistical grid cells in the YKR (yhdyskuntarakenteen seurantajärjestelmä) data set produced by the Finnish Environment Institute (SYKE). 
+[__Helsinki Region Travel Time Matrix 2018__](http://www.helsinki.fi/science/accessibility/data) is a dataset that contains travel time and distance information of the route that have been calculated from all 250 m x 250 m grid cell centroids (n = 13231) in the Capital Region of Helsinki ([see this map](http://www.helsinki.fi/science/accessibility/tools/YKR/YKR_Identifier.html)) by walking, cycling, public transport and private car. Calculations for public transport and car were done separately for two different time of the day using rush hour (08:00-09:00) and midday (12:00-13:00) schedules/traffic conditions. For cycling, the dataset contains separate time estimates for "fast" (~19 km/h average speed) and "slow" (~12 km/h average speed) cyclists. The grid cells are compatible with the statistical grid cells in the YKR (yhdyskuntarakenteen seurantajärjestelmä) data set produced by the Finnish Environment Institute (SYKE). 
    
 Dataset is openly available for everyone for free and it can be downloaded from the [Accessibility Research Group website](http://www.helsinki.fi/science/accessibility/data) (under a Creative Commons 4.0 Licence, see [licence text](#license)).
  
-
 ## <a name="attributes"></a>Attributes of Helsinki Region Travel Time Matrix 2018
 
 | Attribute | Definition |
