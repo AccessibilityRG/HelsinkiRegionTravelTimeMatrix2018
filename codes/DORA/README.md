@@ -85,7 +85,9 @@ After modifying this you can run the tool e.g. from command prompt by calling:
 
 ### BIKE: Preprocessing of the cycling network
 
+For cycling analyses, we built a customized routing network called [MetropAccess-CyclingNetwork](data/MetropAccess-CyclingNetwork.zip) by utilizing GPS data from Strava sport tracker application from year 2016 (see [a sample of the network here](data/MetropAccess-CyclingNetwork_EPSG_4326_sample.geojson)). The Strava dataset is based on data from 5223 unique users. We first linked the GPS points to the closest streets with customized map matching techniques 20,21. Then we identified the roads that are most commonly used by cyclists and calculated user based cycling speeds for different road segments. Finally, we aggregated this information into an average travel speed per segment. 
 
+Further details on how the Strava data was processed can be found from [Tarnanen (2017)](https://blogs.helsinki.fi/accessibility/files/2017/11/Gradu_Tarnanen_A.pdf), and [Tarnanen, Salonen, Willberg & Toivonen (2017)](https://www.hel.fi/static/liitteet/kaupunkiymparisto/julkaisut/julkaisut/julkaisu-16-17.pdf). Python scripts that were used to preprocess the cycling network can be found from [here](https://github.com/ainoT/pyoraily-matka-aikamalli). 
 
 ### Populating the PostgreSQL with road network data
 
