@@ -127,6 +127,16 @@ After the car network data has been successfully uploaded to the database, you n
    ```
    SELECT public.pgr_createTopology('public.intersection_delayed_digiroad', 100, 'geometry', 'gid', 'source', 'target');
    ```
+   
+- Rename columns as DORA wants them:
+
+  ```
+  ALTER TABLE intersection_delayed_digiroad RENAME COLUMN pituus TO DISTANCE;
+  ALTER TABLE intersection_delayed_digiroad RENAME COLUMN digiroa_aa TO SPEED_LIMIT_TIME;
+  ALTER TABLE intersection_delayed_digiroad RENAME COLUMN ruuhka_aa TO RUSH_HOUR_DELAY;
+  ALTER TABLE intersection_delayed_digiroad RENAME COLUMN keskpva_aa TO MIDDAY_DELAY_TIME;
+  ```
+  
 After these steps the car network is ready for routing with DORA.   
   
 #### Cycling 
@@ -160,6 +170,14 @@ Add the Digiroad network to PostGIS database (`"my_database"` needs to exist, an
    ```
    SELECT public.pgr_createTopology('public.metropaccess_cyclingnetwork', 100, 'geometry', 'gid', 'source', 'target');
    ```
+   
+ - Rename columns as DORA wants them:
+
+  ```
+  ALTER TABLE metropaccess_cyclingnetwork RENAME COLUMN Pituus TO DISTANCE;
+  ALTER TABLE metropaccess_cyclingnetwork RENAME COLUMN Fast_time TO BICYCLE_FAST_TIME;
+  ALTER TABLE metropaccess_cyclingnetwork RENAME COLUMN Slow_time TO BICYCLE_SLOW_TIME;```
+  
 After these steps the cycling network is ready for routing with DORA.
 
 ## Running the car/cycling calculations with DORA
