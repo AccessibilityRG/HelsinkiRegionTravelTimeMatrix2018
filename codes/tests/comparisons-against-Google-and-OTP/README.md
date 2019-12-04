@@ -1,5 +1,11 @@
 # Travel time comparisons
 
+For validation results, see the article:
+
+ - Tenkanen, H. & T. Toivonen. Helsinki Region Travel Time Matrix: Multidimensional accessibility data to support spatial planning and decision making. *Scientific Data*.
+
+-----
+
 Comparisons between DORA and MetropAccess-Reititin against Google and OpenTripPlanner are used to estimate the data quality.
 
 A systematic assessment of the data quality was done by comparing the travel time estimates 
