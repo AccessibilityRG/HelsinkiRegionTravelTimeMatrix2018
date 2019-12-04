@@ -152,22 +152,22 @@ Additionally, we found that the road network dataset, that was used in this (and
 The yellow point is the **starting point**, all the other points are possible destinations. We can see that the algorithm is able to find a correct route to the points that are below the starting point given the road directionality, but do not happen the same with the point above, in which in normal cases, had had to follow a path going downwards on the road, find a turn, go straight up and find another turn to reach the final destination, but in this case, the algorithm found a route heading upwards directly to the end point, which it is wrong.    
  
 
-[TestPointImage]: ./../../docs/car-routing/datapoints.PNG
-[MatrixDifferenceImage1]: ./../../docs/car-routing/matrixDifferenceImage1-5920413.png
-[MatrixDifferenceImage2]: ./../../docs/car-routing/matrixDifferenceImage2-5878018.png
-[MatrixDifferenceImage3]: ./../../docs/car-routing/matrixDifferenceImage3-5870644.png
-[MatrixDifferenceImage4]: ./../../docs/car-routing/matrixDifferenceImage4-5963599.png 
-[MatrixDifferenceImage5]: ./../../docs/car-routing/matrixDifferenceImage5-5973738.png
+[TestPointImage]: datapoints.PNG
+[MatrixDifferenceImage1]: matrixDifferenceImage1-5920413.png
+[MatrixDifferenceImage2]: matrixDifferenceImage2-5878018.png
+[MatrixDifferenceImage3]: matrixDifferenceImage3-5870644.png
+[MatrixDifferenceImage4]: matrixDifferenceImage4-5963599.png 
+[MatrixDifferenceImage5]: matrixDifferenceImage5-5973738.png
 
-[MatrixErrorImage1]: ./../../docs/car-routing/matrixIntervalImage1-5920413.png
-[MatrixErrorImage2]: ./../../docs/car-routing/matrixIntervalImage2-5878018.png
-[MatrixErrorImage3]: ./../../docs/car-routing/matrixIntervalImage3-5870644.png
-[MatrixErrorImage4]: ./../../docs/car-routing/matrixIntervalImage4-5963599.png
-[MatrixErrorImage5]: ./../../docs/car-routing/matrixIntervalImage5-5973738.png
+[MatrixErrorImage1]: matrixIntervalImage1-5920413.png
+[MatrixErrorImage2]: matrixIntervalImage2-5878018.png
+[MatrixErrorImage3]: matrixIntervalImage3-5870644.png
+[MatrixErrorImage4]: matrixIntervalImage4-5963599.png
+[MatrixErrorImage5]: matrixIntervalImage5-5973738.png
 
-[ShortestPathRautatientoriImage]: ./../../docs/car-routing/sampleRoutesToRautatientori.png
-[ShortestPathRautatientoriArcGISImage]: ./../../docs/car-routing/sampleRoutesToRautatientoriArcGIS.png
-[ShortestPathRautatientoriComparisonImage]: ./../../docs/car-routing/sampleRoutesToRautatientoriComparison.png
-[nearestVertexRautatientoriImage]: ./../../docs/car-routing/nearestVertexRautatientori.png
-[roadSegmentWellRoutedImage]: ./../../docs/car-routing/road-segment-well-routed.png
-[roadSegmentNOTWellRoutedImage]: ./../../docs/car-routing/road-segment-NOT-well-routed.png
+[ShortestPathRautatientoriImage]: sampleRoutesToRautatientori.png
+[ShortestPathRautatientoriArcGISImage]: sampleRoutesToRautatientoriArcGIS.png
+[ShortestPathRautatientoriComparisonImage]: sampleRoutesToRautatientoriComparison.png
+[nearestVertexRautatientoriImage]: nearestVertexRautatientori.png
+[roadSegmentWellRoutedImage]: road-segment-well-routed.png
+[roadSegmentNOTWellRoutedImage]: road-segment-NOT-well-routed.png
