@@ -6,7 +6,9 @@ This repository is part of following article that documents [Helsinki Region Tra
 
  - Tenkanen, H. & T. Toivonen. Helsinki Region Travel Time Matrix: Multidimensional accessibility data to support spatial planning and decision making. Scientific Data (under review).
 
-__Contents:__
+-----
+
+### Contents
 
 - [What is Helsinki Region Travel Time Matrix 2018?](#What-is-Helsinki-Region-Travel-Time-Matrix-2018)
 - [Attributes of Helsinki Region Travel Time Matrix 2018](#attributes)
