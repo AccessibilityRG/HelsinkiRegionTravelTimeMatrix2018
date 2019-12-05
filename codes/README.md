@@ -21,5 +21,4 @@ You can find the scripts and data for producing the validation results in [**her
 
 ### DORA tool vs previous ArcGIS tool to produce car travel times
 
-A systematic comparison between the current DORA routing tool (for car) and the previous ArcGIS -based routing tool 
-was conducted and the results can be read from [**here**](tests/DORA-validation).
+A systematic comparison between the current DORA routing tool (for car) and the previous ArcGIS -based routing tool (that was used to produce the data for years 2013 and 2015) was conducted and the results can be read from [**here**](tests/DORA-validation).
