@@ -108,7 +108,7 @@ The calculations with MetropAccess-Reititin are distributed into 294 subtasks us
 
 ### Origin-destination locations
 
-Our travel time/distance calculations were divided into 294 individual subtasks where each task included MetropAccess-Reititin routings from 50 origin locations that are within a single *origin-file.txt* ([see an example of a origin file](data/Origin_subsets/1_Origs_WGS84.txt)) to 14645\* destination locations ([see the destination file](data/dest_points/destPoints_WGS84.txt)). All the origin and destination files that were used with MetropAccess-Reititin are [here](data/). The origin and destination locations represent the centroids of the [250 meter grid](data/MetropAccess_YKR_grid.geojson) that can be used for visualizing the travel times.
+Our travel time/distance calculations were divided into 294 individual subtasks where each task included MetropAccess-Reititin routings from 50 origin locations that are within a single *origin-file.txt* ([see an example of a origin file](data/Origin-subsets/1_Origs_WGS84.txt)) to 14645\* destination locations ([see the destination file](data/dest_points/destPoints_WGS84.txt)). All the origin and destination files that were used with MetropAccess-Reititin are [here](data/). The origin and destination locations represent the centroids of the [250 meter grid](data/MetropAccess_YKR_grid.geojson) that can be used for visualizing the travel times.
 
 \* *the origin-destination files include extra cells around the region (2 km buffer) for testing purposes, that are excluded from the final dataset containing 13 231 grid cells.*
 
