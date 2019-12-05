@@ -118,6 +118,10 @@ MetropAccess-Reititin uses a specific openly available dataset called [Kalkati.n
 
 Before you can use the tool, you need to build the routing graph for MetropAccess-Reititin by running a specific [graph builder tool](https://github.com/AccessibilityRG/MetropAccess-Reititin/tree/master/kalkati/build) with the given OpenStreetMap and Kalkati.net data.
 
+**Kalkati-data used for producing the dataset
+
+To produce the Helsinki Region Travel Time Matrix dataset for year 2018, we used the Kalkati and OSM data that are stored inside the [data/kalkati_2018_Jan-Feb.tgz](data/kalkati_2018_Jan-Feb.tgz).
+
 **Pre-built Kalkati-datasets**
 
 For convenience, we have pre-built graph-files that you can use for routing with MetropAccess-Reititin. They can be found from:
