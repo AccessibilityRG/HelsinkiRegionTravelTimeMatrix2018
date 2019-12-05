@@ -112,6 +112,17 @@ Our travel time/distance calculations were divided into 294 individual subtasks 
 
 \* *the origin-destination files include extra cells around the region (2 km buffer) for testing purposes, that are excluded from the final dataset containing 13 231 grid cells.*
 
+### Transit and OSM data for MetropAccess-Reititin 
+
+MetropAccess-Reititin uses a specific openly available dataset called [Kalkati.net -data](http://developer.matka.fi/pages/en/kalkati.net-xml-database-dump.php) as the input dataset representing the public transport data (such as schedules, stops, routes etc). For walking parts of the journeys, MetropAccess-Reititin uses OpenStreetMap data in ProtoBuf format (.pbf) that can be downloaded from [Geofabrik](http://download.geofabrik.de/). 
+
+Before you can use the tool, you need to build the routing graph for MetropAccess-Reititin by running a specific [graph builder tool](https://github.com/AccessibilityRG/MetropAccess-Reititin/tree/master/kalkati/build) with the given OpenStreetMap and Kalkati.net data.
+
+**Pre-built Kalkati-datasets**
+
+For convenience, we have pre-built graph-files that you can use for routing with MetropAccess-Reititin. They can be found from:
+[https://blogs.helsinki.fi/accessibility/kalkati-data/](https://blogs.helsinki.fi/accessibility/kalkati-data/). 
+
 ### Configurations for the routings
 
 Controlling the routing parameters with MetropAccess-Reititin happens with dedicated configuration files where it is possible to adjust various aspects in the analyses, such as time of the day, date of the analysis and walking speed. These files are passed for MetropAccess-Reititin tool as one of input parameters when executing the tool (see next sections).   
