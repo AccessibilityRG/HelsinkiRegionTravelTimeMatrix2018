@@ -108,7 +108,7 @@ The calculations with MetropAccess-Reititin are distributed into 294 subtasks us
 
 ### Origin-destination locations
 
-Our travel time/distance calculations were divided into 294 individual subtasks where each task included MetropAccess-Reititin routings from 50 origin locations that are within a single *origin-file.txt* ([see an example of a origin file](data/Origin_subsets/1_Origs_WGS84.txt)) to 14645\* destination locations ([see the destination file](data/dest_points/destPoints_WGS84.txt)). All the origin and destination files that were used with MetropAccess-Reititin are [here](data/). The origin and destination locations represent the centroids of the [250 meter grid](data/MetropAccess_YKR_grid.geojson) that can be used for visualizing the travel times.
+Our travel time/distance calculations were divided into 294 individual subtasks where each task included MetropAccess-Reititin routings from 50 origin locations that are within a single *origin-file.txt* ([see an example of a origin file](data/Origin-subsets/1_Origs_WGS84.txt)) to 14645\* destination locations ([see the destination file](data/dest_points/destPoints_WGS84.txt)). All the origin and destination files that were used with MetropAccess-Reititin are [here](data/). The origin and destination locations represent the centroids of the [250 meter grid](data/MetropAccess_YKR_grid.geojson) that can be used for visualizing the travel times.
 
 \* *the origin-destination files include extra cells around the region (2 km buffer) for testing purposes, that are excluded from the final dataset containing 13 231 grid cells.*
 
@@ -117,6 +117,10 @@ Our travel time/distance calculations were divided into 294 individual subtasks 
 MetropAccess-Reititin uses a specific openly available dataset called [Kalkati.net -data](http://developer.matka.fi/pages/en/kalkati.net-xml-database-dump.php) as the input dataset representing the public transport data (such as schedules, stops, routes etc). For walking parts of the journeys, MetropAccess-Reititin uses OpenStreetMap data in ProtoBuf format (.pbf) that can be downloaded from [Geofabrik](http://download.geofabrik.de/). 
 
 Before you can use the tool, you need to build the routing graph for MetropAccess-Reititin by running a specific [graph builder tool](https://github.com/AccessibilityRG/MetropAccess-Reititin/tree/master/kalkati/build) with the given OpenStreetMap and Kalkati.net data.
+
+**Kalkati-data used for producing the dataset**
+
+To produce the Helsinki Region Travel Time Matrix dataset for year 2018, we used the Kalkati and OSM data that are stored inside the [data/kalkati_2018_Jan-Feb.tgz](data/kalkati_2018_Jan-Feb.tgz).
 
 **Pre-built Kalkati-datasets**
 

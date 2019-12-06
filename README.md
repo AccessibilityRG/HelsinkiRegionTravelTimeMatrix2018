@@ -6,7 +6,9 @@ This repository is part of following article that documents [Helsinki Region Tra
 
  - Tenkanen, H. & T. Toivonen. Helsinki Region Travel Time Matrix: Multidimensional accessibility data to support spatial planning and decision making. Scientific Data (under review).
 
-__Contents:__
+-----
+
+### Contents
 
 - [What is Helsinki Region Travel Time Matrix 2018?](#What-is-Helsinki-Region-Travel-Time-Matrix-2018)
 - [Attributes of Helsinki Region Travel Time Matrix 2018](#attributes)
@@ -143,7 +145,7 @@ at the Department of Geosciences and Geography, University of Helsinki, Finland.
  
 **Various people have contributed and made it possible to create this dataset:**
 
- - [Henrikki Tenkanen](https://www.researchgate.net/profile/Henrikki_Tenkanen) (Postdoctoral researcher, participation in all steps)
+ - [Henrikki Tenkanen](https://www.researchgate.net/profile/Henrikki_Tenkanen) (Postdoctoral researcher, leading the dataset production, participation in all steps)
  - Jeison Londoño Espinosa (MSc student, dataset production, programming of the DORA tool)
  - Ainokaisa Tarnanen (MSc student, created the cycling network used in this data)
  - Tuuli Toivonen (PI, leader of the research group)
