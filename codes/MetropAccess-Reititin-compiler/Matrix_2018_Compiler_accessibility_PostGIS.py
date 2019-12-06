@@ -4,7 +4,6 @@ import os, sys
 import psycopg2
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from base import POSTGIS_DB_NAME, IP_ADDRESS, POSTGIS_PORT, POSTGIS_USERNAME, POSTGIS_PWD, DATA_TABLE
 
 Base = declarative_base()
 
@@ -75,6 +74,16 @@ def process_dora(fp, columns, names, columns_to_round):
     data.columns = names
     return data
 
+# ============
+# PARAMETERS
+# ============
+
+POSTGIS_DB_NAME='matrix'
+IP_ADDRESS='xx.xx.xx.xx' 
+POSTGIS_PORT=5432 
+POSTGIS_USERNAME='myusername' 
+POSTGIS_PWD='mypwd'
+DATA_TABLE='travel_time_matrix_2018'
 
 # PostGIS Authentication crecedentials
 db_name, host, port, username, pwd = POSTGIS_DB_NAME, IP_ADDRESS, POSTGIS_PORT, POSTGIS_USERNAME, POSTGIS_PWD
