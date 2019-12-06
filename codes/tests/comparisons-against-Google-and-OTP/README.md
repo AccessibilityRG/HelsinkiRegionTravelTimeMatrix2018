@@ -1,4 +1,4 @@
-# Travel time comparisons
+# Technical validation - Travel time comparisons
 
 For validation results, see the article:
 
