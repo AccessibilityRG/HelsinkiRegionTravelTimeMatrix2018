@@ -4,7 +4,7 @@ Dataset was produced by [Accessibility Research Group / Digital Geography Lab](h
 
 This repository is part of following article that documents [Helsinki Region Travel Time Matrix](https://zenodo.org/record/3247564) -dataset consisting of travel time/distance data for years 2013, 2015 and 2018:
 
- - Tenkanen, H. & T. Toivonen. Longitudinal spatial dataset on travel times and distances by different travel modes in Helsinki Region. Scientific Data (under review).
+ - Tenkanen, H. & T. Toivonen. (2020). Longitudinal spatial dataset on travel times and distances by different travel modes in Helsinki Region. Scientific Data 7, 77. https://doi.org/10.1038/s41597-020-0413-y. 
 
 -----
 
